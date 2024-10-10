@@ -6,13 +6,13 @@ namespace DI
     abstract class DataItem
     {
         // Atributos
-        private string category;
-        private int code;
-        private int length;
-        private string info;
+        public string category;
+        public int code;
+        public int length;
+        public string info;
 
         // Constructor
-        public DataItem(string category, int code, int length, string info)
+        public DataItem(string category, int code, string info, int length)
         {
             this.category = category;
             this.code = code;

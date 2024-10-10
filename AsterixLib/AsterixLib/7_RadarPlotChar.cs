@@ -14,7 +14,7 @@ namespace DI
         public override void Descodificar()
         {
             string SRL = base.info.Substring(0, 1);
-            if (SRL == '0')
+            if (SRL == "0")
             {
                 SRL = "Absence of Subfield #1";
             }
@@ -24,7 +24,7 @@ namespace DI
             }
 
             string SRR = base.info.Substring(1, 1);
-            if (SRR == '0')
+            if (SRR == "0")
             {
                 SRR = "Absence of Subfield #2";
             }
@@ -34,7 +34,7 @@ namespace DI
             }
 
             string SAM = base.info.Substring(2, 1);
-            if (SAM == '0')
+            if (SAM == "0")
             {
                 SAM = "Absence of Subfield #3";
             }
@@ -44,7 +44,7 @@ namespace DI
             }
 
             string PRL = base.info.Substring(3, 1);
-            if (PRL == '0')
+            if (PRL == "0")
             {
                 PRL = "Absence of Subfield #4";
             }
@@ -54,7 +54,7 @@ namespace DI
             }
 
             string PAM = base.info.Substring(4, 1);
-            if (PAM == '0')
+            if (PAM == "0")
             {
                 PAM = "Absence of Subfield #5";
             }
@@ -64,7 +64,7 @@ namespace DI
             }
 
             string RPD = base.info.Substring(5, 1);
-            if (RPD == '0')
+            if (RPD == "0")
             {
                 RPD = "Absence of Subfield #6";
             }
@@ -74,7 +74,7 @@ namespace DI
             }
 
             string APD = base.info.Substring(6, 1);
-            if (APD == '0')
+            if (APD == "0")
             {
                 APD = "Absence of Subfield #7";
             }
@@ -83,4 +83,5 @@ namespace DI
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2));
             }
         }
+    }
 }

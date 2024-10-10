@@ -27,7 +27,7 @@ namespace DI
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(aircraft) + ";" + convert.ToString(address) + ";");
+            EscribirEnFichero(Convert.ToString(aircraft) + ";" + Convert.ToString(address) + ";");
         }
     }
 }

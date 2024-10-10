@@ -31,7 +31,7 @@ namespace DI
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(Rho) + ";" + convert.ToString(Theta) + ";");
+            EscribirEnFichero(Convert.ToString(Rho) + ";" + Convert.ToString(Theta) + ";");
         }
     }
 }

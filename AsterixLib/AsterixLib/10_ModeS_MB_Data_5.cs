@@ -3,10 +3,10 @@
 namespace DI
 {
     // Clase hija que hereda de DataItem
-    class ModeS : DataItem
+    class ModeS5 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS(string category, int code, int length, string info)
+        public ModeS5(string category, int code, int length, string info)
             : base(category, code, info, length)
         {
 
@@ -18,7 +18,7 @@ namespace DI
         public override void Descodificar()
         {
             string Rolltxt;
-            int Roll = base.info.Substring(0, 1);
+            int Roll = Convert.ToInt32(base.info.Substring(0, 1));
             // SIGN 1 = Left Wing Down
             if (Roll == 1)
             {
@@ -28,11 +28,11 @@ namespace DI
             }
             else
             {
-                Rolltxt = 'N/A';
+                Rolltxt = "N/A";
             }
 
             string TrueTracktxt;
-            int TrueTrack = base.info.Substring(11, 1);
+            int TrueTrack = Convert.ToInt32(base.info.Substring(11, 1));
             // SIGN 1 = West (e.g. 315 = -45°) 
             if (TrueTrack == 1)
             {
@@ -42,11 +42,11 @@ namespace DI
             }
             else
             {
-                TrueTracktxt = 'N/A';
+                TrueTracktxt = "N/A";
             }
 
             string GroundSpeedtxt;
-            int GroundSpeed = base.info.Substring(23, 1);
+            int GroundSpeed = Convert.ToInt32(base.info.Substring(23, 1));
             if (GroundSpeed == 1)
             {
                 GroundSpeed = Convert.ToInt32(base.info.Substring(24, 10));
@@ -55,11 +55,11 @@ namespace DI
             }
             else
             {
-                GroundSpeedtxt = 'N/A';
+                GroundSpeedtxt = "N/A";
             }
 
             string TrackAngletxt;
-            int TrackAngle = base.info.Substring(34, 1);
+            int TrackAngle = Convert.ToInt32(base.info.Substring(34, 1));
             // SIGN 1 = Minus
             if (TrackAngle == 1)
             {
@@ -69,11 +69,11 @@ namespace DI
             }
             else
             {
-                TrackAngletxt = 'N/A';
+                TrackAngletxt = "N/A";
             }
 
             string TrueAirspeedtxt;
-            int TrueAirspeed = base.info.Substring(45, 1);
+            int TrueAirspeed = Convert.ToInt32(base.info.Substring(45, 1));
             if (TrueAirspeed == 1)
             {
                 TrueAirspeed = Convert.ToInt32(base.info.Substring(46, 10));
@@ -82,7 +82,7 @@ namespace DI
             }
             else
             {
-                TrueAirspeedtxt = 'N/A';
+                TrueAirspeedtxt = "N/A";
             }
 
             // Llamada al método EscribirEnFichero de la clase base

@@ -22,7 +22,7 @@ namespace DI
         {
 
             string V = base.info.Substring(0, 1);
-            if (V == '0')
+            if (V == "0")
             {
                 V = "Code validated";
             }
@@ -31,7 +31,7 @@ namespace DI
                 V = "Code not validated";
             }
             string G = base.info.Substring(1, 1);
-            if (G == '0')
+            if (G == "0")
             {
                 G = "Default";
             }

@@ -18,18 +18,20 @@ namespace DI
 
 
         // Implementación del método abstracto Descodificar
+        int[] posición;
+        char[] characters;
+       
         public override void Descodificar()
         {
 
-            length = 6;
-            int[] posición;
-            char[] characters;
+            int length = 6;
+            int pos = 0;
             int i = 0;
             while (i<8)
             {
-                posición[i]= Convert.ToInt32(base.info.Substring(length-length, length), 2);
-                char[i]= Convert.ToChar(posición[i]);
-                length = length + length;
+                posición[i]= Convert.ToInt32(base.info.Substring(pos, length), 2);
+                characters[i]= Convert.ToChar(posición[i]);
+                pos = pos +length;
                 i++;
             }
 

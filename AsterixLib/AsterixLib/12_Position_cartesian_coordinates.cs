@@ -25,12 +25,12 @@ namespace DI
             string x_coordinate = base.info.Substring(0, length);
             string y_coordinate = base.info.Substring(length);
             // Convertir rho y theta de binario a decimal
-            int X = Convert.ToInt32(rho, 2);
-            int Y = Convert.ToInt32(theta, 2);
+            int X = Convert.ToInt32(x_coordinate, 2);
+            int Y = Convert.ToInt32(y_coordinate, 2);
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(X) + ";" + convert.ToString(Y) + ";");
+            EscribirEnFichero(Convert.ToString(X) + ";" + Convert.ToString(Y) + ";");
         }
     }
 }
