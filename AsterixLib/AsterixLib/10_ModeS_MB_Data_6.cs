@@ -3,10 +3,10 @@
 namespace DI
 {
     // Clase hija que hereda de DataItem
-    class ModeS : DataItem
+    class ModeS6 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS(string category, int code, int length, string info)
+        public ModeS6(string category, int code, int length, string info)
             : base(category, code, info, length)
         {
 
@@ -18,7 +18,7 @@ namespace DI
         public override void Descodificar()
         {
             string MagHeadtxt;
-            int MagHead = base.info.Substring(0, 1);
+            int MagHead = Convert.ToInt32(base.info.Substring(0, 1));
             // SIGN 1 = West (e.g. 315 = -45°) 
             if (MagHead == 1)
             {
@@ -28,11 +28,11 @@ namespace DI
             }
             else
             {
-                MagHeadtxt = 'N/A';
+                MagHeadtxt = "N/A";
             }
 
             string IndAirtxt;
-            int IndAir = base.info.Substring(12, 1);
+            int IndAir = Convert.ToInt32(base.info.Substring(12, 1));
             if (IndAir == 1)
             {
                 IndAir = Convert.ToInt32(base.info.Substring(13, 9));
@@ -41,11 +41,11 @@ namespace DI
             }
             else
             {
-                IndAirtxt = 'N/A';
+                IndAirtxt = "N/A";
             }
 
             string MACHtxt;
-            int MACH = base.info.Substring(23, 1);
+            int MACH = Convert.ToInt32(base.info.Substring(23, 1));
             if (MACH == 1)
             {
                 MACH = Convert.ToInt32(base.info.Substring(24, 10));
@@ -54,11 +54,11 @@ namespace DI
             }
             else
             {
-                MACHtxt = 'N/A';
+                MACHtxt = "N/A";
             }
 
             string BarAlttxt;
-            int BarAlt = base.info.Substring(34, 1);
+            int BarAlt = Convert.ToInt32(base.info.Substring(34, 1));
             // SIGN 1 = Below
             if (BarAlt == 1)
             {
@@ -68,11 +68,11 @@ namespace DI
             }
             else
             {
-                BarAlttxt = 'N/A';
+                BarAlttxt = "N/A";
             }
 
             string InerVerttxt;
-            int InerVert = base.info.Substring(45, 1);
+            int InerVert = Convert.ToInt32(base.info.Substring(45, 1));
             // SIGN 1 = Below
             if (InerVert == 1)
             {
@@ -82,11 +82,11 @@ namespace DI
             }
             else
             {
-                InerVerttxt = 'N/A';
+                InerVerttxt = "N/A";
             }
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";");
+            EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";");
         }
     }
 }

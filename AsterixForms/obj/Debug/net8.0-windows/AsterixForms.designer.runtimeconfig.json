@@ -12,8 +12,9 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\julia\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\julia\\.nuget\\packages"
+      "C:\\Users\\judig\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\judig\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,

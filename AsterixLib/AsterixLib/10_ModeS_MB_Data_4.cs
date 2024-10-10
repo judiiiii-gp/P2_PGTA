@@ -3,10 +3,10 @@
 namespace DI
 {
     // Clase hija que hereda de DataItem
-    class ModeS : DataItem
+    class ModeS4 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS(string category, int code, int length, string info)
+        public ModeS4(string category, int code, string info,int length)
             : base(category, code, info, length)
         {
 
@@ -18,7 +18,7 @@ namespace DI
         public override void Descodificar()
         {
             string MCP_FCUtxt;
-            int MCP_FCU = base.info.Substring(0, 1);
+            int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
             if (MCP_FCU == 1)
             {
                 MCP_FCU = Convert.ToInt32(base.info.Substring(1, 12));
@@ -27,11 +27,11 @@ namespace DI
             }
             else
             {
-                MCP_FCUtxt = 'N/A';
+                MCP_FCUtxt = "N/A";
             }
 
             string FMStxt;
-            int FMS = base.info.Substring(13, 1);
+            int FMS = Convert.ToInt32(base.info.Substring(13, 1));
             if (FMS == 1)
             {
                 FMS = Convert.ToInt32(base.info.Substring(14, 12));
@@ -40,11 +40,11 @@ namespace DI
             }
             else
             {
-                FMStxt = 'N/A';
+                FMStxt = "N/A";
             }
 
             string BARtxt;
-            int BAR = base.info.Substring(26, 1);
+            int BAR = Convert.ToInt32(base.info.Substring(26, 1));
             if (BAR == 1)
             {
                 BAR = Convert.ToInt32(base.info.Substring(27, 12));
@@ -53,7 +53,7 @@ namespace DI
             }
             else
             {
-                BARtxt = 'N/A';
+                BARtxt = "N/A";
             }
 
             // Llamada al método EscribirEnFichero de la clase base

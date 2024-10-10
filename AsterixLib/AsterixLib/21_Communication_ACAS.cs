@@ -18,10 +18,12 @@ namespace DI
 
 
         // Implementación del método abstracto Descodificar
+        string communication;
+        string status;
         public override void Descodificar()
         {
 
-            string communication;
+            
             int COM = Convert.ToInt32(base.info.Substring(0, 3), 2);
             switch (COM)
             {
@@ -51,7 +53,7 @@ namespace DI
                     break;
 
             }
-            string status;
+            
             int STAT = Convert.ToInt32(base.info.Substring(3, 3), 2);
             switch (STAT)
             {
@@ -81,7 +83,7 @@ namespace DI
                     break;
             }
             string SI =base.info.Substring(6, 1);
-            if (SI == '0')
+            if (SI == "0")
             {
                 SI = "SI-Code Capable";
             }
@@ -91,7 +93,7 @@ namespace DI
             }
 
             string MSSC = base.info.Substring(8, 1); // El bit anterior es un spare bit
-            if (MSSC == '0')
+            if (MSSC == "0")
             {
                 MSSC = "No";
             }
@@ -100,7 +102,7 @@ namespace DI
                 MSSC = "Yes";
             }
             string ARC =base.info.Substring(9, 1);
-            if (ARC == '0')
+            if (ARC == "0")
             {
                 ARC = "100 ft resolution";
             }
@@ -109,7 +111,7 @@ namespace DI
                 ARC = "25 ft resolution";
             }
             string AIC = base.info.Substring(10, 1);
-            if (AIC == '0')
+            if (AIC == "0")
             {
                 AIC = "No";
             }

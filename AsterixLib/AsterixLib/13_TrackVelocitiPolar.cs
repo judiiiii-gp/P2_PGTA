@@ -27,7 +27,7 @@ namespace DI
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(groundspeed) + ";" + convert.ToString(heading) + ";");
+            EscribirEnFichero(Convert.ToString(groundspeed) + ";" + Convert.ToString(heading) + ";");
         }
     }
 }

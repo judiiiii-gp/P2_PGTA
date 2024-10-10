@@ -29,7 +29,7 @@ namespace DI
 
             
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(sacDecimal) + ";"+ convert.ToString(sicDecimal) + ";");
+            EscribirEnFichero(Convert.ToString(sacDecimal) + ";"+ Convert.ToString(sicDecimal) + ";");
         }
     }
 }

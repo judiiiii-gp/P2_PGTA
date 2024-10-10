@@ -17,25 +17,26 @@ namespace DI
 
 
         // Implementación del método abstracto Descodificar
+        string FX;
         public override void Descodificar()
         {
             //primero separaremos todos los valores y luego los decodificaremos
             string TYP = base.info.Substring(0, 3);
             switch (TYP)
             {
-                case '000':
+                case "000":
                     TYP = "No detection";
                     break;
-                case '001':
+                case "001":
                     TYP = "Single PSR detection";
                     break;
-                case '010':
+                case "010":
                     TYP = "Single SSR detection";
                     break;
-                case '011':
+                case "011":
                     TYP = "SSR + PSR detection";
                     break;
-                case '100':
+                case "100":
                     TYP = "Single ModeS All-Call";
                     break;
                 case "101":
@@ -50,7 +51,7 @@ namespace DI
             }
          
             string SIM= base.info.Substring(3, 1);
-            if (SIM == '0'){
+            if (SIM == "0"){
                 SIM = "Actual target report";
             }
             else
@@ -58,7 +59,7 @@ namespace DI
                 SIM = "Simulated target report";
             }
             string RDP= base.info.Substring(4, 1);
-            if (RDP == '0')
+            if (RDP == "0")
             {
                 RDP = "Report from RDP Chain 1";
             }
@@ -67,7 +68,7 @@ namespace DI
                 RDP = "Report from RDP Chain 2";
             }
             string SPI= base.info.Substring(5, 1);
-            if (SPI == '0')
+            if (SPI == "0")
             {
                 SPI = "Absence of SPI";
             }
@@ -76,7 +77,7 @@ namespace DI
                 SPI = "Special Position Identification";
             }
             string RAB= base.info.Substring(6, 1);
-            if (RAB == '0')
+            if (RAB == "0")
             {
                 RAB = "Report from aircraft transponder";
             }
@@ -84,11 +85,12 @@ namespace DI
             {
                 RAB = "Report from field monitor (fixed transponder)";
             }
-            string FX= base.info.Substring(7, 1);
+            FX= base.info.Substring(7, 1);
             EscribirEnFichero(TYP + ";" + SIM + ";" + RDP + ";" + SPI + ";" + RAB + ";");
-            if FX = '1'{
+            if (FX == "1")
+            {
                 string TST = base.info.Substring(8, 1);
-                if (TST == '0')
+                if (TST == "0")
                 {
                     TST = "Real target report";
                 }
@@ -97,7 +99,7 @@ namespace DI
                     TST = "Test target report";
                 }
                 string ERR = base.info.Substring(9, 1);
-                if (ERR == '0')
+                if (ERR == "0")
                 {
                     ERR = "No Extended Range";
                 }
@@ -106,7 +108,7 @@ namespace DI
                     ERR = "Extended Range present";
                 }
                 string XPP = base.info.Substring(10, 1);
-                if (XPP == '0')
+                if (XPP == "0")
                 {
                     XPP = "No X-Pulse present";
                 }
@@ -115,7 +117,7 @@ namespace DI
                     XPP = "X-Pulse present";
                 }
                 string ME = base.info.Substring(11, 1);
-                if (ME == '0')
+                if (ME == "0")
                 {
                     ME = "No military emergency";
                 }
@@ -124,7 +126,7 @@ namespace DI
                     ME = "Military emergency";
                 }
                 string MI = base.info.Substring(12, 1);
-                if (MI == '0')
+                if (MI == "0")
                 {
                     MI = "No military identification";
                 }
@@ -135,27 +137,28 @@ namespace DI
                 string FOE = base.info.Substring(13, 2);
                 switch (FOE)
                 {
-                    case '00':
+                    case "00":
                         FOE = "No Mode 4 interrogation";
                         break;
-                    case '01':
+                    case "01":
                         FOE = "Friendly target";
                         break;
-                    case '10':
+                    case "10":
                         FOE = "Unknown target";
                         break;
-                    case '11':
+                    case "11":
                         FOE = "No reply";
                         break;
                 }
 
-                string FX = base.info.Substring(15, 1);
+                FX = base.info.Substring(15, 1);
                 EscribirEnFichero(TST + ";" + ERR + ";" + XPP + ";" + ME + ";" + MI + ";" + FOE + ";");
 
 
-                if FX = '1'{
+                if (FX == "1")
+                {
                     string ADSBEP = base.info.Substring(16, 1);
-                    if (ADSBEP == '0')
+                    if (ADSBEP == "0")
                     {
                         ADSBEP = "ADSB not populated";
                     }
@@ -164,7 +167,7 @@ namespace DI
                         ADSBEP = "ADSB populated";
                     }
                     string ADSBVAL = base.info.Substring(17, 1);
-                    if (ADSBVAL == '0')
+                    if (ADSBVAL == "0")
                     {
                         ADSBVAL = "On-Site ADS-B Information not available";
                     }
@@ -173,7 +176,7 @@ namespace DI
                         ADSBVAL = "On-Site ADS-B Information available";
                     }
                     string SCNEP = base.info.Substring(18, 1);
-                    if (SCNEP == '0')
+                    if (SCNEP == "0")
                     {
                         SCNEP = "SCN not populated";
                     }
@@ -182,7 +185,7 @@ namespace DI
                         SCNEP = "SCN populated";
                     }
                     string SCNVAL = base.info.Substring(19, 1);
-                    if (SCNVAL == '0')
+                    if (SCNVAL == "0")
                     {
                         SCNVAL = "Surveillance Cluster Network Information not available";
                     }
@@ -191,7 +194,7 @@ namespace DI
                         SCNVAL = "Surveillance Cluster Network Information available";
                     }
                     string PAIEP = base.info.Substring(20, 1);
-                    if (PAIEP == '0')
+                    if (PAIEP == "0")
                     {
                         PAIEP = "PAI not populated";
                     }
@@ -200,7 +203,7 @@ namespace DI
                         PAIEP = "PAI populated";
                     }
                     string PAIVAL = base.info.Substring(21, 1);
-                    if (PAIVAL == '0')
+                    if (PAIVAL == "0")
                     {
                         PAIVAL = "Passive Acquisition Interface Information not available";
                     }
@@ -210,7 +213,7 @@ namespace DI
                     }
                     string SPARE = base.info.Substring(22, 1); //Siempre será 0
                     string FX = base.info.Substring(23, 1);
-                    EscribirEnFichero(ADSEP + ";" + ADSVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";");
+                    EscribirEnFichero(ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";");
                 }
             }
 
