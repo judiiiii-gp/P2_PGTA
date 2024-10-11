@@ -1,6 +1,6 @@
 using System;
 
-namespace DI
+namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
     class Position_Cartesian : DataItem

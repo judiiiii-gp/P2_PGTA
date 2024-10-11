@@ -1,6 +1,6 @@
 using System;
 
-namespace DI
+namespace AsterixLib
 {
     // Clase base
     abstract class DataItem
