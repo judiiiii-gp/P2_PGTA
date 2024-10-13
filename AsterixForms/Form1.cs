@@ -70,7 +70,7 @@ namespace AsterixForms
             foreach (byte b in bytes)
             {
                 sb.Append(Convert.ToString(b, 2).PadLeft(8, '0')); //El PadLeft nos asegura que cada byte se representa con 8 bits, rellenando si es necesario
-                //Com que sempre hi han octets jo crec que està bé que faci això
+                // Com que sempre hi han octets jo crec que està bé que faci això
             }
             return sb.ToString();
         }

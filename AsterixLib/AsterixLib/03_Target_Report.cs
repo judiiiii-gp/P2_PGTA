@@ -85,7 +85,7 @@ namespace AsterixLib
             {
                 RAB = "Report from field monitor (fixed transponder)";
             }
-            FX= base.info.Substring(7, 1);
+            FX = base.info.Substring(7, 1);
             EscribirEnFichero(TYP + ";" + SIM + ";" + RDP + ";" + SPI + ";" + RAB + ";");
             if (FX == "1")
             {

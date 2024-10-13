@@ -13,16 +13,15 @@ namespace AsterixLib
         }
         public override void Descodificar()
         {
+            int total = Convert.ToInt32(base.info.Substring(0, 24))*(1/128);
+            TimeSpan time = TimeSpan.FromSeconds(total);
 
-            int length = 8; //Cada octeto tiene 8 bits
-
-            string hour = base.info.Substring(0, length);
-            string min = base.info.Substring(8,  length);
-            string sec = base.info.Substring(16, length);
-            // Convertir de binario a decimal
-            int hourDecimal = Convert.ToInt32(hour, 2);
-            int minDecimal = Convert.ToInt32(min, 2);
-            int secDecimal = Convert.ToInt32(sec, 2);
+            string totalString = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms",
+                            time.Hours,
+                            time.Minutes,
+                            time.Seconds,
+                            time.Milliseconds);
+            // string str = time .ToString(@"hh\:mm\:ss\:fff"); --> per si peta el string de sobre
         }
     }
 }

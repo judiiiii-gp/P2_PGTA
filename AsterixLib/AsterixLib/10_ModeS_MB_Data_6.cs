@@ -22,9 +22,8 @@ namespace AsterixLib
             // SIGN 1 = West (e.g. 315 = -45°) 
             if (MagHead == 1)
             {
-                MagHead = Convert.ToInt32(base.info.Substring(2, 10));
+                MagHead = Convert.ToInt32(base.info.Substring(2, 10))*(90/512);
                 MagHeadtxt = MagHead.ToString();
-                // LSB --> 90/512°
             }
             else
             {
@@ -35,9 +34,8 @@ namespace AsterixLib
             int IndAir = Convert.ToInt32(base.info.Substring(12, 1));
             if (IndAir == 1)
             {
-                IndAir = Convert.ToInt32(base.info.Substring(13, 9));
+                IndAir = Convert.ToInt32(base.info.Substring(13, 9))*1;
                 IndAirtxt = IndAir.ToString();
-                // LSB --> = 1 kt
             }
             else
             {
@@ -47,10 +45,9 @@ namespace AsterixLib
             string MACHtxt;
             int MACH = Convert.ToInt32(base.info.Substring(23, 1));
             if (MACH == 1)
-            {
-                MACH = Convert.ToInt32(base.info.Substring(24, 10));
-                MACHtxt = MACH.ToString();
-                // LSB --> 2.048/512 MACH 
+            {   
+                double MACHdou = Convert.ToDouble(base.info.Substring(24, 10))*(2.048/512);
+                MACHtxt = MACHdou.ToString();
             }
             else
             {
@@ -62,9 +59,8 @@ namespace AsterixLib
             // SIGN 1 = Below
             if (BarAlt == 1)
             {
-                BarAlt = Convert.ToInt32(base.info.Substring(36, 9));
+                BarAlt = Convert.ToInt32(base.info.Substring(36, 9))*32;
                 BarAlttxt = BarAlt.ToString();
-                // LSB --> 8 192/256 = 32 ft/min 
             }
             else
             {
@@ -76,9 +72,8 @@ namespace AsterixLib
             // SIGN 1 = Below
             if (InerVert == 1)
             {
-                InerVert = Convert.ToInt32(base.info.Substring(47, 9));
+                InerVert = Convert.ToInt32(base.info.Substring(47, 9))*32;
                 InerVerttxt = InerVert.ToString();
-                // LSB --> 8 192/256 = 32 ft/min
             }
             else
             {
