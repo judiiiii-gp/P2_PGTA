@@ -120,9 +120,145 @@ namespace AsterixForms
                         MessageBox.Show("No s'ha trobat el arxiu");
                         break;
                     }
+                    else
+                    {
+                        string msg = BuscarBox.Text;
+                        DataGridView dataGridView = new DataGridView(msg);
+                        dataGridView.Show();
+                    }
                 }
             }
         }
+
+        private void ReadPacket(int[] read, string DataBlock)
+        {
+            AsterixLib.DataItem dataitem = AsterixLib.DataItem();
+            for (int i = 0; i < (DataBlock.Length - read.Length); i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.DataSourceIdentifier id = dataitem;
+                            id.Decodificar();
+                            dataitem = id;
+                        }
+                        break;
+                    case 1:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.TimeOfDay tod = dataitem;
+                            tod.Decodificar();
+                            dataitem = tod;
+                        }
+                        break;
+                    case 2:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.TargetReportDescriptor tr = dataitem;
+                            tr.Decodificar();
+                            dataitem = tr;
+                        }
+                        break;
+                    case 3:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.Position_Polar ppc = dataitem;
+                            ppc.Decodificar();
+                            dataitem = ppc;
+                        }
+                        break;
+                    case 4:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.Mode3A m3a = dataitem;
+                            m3a.Decodificar();
+                            dataitem = m3a;
+                        }
+                        break;
+                    case 5:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.FlightLevel fl = dataitem;
+                            fl.Decodificar();
+                            dataitem = fl;
+                        }
+                        break;
+                    case 6:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.RadarPlotChar rpc = dataitem;
+                            rpc.Decodificar();
+                            dataitem = rpc;
+                        }
+                        break;
+                    case 7:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.AircraftAdd aa = dataitem;
+                            aa.Decodificar();
+                            dataitem = aa;
+                        }
+                        break;
+                    case 8:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.AircraftID ai = dataitem;
+                            ai.Decodificar();
+                            dataitem = ai;
+                        }
+                        break;
+                    case 9:
+                        if (read[i] == 1)
+                        {
+                            //decodificar 010 preguntar julia
+                        }
+                        break;
+                    case 10:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.TrackNum tn = dataitem;
+                            tn.Decodificar();
+                            dataitem = tn;
+                        }
+                        break;
+                    case 11:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.Position_Cartesian pc = dataitem;
+                            pc.Decodificar();
+                            dataitem = pc;
+                        }
+                        break;
+                    case 12:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.TrackVelocityPolar tvp = dataitem;
+                            tvp.Decodificar();
+                            dataitem = tvp;
+                        }
+                        break;
+                    case 13:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.H_3D_RADAR h3r = dataitem;
+                            h3r.Decodificar();
+                            dataitem = h3r;
+                        }
+                        break;
+                    case 14:
+                        if (read[i] == 1)
+                        {
+                            AsterixLib.CommACAS h3r = dataitem;
+                            h3r.Decodificar();
+                            dataitem = h3r;
+                        }
+                        break;
+                }
+            }
+        }
+
         //### EVENTS ####################################################################################################################
         private void Buscar_Click(object sender, EventArgs e)
         {

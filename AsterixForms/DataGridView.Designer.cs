@@ -140,5 +140,6 @@ namespace AsterixForms
         */
 
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }
