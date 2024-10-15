@@ -3,15 +3,15 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class H_3D_RADAR : DataItem
+    public class H_3D_RADAR : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public H_3D_RADAR(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public H_3D_RADAR(string info)
+            : base(info)
         {
 
         }

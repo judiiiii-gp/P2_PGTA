@@ -3,15 +3,15 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class CommACAS : DataItem
+    public class CommACAS : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public CommACAS(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public CommACAS(string info)
+            : base(info)
         {
 
         }

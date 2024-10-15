@@ -3,11 +3,11 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class TimeOfDay : DataItem
+    public class TimeOfDay : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public TimeOfDay(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public TimeOfDay( string info)
+            : base(info)
         {
 
         }

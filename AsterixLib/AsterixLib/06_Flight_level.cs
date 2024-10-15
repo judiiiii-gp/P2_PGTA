@@ -3,15 +3,15 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class FlightLevel : DataItem
+    public class FlightLevel : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public FlightLevel(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public FlightLevel(string info)
+            : base(info)
         {
 
         }

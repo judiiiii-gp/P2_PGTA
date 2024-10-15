@@ -3,15 +3,15 @@ using System;
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class Position_Polar : DataItem
+    public class Position_Polar : DataItem
     {
 
        
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public Position_Polar(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public Position_Polar(string info)
+            : base( info)
         {
            
 
