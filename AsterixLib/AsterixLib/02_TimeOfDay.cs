@@ -3,11 +3,11 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class TimeOfDay : DataItem
+    public class TimeOfDay : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public TimeOfDay(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public TimeOfDay( string info)
+            : base(info)
         {
 
         }
@@ -22,6 +22,7 @@ namespace AsterixLib
                             time.Seconds,
                             time.Milliseconds);
             // string str = time .ToString(@"hh\:mm\:ss\:fff"); --> per si peta el string de sobre
+            EscribirEnFichero(totalString + ";");
         }
     }
 }

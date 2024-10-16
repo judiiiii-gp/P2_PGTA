@@ -3,15 +3,15 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class Mode3A : DataItem
+    public class Mode3A : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public Mode3A(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public Mode3A(string info)
+            : base(info)
         {
 
         }

@@ -15,21 +15,21 @@ namespace AsterixForms
     {
         // falta fer que si es canvia de mida el form, s'amplii bé el formulari i es segueixi veient be (project requeriment que puja punts jeje)
         // falta posar relacio entre formularis, que aquest quan s'obri l'altre es tanqui
-        InformationList list; // passem una llista amb tota la info dels paquets?
+        //InformationList list; // passem una llista amb tota la info dels paquets?
         public DataGridView()
         {
             InitializeComponent();
         }
 
-        public void GetList(InformationList list)
-        {
-            this.list = list;
-        }
+       // public void GetList(InformationList list)
+        //{
+           // this.list = list;
+       // }
 
         private void DataGrid(object sender, EventArgs e)
         {
             dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowCount = list.DameNum(); 
+            //dataGridView1.RowCount = list.DameNum(); 
             dataGridView1.ColumnCount = 92; // he agafat els mateixos que mostra el SW d'exemple del profe
             dataGridView1.Columns[0].HeaderText = "NUM";
             dataGridView1.Columns[1].HeaderText = "SAC";
@@ -123,12 +123,13 @@ namespace AsterixForms
             dataGridView1.Columns[89].HeaderText = "AIC230";
             dataGridView1.Columns[90].HeaderText = "B1A230";
             dataGridView1.Columns[91].HeaderText = "B1B230";
-
-            for (int i = 0; i < list.DameNum(); i++) //Ponemos los valores de cada plan de vuelo en su casilla correspondiente de la tabla, y para ello debemos recorrer toda la lista
-            {
-                dataGridView1.Rows[i].Cells[0].Value = 1; // fer-ho per cada fila --> pensar com omplir
+            //
+            //for (int i = 0; i < list.DameNum(); i++) //Ponemos los valores de cada plan de vuelo en su casilla correspondiente de la tabla, y para ello debemos recorrer toda la lista
+            //{
+              //  dataGridView1.Rows[i].Cells[0].Value = 1; // fer-ho per cada fila --> pensar com omplir
                 
-            }
+            //}
+            //
         }
 
         /* 

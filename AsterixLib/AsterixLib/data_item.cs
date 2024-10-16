@@ -3,44 +3,22 @@ using System;
 namespace AsterixLib
 {
     // Clase base
-    abstract class DataItem
+    public abstract class DataItem
     {
         // Atributos
-        public string category;
-        public int code;
-        public int length;
         public string info;
+        public static string nombreFichero {  get; set; }
 
         // Constructor
-        public DataItem(string category, int code, string info, int length)
+        public DataItem(string bits)
         {
-            this.category = category;
-            this.code = code;
+            
             this.info = info;
-            this.length = length;
+            
         }
 
         // Getters y Setters
-        public string GetCategory()
-        {
-            return category;
-        }
-
-        public void SetCategory(string category)
-        {
-            this.category = category;
-        }
-
-        public int GetCode()
-        {
-            return code;
-        }
-
-        public void SetCode(int code)
-        {
-            this.code = code;
-        }
-
+       
         public string GetInfo()
         {
             return info;
@@ -51,15 +29,7 @@ namespace AsterixLib
             this.info = info;
         }
 
-        public int GetLength()
-        {
-            return length;
-        }
-
-        public void SetLength(int length)
-        {
-            this.length = length;
-        }
+      
 
         // Método abstracto que será implementado por las clases hijas
         public abstract void Descodificar();
@@ -67,9 +37,17 @@ namespace AsterixLib
         // Método que escribe en un fichero
         public void EscribirEnFichero(string mensaje)
         {
-            // Aquí puedes implementar la lógica para escribir en un archivo
-            Console.WriteLine(mensaje); //Tenemos que usar StreamWriter para que los datos se escriban en la misma línea
-            // Si queremos cambiar de línea deberemos poner /n
+         
+                using (StreamWriter escritor = new StreamWriter(nombreFichero, true))
+                {
+                    escritor.Write(mensaje);
+                }
+            
+
+        }
+        public static void SetNombreFichero(string nombreFichero)
+        {
+            nombreFichero = nombreFichero;
         }
     }
 }

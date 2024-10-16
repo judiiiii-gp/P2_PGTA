@@ -3,11 +3,11 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class RadarPlotChar : DataItem
+    public class RadarPlotChar : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public RadarPlotChar(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public RadarPlotChar(string info)
+            : base(info)
         {
 
         }
@@ -21,6 +21,7 @@ namespace AsterixLib
             else
             {
                 SRL = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 8), 2)*(360/2^13));
+                
             }
 
             string SRR = base.info.Substring(1, 1);
@@ -31,12 +32,14 @@ namespace AsterixLib
             else
             {
                 SRR = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 8), 2) * (1));
+                
             }
 
             string SAM = base.info.Substring(2, 1);
             if (SAM == "0")
             {
                 SAM = "Absence of Subfield #3";
+                
             }
             else
             { 
@@ -54,6 +57,7 @@ namespace AsterixLib
                     SAMint = Convert.ToInt32(message, 2) + 1; // si son dBms cal sumar-ho?
                 }
                 SAM = Convert.ToString(SAMint);
+                
             }
 
             string PRL = base.info.Substring(3, 1);
@@ -109,6 +113,7 @@ namespace AsterixLib
             {
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2)*(360/2^14));
             }
+            EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";");
         }
 
         

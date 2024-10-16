@@ -3,14 +3,14 @@ using System;
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class DataSourceIdentifier : DataItem
+    public class DataSourceIdentifier : DataItem
     {
 
        
        
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public DataSourceIdentifier(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public DataSourceIdentifier(string info)
+            : base( info)
         {
             
         }

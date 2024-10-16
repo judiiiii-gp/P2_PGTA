@@ -3,11 +3,11 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class TrackNum : DataItem
+    public class TrackNum : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public TrackNum(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public TrackNum(string info)
+            : base(info)
         {
 
         }

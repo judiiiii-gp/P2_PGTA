@@ -3,15 +3,15 @@
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class TrackVelocityPolar : DataItem
+    public class TrackVelocityPolar : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public TrackVelocityPolar(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public TrackVelocityPolar(string info)
+            : base(info)
         {
 
         }
