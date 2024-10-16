@@ -22,6 +22,7 @@ namespace AsterixLib
                             time.Seconds,
                             time.Milliseconds);
             // string str = time .ToString(@"hh\:mm\:ss\:fff"); --> per si peta el string de sobre
+            EscribirEnFichero(totalString + ";");
         }
     }
 }

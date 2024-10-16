@@ -7,11 +7,12 @@ namespace AsterixLib
     {
         // Atributos
         public string info;
+        public static string nombreFichero {  get; set; }
 
         // Constructor
-        public DataItem(string info)
+        public DataItem(string bits)
         {
-          
+            
             this.info = info;
             
         }
@@ -36,10 +37,17 @@ namespace AsterixLib
         // Método que escribe en un fichero
         public void EscribirEnFichero(string mensaje)
         {
-            try
-            {
-                using (StreamWriter escritor)
-            }
+         
+                using (StreamWriter escritor = new StreamWriter(nombreFichero, true))
+                {
+                    escritor.Write(mensaje);
+                }
+            
+
+        }
+        public static void SetNombreFichero(string nombreFichero)
+        {
+            nombreFichero = nombreFichero;
         }
     }
 }
