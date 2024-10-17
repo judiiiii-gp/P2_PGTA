@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
@@ -17,16 +18,16 @@ namespace AsterixLib
         }
 
 
-        // Implementación del método abstracto Descodificar
-        int[] posición;
-        char[] characters;
+
        
         public override void Descodificar()
         {
-
+            Debug.WriteLine("Estem al AircraftId");
             int length = 6;
             int pos = 0;
             int i = 0;
+            int[] posición = new int[8];
+            char[] characters = new char[8];
             while (i<8)
             {
                 posición[i]= Convert.ToInt32(base.info.Substring(pos, length), 2);
@@ -39,6 +40,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(aircraftID + ";");
+            Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AsterixLib
     {
         // Atributos
         public string info;
-        public static string nombreFichero {  get; set; }
+        public static string NombreFichero {  get; set; }
 
         // Constructor
         public DataItem(string info)
@@ -37,17 +37,21 @@ namespace AsterixLib
         // Método que escribe en un fichero
         public void EscribirEnFichero(string mensaje)
         {
+            if (string.IsNullOrEmpty(NombreFichero))
+            {
+                throw new InvalidOperationException("La ruta del fichero no es válida");
+            }
          
-                using (StreamWriter escritor = new StreamWriter(nombreFichero, true))
-                {
-                    escritor.Write(mensaje);
-                }
+            using (StreamWriter escritor = new StreamWriter(NombreFichero, true))
+            {
+                escritor.Write(mensaje);
+            }
             
 
         }
         public static void SetNombreFichero(string nombreFichero)
         {
-            nombreFichero = nombreFichero;
+            NombreFichero = nombreFichero;
         }
     }
 }

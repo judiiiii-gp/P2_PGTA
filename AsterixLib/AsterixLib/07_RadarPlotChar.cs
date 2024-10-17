@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
@@ -13,6 +14,7 @@ namespace AsterixLib
         }
         public override void Descodificar()
         {
+            Debug.WriteLine("Estem al Radar Plot Chart");
             string SRL = base.info.Substring(0, 1);
             if (SRL == "0")
             {
@@ -114,6 +116,7 @@ namespace AsterixLib
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2)*(360/2^14));
             }
             EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";");
+            Debug.WriteLine("Hem escrit al fitxer");
         }
 
         
