@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
@@ -17,6 +18,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            Debug.WriteLine("Estem al ModeS MB-4");
             string MCP_FCUtxt;
             int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
             if (MCP_FCU == 1)
@@ -55,6 +57,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";");
+            Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

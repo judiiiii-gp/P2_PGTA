@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
@@ -17,6 +18,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            Debug.WriteLine("Estem al ModeS MB-6");
             string MagHeadtxt;
             int MagHead = Convert.ToInt32(base.info.Substring(0, 1));
             // SIGN 1 = West (e.g. 315 = -45°) 
@@ -82,6 +84,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";");
+            Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

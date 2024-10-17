@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
@@ -21,6 +22,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            Debug.WriteLine("Estem al Position Polar");
             int length = 16; //Cada octeto tiene 8 bits
 
             string rho = base.info.Substring(0, length);
@@ -32,6 +34,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(Rho) + ";" + Convert.ToString(Theta) + ";");
+            Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }
