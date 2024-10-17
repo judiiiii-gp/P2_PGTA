@@ -10,7 +10,7 @@ namespace AsterixLib
         public static string nombreFichero {  get; set; }
 
         // Constructor
-        public DataItem(string bits)
+        public DataItem(string info)
         {
             
             this.info = info;

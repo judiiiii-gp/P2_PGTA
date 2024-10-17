@@ -20,7 +20,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             int length = 8; //Cada octeto tiene 8 bits
-
+            Console.WriteLine("Estem al descodificar de DSI");
             string SAC = base.info.Substring(0, length);
             string SIC = base.info.Substring(length);
             // Convertir SAC y SIC de binario a decimal
