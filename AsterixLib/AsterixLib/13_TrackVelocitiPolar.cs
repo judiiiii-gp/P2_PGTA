@@ -21,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al track vel");
+            //Debug.WriteLine("Estem al track vel");
             int length = 16; //Cada octeto tiene 8 bits
 
             int groundspeed = Convert.ToInt32(base.info.Substring(0, length), 2);
@@ -30,7 +30,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(groundspeed) + ";" + Convert.ToString(heading) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

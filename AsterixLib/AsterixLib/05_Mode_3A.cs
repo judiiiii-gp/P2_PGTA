@@ -21,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al Mode3A");
+            //Debug.WriteLine("Estem al Mode3A");
             string V = base.info.Substring(0, 1);
             if (V == "0")
             {
@@ -50,12 +50,14 @@ namespace AsterixLib
                 L = "Mode-3/A code not extracted during the last scan";
             }
             string SPARE = base.info.Substring(3,1); //Spare bit que siempre será 0
-            int message = Convert.ToInt32(base.info.Substring(4), 8);
+            int message = Convert.ToInt32(base.info.Substring(4), 2);
+            string mensaje_octal = Convert.ToString(message, 8);
+            //Debug.WriteLine("Tenim el missatge");
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(V + ";" + G + ";" + L + ";" + Convert.ToString(message) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            EscribirEnFichero(V + ";" + G + ";" + L + ";" + mensaje_octal + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

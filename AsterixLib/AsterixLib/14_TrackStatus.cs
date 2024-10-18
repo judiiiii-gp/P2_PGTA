@@ -22,7 +22,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al track status");
+            //Debug.WriteLine("Estem al track status");
             string CNF = base.info.Substring(0, 1);
             if (CNF == "0")
             {
@@ -89,7 +89,7 @@ namespace AsterixLib
 
             string FX = base.info.Substring(7, 1);
             EscribirEnFichero(CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
             if (FX == "1")
             {
                 string TRE = base.info.Substring(8, 1);
@@ -130,7 +130,7 @@ namespace AsterixLib
                 }
                 string Spare = base.info.Substring(12, 4);
                 EscribirEnFichero(TRE + ";" + GHO + ";" + SUP + ";" + TCC);
-                Debug.WriteLine("Hem escrit al fitxer");
+                //Debug.WriteLine("Hem escrit al fitxer");
             }
         }
     }

@@ -22,7 +22,7 @@ namespace AsterixLib
        
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al AircraftId");
+            //Debug.WriteLine("Estem al AircraftId");
             int length = 6;
             int pos = 0;
             int i = 0;
@@ -40,7 +40,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(aircraftID + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

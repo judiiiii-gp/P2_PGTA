@@ -14,11 +14,11 @@ namespace AsterixLib
         }
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al Radar Plot Chart");
+            //Debug.WriteLine("Estem al Radar Plot Chart");
             string SRL = base.info.Substring(0, 1);
             if (SRL == "0")
             {
-                SRL = "Absence of Subfield #1";
+                SRL = "N/A";
             }
             else
             {
@@ -29,7 +29,7 @@ namespace AsterixLib
             string SRR = base.info.Substring(1, 1);
             if (SRR == "0")
             {
-                SRR = "Absence of Subfield #2";
+                SRR = "N/A";
             }
             else
             {
@@ -40,7 +40,7 @@ namespace AsterixLib
             string SAM = base.info.Substring(2, 1);
             if (SAM == "0")
             {
-                SAM = "Absence of Subfield #3";
+                SAM = "N/A";
                 
             }
             else
@@ -65,7 +65,7 @@ namespace AsterixLib
             string PRL = base.info.Substring(3, 1);
             if (PRL == "0")
             {
-                PRL = "Absence of Subfield #4";
+                PRL = "N/A";
             }
             else
             {
@@ -75,7 +75,7 @@ namespace AsterixLib
             string PAM = base.info.Substring(4, 1);
             if (PAM == "0")
             {
-                PAM = "Absence of Subfield #5";
+                PAM = "N/A";
             }
             else
             {
@@ -99,7 +99,7 @@ namespace AsterixLib
             string RPD = base.info.Substring(5, 1);
             if (RPD == "0")
             {
-                RPD = "Absence of Subfield #6";
+                RPD = "N/A";
             }
             else
             {
@@ -109,14 +109,14 @@ namespace AsterixLib
             string APD = base.info.Substring(6, 1);
             if (APD == "0")
             {
-                APD = "Absence of Subfield #7";
+                APD = "N/A";
             }
             else
             {
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2)*(360/2^14));
             }
             EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
 
         

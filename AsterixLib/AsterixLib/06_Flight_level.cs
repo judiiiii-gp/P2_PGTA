@@ -21,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al Flight Level");
+            //Debug.WriteLine("Estem al Flight Level");
             string V = base.info.Substring(0, 1);
             if (V == "0")
             {
@@ -46,7 +46,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(V + ";" + G + ";" + Convert.ToString(message) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

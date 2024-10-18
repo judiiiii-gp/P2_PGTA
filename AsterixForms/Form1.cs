@@ -22,6 +22,7 @@ namespace AsterixForms
         }
         string CarpetaBusqueda;
         Computer usr = new Computer();
+     
 
         public void ReadBinaryFile(string filePath)
         {
@@ -48,10 +49,10 @@ namespace AsterixForms
                             variableLength = (ushort)((variableLength >> 8) | (variableLength << 8)); // Corregir la endianidad
 
                             
-                            MessageBox.Show("Variable length en decimal: " + Convert.ToString(variableLength));
+                            //Debug.WriteLine("Variable length en decimal: " + Convert.ToString(variableLength));
 
                             // Calcular cuántos bits a leer según la longitud variable
-                            int bitsToRead = variableLength - 3 * 8; // Restamos los octetos de cat y length
+                            int bitsToRead = variableLength*8 - 3 * 8; // Restamos los octetos de cat y length
 
                             // Asegurarse de que hay suficientes bytes para leer
                             if (bitsToRead > 0)
@@ -59,14 +60,14 @@ namespace AsterixForms
                                 byte[] buffer = new byte[(bitsToRead + 7) / 8]; // Redondear hacia arriba
                                 reader.Read(buffer, 0, buffer.Length);
                                 string DataBlock = ConvertirByte2String(buffer); //Dades que tenim en un DataBlock
-                                MessageBox.Show("Length DataBlock amb el FSPEC: " + Convert.ToString(DataBlock.Length));
+                                //MessageBox.Show("Length DataBlock amb el FSPEC: " + Convert.ToString(DataBlock.Length));
                                 //Ara hem de mirar el FSPEC per saber quants DataItems tenim al record 
                                 int FSPEC_bits = FSPEC(DataBlock); //Obtenim quants bits té el FSPEC
                                 int[] FSPEC_vector = new int[FSPEC_bits]; //Creem un vector amb la longitud del FSPEC
                                 FSPEC_vector = ConvertirBits(DataBlock, FSPEC_bits);
                                 DataBlock = DataBlock.Substring(FSPEC_bits); //eliminem del missatge els bits del FSPEC
                                 ReadPacket(FSPEC_vector, DataBlock); //Cridem a la funció per a llegir el paquet
-                                MessageBox.Show("Hem llegit el paquet");
+                                //MessageBox.Show("Hem llegit el paquet");
 
                             }
                             else
@@ -79,6 +80,7 @@ namespace AsterixForms
                             MessageBox.Show("El paquete no pertenece a la ct 48 y no se lee");
                         }
                     }
+                    MessageBox.Show("Tot el fitxer s'ha descodificat correctament");
                 }
             }
             catch (Exception ex)
@@ -121,6 +123,7 @@ namespace AsterixForms
         //Convertim els bits del FSPEC en un vector
         static int[] ConvertirBits(string DataBlock, int length)
         {
+            
             int numBits = (length / 8) * 7;
             int[] vectorBits = new int[numBits];
             int indexBit = 0;
@@ -138,6 +141,7 @@ namespace AsterixForms
                 }
                 
             }
+            
             return vectorBits;
         }
 
@@ -163,7 +167,7 @@ namespace AsterixForms
 
         public void ReadPacket(int[] read, string DataBlock)
         {
-            MessageBox.Show("Length DataBlock sense el FSPEC: " + Convert.ToString(DataBlock.Length));
+            //MessageBox.Show("Length DataBlock sense el FSPEC: " + Convert.ToString(DataBlock.Length));
             string mensaje;
             int octet = 8; // Longitud d'un octet
             int bitsleidos = 0;
@@ -172,9 +176,9 @@ namespace AsterixForms
             List<string> cadena = new List<string>();
             List<DataItem> di = new List<DataItem>();
             
+            
             for (int i = 0; i < read.Length; i++)
             {
-                
                 //MessageBox.Show("Valor de read[i]: " + Convert.ToString(read[i]));
 
                 switch (i)
@@ -184,7 +188,7 @@ namespace AsterixForms
                         {
                             
                             mensaje = DataBlock.Substring(bitsleidos, 2*octet); //La longitud és fixa en aquest cas
-                            Debug.WriteLine("Missatge DSI: " + mensaje);
+                            //Debug.WriteLine("Missatge DSI: " + mensaje);
                             di.Add(new AsterixLib.DataSourceIdentifier(mensaje));
                             bitsleidos=bitsleidos + 2*octet;
                         }
@@ -192,9 +196,8 @@ namespace AsterixForms
                     case 1:
                         if (read[i] == 1)
                         {
-
                             mensaje = DataBlock.Substring(bitsleidos, 3*octet);
-                            Debug.WriteLine("Missatge TimeOfDay: " + mensaje);
+                            //Debug.WriteLine("Missatge TimeOfDay: " + mensaje);
                             di.Add(new AsterixLib.TimeOfDay(mensaje));
                             bitsleidos= bitsleidos + 3*octet;
                         }
@@ -208,9 +211,9 @@ namespace AsterixForms
                             while (final == 0)
                             {
                                 cadena.Add(DataBlock.Substring(bitsleidos, octet));
+                                bitsleidos = bitsleidos + octet;
                                 if (cadena[j][j+octet-1] == '1')
                                 {
-                                    bitsleidos = bitsleidos + octet;
                                     j = j + 1;
                                 }
                                 else
@@ -220,7 +223,7 @@ namespace AsterixForms
                             }
                            
                             mensaje = String.Join("", cadena); //Unim tots els bits en una sola string
-                            Debug.WriteLine("Missatge TargetReportDescriptor: " + mensaje);
+                            //Debug.WriteLine("Missatge TargetReportDescriptor: " + mensaje);
                             di.Add(new AsterixLib.TargetReportDescriptor(mensaje));
                             cadena.Clear(); //Buidem la llista per a no gastar memòria
                         }
@@ -229,7 +232,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje=DataBlock.Substring(bitsleidos, 4*octet);
-                            Debug.WriteLine("Missatge PositionPolar: " + mensaje);
+                            //Debug.WriteLine("Missatge PositionPolar: " + mensaje);
                             di.Add(new AsterixLib.Position_Polar(mensaje));
                             bitsleidos=bitsleidos + 4*octet;
                         }
@@ -238,7 +241,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 2*octet);
-                            Debug.WriteLine("Missatge Mode3A: " + mensaje);
+                            //Debug.WriteLine("Missatge Mode3A: " + mensaje);
                             di.Add(new AsterixLib.Mode3A(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -247,7 +250,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            Debug.WriteLine("Missatge FlightLevel: " + mensaje);
+                            //Debug.WriteLine("Missatge FlightLevel: " + mensaje);
                             di.Add(new AsterixLib.FlightLevel(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -266,9 +269,9 @@ namespace AsterixForms
                                     length = length + octet; //Així trobarem la longitud del missatge a llegir
                                 }
                             }
-                            Debug.WriteLine("Longitud del missatge RadarPlot: " + Convert.ToString(length));
+                            //Debug.WriteLine("Longitud del missatge RadarPlot: " + Convert.ToString(length));
                             mensaje = DataBlock.Substring(bitsleidos, octet + length);
-                            Debug.WriteLine("Missatge RadarPlotChart: " + mensaje);
+                            //Debug.WriteLine("Missatge RadarPlotChart: " + mensaje);
                             di.Add(new AsterixLib.RadarPlotChar(mensaje));
                             bitsleidos = bitsleidos + octet + length;
                         }
@@ -277,7 +280,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
-                            Debug.WriteLine("Missatge AircraftAdd: " + mensaje);
+                            //Debug.WriteLine("Missatge AircraftAdd: " + mensaje);
                             di.Add(new AsterixLib.AircraftAdd(mensaje));
                             bitsleidos = bitsleidos + 3*octet;
                         }
@@ -286,7 +289,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 6 * octet);
-                            Debug.WriteLine("Missatge AircraftId: " + mensaje);
+                            //Debug.WriteLine("Missatge AircraftId: " + mensaje);
                             di.Add(new AsterixLib.AircraftID(mensaje));
                             bitsleidos=bitsleidos + 6*octet;
                         }
@@ -294,14 +297,37 @@ namespace AsterixForms
                     case 9:
                         if (read[i] == 1)
                         {
-                            //decodificar 010 preguntar julia
+                            mensaje = DataBlock.Substring(bitsleidos, octet);
+                            bitsleidos = bitsleidos + octet;
+                            int rep = Convert.ToInt32(mensaje, 2); // Passem a int per saber el nombre de repeticions
+                            //Debug.WriteLine("Hem de repetir: " + rep);
+                            for (int k =0; k< rep; k++)
+                            {
+                                mensaje = DataBlock.Substring(bitsleidos, 8 * octet);
+                                //Debug.WriteLine("El missatge és: " + mensaje);
+                                bitsleidos = bitsleidos + 8 * octet;
+                                int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4));
+                                int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4));
+                                if (BDS1==4 & BDS2 == 0)
+                                {
+                                    di.Add(new AsterixLib.ModeS4(mensaje));
+                                }
+                                else if (BDS1==5 & BDS2 == 0)
+                                {
+                                    di.Add(new AsterixLib.ModeS5(mensaje));
+                                }
+                                else if (BDS1==6 & BDS2 == 0)
+                                {
+                                    di.Add(new AsterixLib.ModeS6(mensaje));
+                                }
+                            }
                         }
                         break;
                     case 10:
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            Debug.WriteLine("Missatge TrackNum: " + mensaje);
+                            //Debug.WriteLine("Missatge TrackNum: " + mensaje);
                             di.Add(new AsterixLib.TrackNum(mensaje));
                             bitsleidos=bitsleidos+2*octet;
                         }
@@ -310,7 +336,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
-                            Debug.WriteLine("Missatge Pos_Cart: " + mensaje);
+                            //Debug.WriteLine("Missatge Pos_Cart: " + mensaje);
                             di.Add(new AsterixLib.Position_Cartesian(mensaje));
                             bitsleidos= bitsleidos+4*octet;
                         }
@@ -319,7 +345,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
-                            Debug.WriteLine("Missatge Track_vel: " + mensaje);
+                            //Debug.WriteLine("Missatge Track_vel: " + mensaje);
                             di.Add(new AsterixLib.TrackVelocityPolar(mensaje));
                             bitsleidos = bitsleidos+4*octet;
                         }
@@ -327,10 +353,27 @@ namespace AsterixForms
                     case 13:
                         if (read[i] == 1)
                         {
-                            mensaje = DataBlock.Substring(bitsleidos,  2*octet);
-                            Debug.WriteLine("Missatge TrackStat: " + mensaje);
-                            di.Add(new AsterixLib.TrackStatus(mensaje));
-                            bitsleidos= bitsleidos+2*octet;
+                            final = 0;
+                            j = 0;
+                            while (final == 0)
+                            {
+                                cadena.Add(DataBlock.Substring(bitsleidos, octet));
+                                bitsleidos = bitsleidos + octet;
+                                if (cadena[j][j + octet - 1] == '1')
+                                {
+                                    j = j + 1;
+                                }
+                                else
+                                {
+                                    final = 1;
+                                }
+                            }
+
+                            mensaje = String.Join("", cadena); //Unim tots els bits en una sola string
+                            //Debug.WriteLine("Missatge TrackStat: " + mensaje);
+                            di.Add(new AsterixLib.TargetReportDescriptor(mensaje));
+                            cadena.Clear(); //Buidem la llista per a no gastar memòria
+
                         }
                         break;
                     case 14:
@@ -347,9 +390,9 @@ namespace AsterixForms
                             while (final == 0)
                             {
                                 cadena.Add(DataBlock.Substring(bitsleidos, octet));
+                                bitsleidos = bitsleidos + octet;
                                 if (cadena[j][j + octet - 1] == '1')
                                 {
-                                    bitsleidos = bitsleidos + octet;
                                     j = j + 1;
                                 }
                                 else
@@ -379,7 +422,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            Debug.WriteLine("Missatge H_3D_Radar: " + mensaje);
+                            //Debug.WriteLine("Missatge H_3D_Radar: " + mensaje);
                             di.Add(new AsterixLib.H_3D_RADAR(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -392,9 +435,9 @@ namespace AsterixForms
                             while (final == 0)
                             {
                                 cadena.Add(DataBlock.Substring(bitsleidos, octet));
+                                bitsleidos = bitsleidos + octet;
                                 if (cadena[j][j + octet - 1] == '1')
                                 {
-                                    bitsleidos = bitsleidos + octet;
                                     j = j + 1;
                                 }
                                 else
@@ -409,8 +452,8 @@ namespace AsterixForms
                     case 20:
                         if (read[i] == 1)
                         {
-                            mensaje = DataBlock.Substring(bitsleidos+2*octet);
-                            Debug.WriteLine("Missatge CommACAS: " + mensaje);
+                            mensaje = DataBlock.Substring(bitsleidos, 2*octet);
+                            //Debug.WriteLine("Missatge CommACAS: " + mensaje);
                             di.Add(new AsterixLib.CommACAS(mensaje));
                             bitsleidos = bitsleidos + 2*octet;
                         }
@@ -461,16 +504,16 @@ namespace AsterixForms
 
                 }
             }
-            Debug.WriteLine("Hem llegit tot el bloc");
+            //Debug.WriteLine("Hem llegit tot el bloc");
             Descodificar(di); //Cridem a la funció descodificar
-            MessageBox.Show("Hem descodificat correctament el missatge");
+            //MessageBox.Show("Hem descodificat correctament el missatge");
         }
 
         private void Descodificar(List<DataItem> data)
         {
-            Console.WriteLine("Estem dins de descodificar");
+            
             //AQUESTA LINEA NO VA AQUI
-            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\fichero.csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\fichero.txt"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
             for(int i=0; i<data.Count; i++)
             {
                 //MessageBox.Show("Estem dins el for de descodificar");
