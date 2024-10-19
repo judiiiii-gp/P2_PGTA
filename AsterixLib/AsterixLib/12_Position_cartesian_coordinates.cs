@@ -21,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al Pos Cartes");
+            //Debug.WriteLine("Estem al Pos Cartes");
             int length = 16; //Cada octeto tiene 8 bits
 
             string x_coordinate = base.info.Substring(0, length);
@@ -57,7 +57,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(X) + ";" + Convert.ToString(Y) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
         public string InvertirBits(string message)
         {

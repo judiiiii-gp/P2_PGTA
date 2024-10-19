@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AsterixForms")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3a3ee201fc9cac1815cb74da5495c6eb896c758")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+142120fda3c9f781f3d14c623902af5a6b3df58f")]
 [assembly: System.Reflection.AssemblyProductAttribute("AsterixForms")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AsterixForms")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

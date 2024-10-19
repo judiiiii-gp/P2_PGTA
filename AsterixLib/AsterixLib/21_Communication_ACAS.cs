@@ -24,9 +24,9 @@ namespace AsterixLib
         public override void Descodificar()
         {
 
-            Debug.WriteLine("Estem al com ACAS");
+            //Debug.WriteLine("Estem al com ACAS");
             int COM = Convert.ToInt32(base.info.Substring(0, 3), 2);
-            Debug.WriteLine("Hem agafat el COM");
+            //Debug.WriteLine("Hem agafat el COM");
             switch (COM)
             {
                 case 0:
@@ -57,7 +57,7 @@ namespace AsterixLib
             }
             
             int STAT = Convert.ToInt32(base.info.Substring(3, 3), 2);
-            Debug.WriteLine("Hem agafat el STAT");
+            //Debug.WriteLine("Hem agafat el STAT");
             switch (STAT)
             {
                 case 0:
@@ -86,7 +86,7 @@ namespace AsterixLib
                     break;
             }
             string SI =base.info.Substring(6, 1);
-            Debug.WriteLine("Hem agafat el SI");
+            //Debug.WriteLine("Hem agafat el SI");
             if (SI == "0")
             {
                 SI = "SI-Code Capable";
@@ -97,7 +97,7 @@ namespace AsterixLib
             }
 
             string MSSC = base.info.Substring(8, 1); // El bit anterior es un spare bit
-            Debug.WriteLine("Hem agafat el MSSC");
+            //Debug.WriteLine("Hem agafat el MSSC");
             if (MSSC == "0")
             {
                 MSSC = "No";
@@ -107,7 +107,7 @@ namespace AsterixLib
                 MSSC = "Yes";
             }
             string ARC =base.info.Substring(9, 1);
-            Debug.WriteLine("Hem agafat el ARC");
+            //Debug.WriteLine("Hem agafat el ARC");
             if (ARC == "0")
             {
                 ARC = "100 ft resolution";
@@ -128,14 +128,14 @@ namespace AsterixLib
             }
             int B1A = Convert.ToInt32(base.info.Substring(11, 1), 2);
             string B1A_mess = "BDS 1,0 bit 16=" + Convert.ToString(B1A);
-            Debug.WriteLine("Hem agafat el B1A_mess");
+            //Debug.WriteLine("Hem agafat el B1A_mess");
             int B1B = Convert.ToInt32(base.info.Substring(12, 4), 2);
-            Debug.WriteLine("Tenim el int");
+            //Debug.WriteLine("Tenim el int");
             string B1B_mess = "BDS 1,0 bits 37/40="+ Convert.ToString(B1B);
-            Debug.WriteLine("Hem agafat el B1B_mess");
+            //Debug.WriteLine("Hem agafat el B1B_mess");
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

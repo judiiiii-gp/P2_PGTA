@@ -14,38 +14,43 @@ namespace AsterixLib
         }
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al Radar Plot Chart");
+            int bits = 8;
+            double LSB = 360 / Math.Pow(2, 13);
             string SRL = base.info.Substring(0, 1);
             if (SRL == "0")
             {
-                SRL = "Absence of Subfield #1";
+                SRL = "N/A";
             }
             else
             {
-                SRL = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 8), 2)*(360/2^13));
+                double SRL_num = Convert.ToInt32(base.info.Substring(bits, 8), 2)*LSB;          
+                SRL = Convert.ToString(SRL_num);
+                bits = bits + 8;
                 
             }
 
             string SRR = base.info.Substring(1, 1);
             if (SRR == "0")
             {
-                SRR = "Absence of Subfield #2";
+                SRR = "N/A";
             }
             else
             {
-                SRR = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 8), 2) * (1));
+                SRR = Convert.ToString(Convert.ToInt32(base.info.Substring(bits, 8), 2) * (1));
+                bits = bits + 8;
                 
             }
 
             string SAM = base.info.Substring(2, 1);
             if (SAM == "0")
             {
-                SAM = "Absence of Subfield #3";
+                SAM = "N/A";
                 
             }
             else
             { 
-                string message = base.info.Substring(9,8);
+                string message = base.info.Substring(bits,8);
+                bits = bits + 8;
                 bool isNegative = message[0] == '1';
                 int SAMint;
                 if (isNegative)
@@ -58,65 +63,70 @@ namespace AsterixLib
                 {
                     SAMint = Convert.ToInt32(message, 2) + 1; // si son dBms cal sumar-ho?
                 }
-                SAM = Convert.ToString(SAMint);
+                SAM = Convert.ToString(SAMint) + "dBm";
                 
             }
 
             string PRL = base.info.Substring(3, 1);
             if (PRL == "0")
             {
-                PRL = "Absence of Subfield #4";
+                PRL = "N/A";
             }
             else
             {
-                PRL = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 8), 2) * (360/2^13));
+                PRL = Convert.ToString(Convert.ToInt32(base.info.Substring(bits, 8), 2)*LSB);
+                bits = bits + 8;
             }
 
             string PAM = base.info.Substring(4, 1);
             if (PAM == "0")
             {
-                PAM = "Absence of Subfield #5";
+                PAM = "N/A";
             }
             else
             {
-                string message = base.info.Substring(9, 8);
+                string message = base.info.Substring(bits, 8);
+                bits = bits + 8;
                 bool isNegative = message[0] == '1';
                 int PAMint;
                 if (isNegative)
                 {
 
-                    PAMint = Convert.ToInt32(InvertirBits(message), 2) + 1; // si son dBms cal sumar-ho?
+                    PAMint = Convert.ToInt32(InvertirBits(message), 2); // si son dBms cal sumar-ho?
                     PAMint = -PAMint; //Passem el valor a negatiu
                 }
                 else
                 {
-                    PAMint = Convert.ToInt32(message, 2) + 1; // si son dBms cal sumar-ho?
+                    PAMint = Convert.ToInt32(message, 2); // si son dBms cal sumar-ho?
                 }
-                PAM = Convert.ToString(PAMint);
+                PAM = Convert.ToString(PAMint) + "dBm";
 
             }
 
             string RPD = base.info.Substring(5, 1);
             if (RPD == "0")
             {
-                RPD = "Absence of Subfield #6";
+                RPD = "N/A";
             }
             else
             {
-                RPD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2)*(1/256)); 
+                float RPD_num = (float)Convert.ToInt32(base.info.Substring(bits, 8), 2) / 256;
+                RPD = Convert.ToString(RPD_num); 
+                bits = bits + 8;
             }
 
             string APD = base.info.Substring(6, 1);
             if (APD == "0")
             {
-                APD = "Absence of Subfield #7";
+                APD = "N/A";
             }
             else
             {
-                APD = Convert.ToString(Convert.ToInt32(base.info.Substring(9, 7), 2)*(360/2^14));
+                APD = Convert.ToString(Convert.ToInt32(base.info.Substring(bits, 8), 2)*(360/Math.Pow(2, 14)));
+                bits = bits + 8;
             }
             EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
 
         

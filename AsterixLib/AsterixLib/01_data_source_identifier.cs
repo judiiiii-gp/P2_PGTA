@@ -30,13 +30,15 @@ namespace AsterixLib
 
             // Convertir SAC y SIC de binario a decimal
             int sacDecimal = Convert.ToInt32(SAC, 2);
+            string SAC_hex = sacDecimal.ToString("X");
 
             int sicDecimal = Convert.ToInt32(SIC, 2);
+            string SIC_hex = sicDecimal.ToString("X");
 
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(sacDecimal) + ";"+ Convert.ToString(sicDecimal) + ";");
+            EscribirEnFichero(SAC_hex + ";"+ SIC_hex + ";");
 
         }
     }

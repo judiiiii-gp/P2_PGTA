@@ -21,15 +21,18 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-
-            Debug.WriteLine("Estem al Aircraft Add");
-            int aircraft = Convert.ToInt32(base.info.Substring(0, 8), 2);
-            int address = Convert.ToInt32(base.info.Substring(8), 2);
-
+            string address = string.Empty;
+            for (int i=0; i<base.info.Length; i+=4)
+            {
+                string bits = base.info.Substring(i, 4); //Agafem grups de 4 per a passar-ho a hexadecimal
+                int decval = Convert.ToInt32(bits, 2); //Ho passem a decimal
+                string address_char = decval.ToString("X");
+                address += address_char;
+            }
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(aircraft) + ";" + Convert.ToString(address) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            EscribirEnFichero(address + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

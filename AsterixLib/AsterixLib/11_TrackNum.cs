@@ -16,14 +16,14 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            Debug.WriteLine("Estem al TrackNum");
+            //Debug.WriteLine("Estem al TrackNum");
             string TrackNum = base.info.Substring(0, 16);
             int TrackNumDecimal = Convert.ToInt32(TrackNum, 2);
 
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(TrackNum) + ";");
-            Debug.WriteLine("Hem escrit al fitxer");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }
