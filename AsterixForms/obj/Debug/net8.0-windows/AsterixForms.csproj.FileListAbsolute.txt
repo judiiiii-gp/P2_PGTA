@@ -22,3 +22,4 @@ C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PG
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.DataGridView.resources
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Properties.Resources.resources
 C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Filter.resources
+C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Search.resources

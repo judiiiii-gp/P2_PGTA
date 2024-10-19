@@ -27,29 +27,35 @@ namespace AsterixForms
         }
         private void CreateComboBox()
         {
-            comboBox1.Items.Add("-None-");
             foreach (var name in lista) { comboBox1.Items.Add(name); }
+            comboBox1.Items.Add("-None-");
         }
-        private void FilterCmd()
-        {
-            CmdGen();
-        }
+        private void FilterCmd() { CmdGen(); }
         private void CmdGen()
         {
             try {
-                
-                if (comboBox1.SelectedIndex == 0) { cmd = "0;"; }
+                if (comboBox1.SelectedIndex == 92) { cmd = "0;"; }
                 else if (comboBox1.SelectedIndex == -1) { MessageBox.Show("Select a field"); }
                 else
                 {
                     if (txtBox_Start.Text == "" && txtBox_End.Text == "") { MessageBox.Show("Fill at least one field"); }
                     else if (txtBox_Start.Text != "" && txtBox_End.Text == "") { cmd = "1;" + comboBox1.SelectedIndex.ToString() + ";" + txtBox_Start.Text + ";"; }
                     else if (txtBox_Start.Text == "" && txtBox_End.Text != "") { cmd = "2;" + comboBox1.SelectedIndex.ToString() + ";" + txtBox_End.Text + ";"; }
-                    else if (txtBox_Start.Text != "" && txtBox_End.Text != "") { cmd = "3;" + comboBox1.SelectedIndex.ToString() + ";" + txtBox_Start.Text + ";" + txtBox_End.Text + ";"; }
+                    else if (txtBox_Start.Text != "" && txtBox_End.Text != "") { cmd = "3;" + comboBox1.SelectedIndex.ToString() + ";" + OrderTwoString(txtBox_Start.Text, txtBox_End.Text); }
                     else { cmd = "null;"; }
                 }
             } catch { MessageBox.Show("Seleccione un campo"); }
             
+        }
+
+        private string OrderTwoString(string strMax, string strMin)
+        {
+            float aux;
+            float max = float.Parse(strMax);
+            float min = float.Parse(strMin);
+            if (max >= min) { return strMin + ";" + strMax + ";"; }
+            else if (min > max) { return strMax + ";" + strMin + ";"; }
+            else return "NAN;NAN;";
         }
         private void BtnFilter_Click(object sender, EventArgs e)
         {
@@ -60,7 +66,6 @@ namespace AsterixForms
                 this.DialogResult = DialogResult.OK; // Indica que se aceptó el diálogo
                 this.Close();
             }
-            
         }
         private void Filter_Load(object sender, EventArgs e)
         {

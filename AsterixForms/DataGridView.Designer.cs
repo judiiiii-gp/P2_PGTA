@@ -68,5 +68,6 @@ namespace AsterixForms
         private ToolStrip toolStrip1;
         private ToolStripButton BtnFilter;
         private ToolStripButton BtnGoogleEarth;
+        private ToolStripButton SearchBtn;
     }
 }
