@@ -11,124 +11,48 @@ using AsterixLib;
 
 namespace AsterixForms
 {
+
     public partial class DataGridView : Form
     {
+        string[] headers = new string[]
+        {
+            "NUM", "SAC", "SIC", "Time", "Latitud", "Longitud", "h", "TYP020", "SIM020", "RDP020","SPI020", "RAB020", "TST020", "ERR020", "XPP020", "ME020", "MI020", "FOEFRI_020", "RHO",
+            "THETA", "V070", "G070", "Mode_3A", "V090", "G090", "Flight_Level", "ModeC_corrected","SRL130", "SRR130", "SAM130", "PRL130", "PAM130", "RPD130", "APD130", "Target_Address",
+            "Target_ID", "Mode_S", "MCP_Status", "MCP_ALT", "FMS_Status", "FMS_ALT", "BP_Status","BP", "MODE_Status", "VNAV", "ALT_HOLD", "APP", "TARGETALT_Status", "TARGETALT_Source",
+            "RS_Status", "RA", "TTA_Status", "TTA", "GSS_Status", "GS", "TAR_Status", "TAR", "TAS_Status", "TAS", "HDG_Status", "HDG", "IAS_Status", "IAS", "MACH_Status", "MACH", 
+            "BAR_Status", "BAR", "IVV_Status", "IVV", "Track_number", "X_component", "Y_component", "Ground_SpeedKT", "Heading", "CNF170", "RAD170", "DOU170", "MAH170", "CDM170", 
+            "TRE170", "GHO170", "SUP170", "TCC170", "Measured_Height", "COM230", "STAT230", "SI230", "MSCC230", "ARC230", "AIC230", "B1A230", "B1B230"
+        };
         // falta fer que si es canvia de mida el form, s'amplii bé el formulari i es segueixi veient be (project requeriment que puja punts jeje)
         // falta posar relacio entre formularis, que aquest quan s'obri l'altre es tanqui
-        InformationList list; // passem una llista amb tota la info dels paquets?
+        //InformationList list; // passem una llista amb tota la info dels paquets?
         public DataGridView()
         {
             InitializeComponent();
         }
 
-        public void GetList(InformationList list)
-        {
-            this.list = list;
-        }
+        //public void GetList(InformationList list)
+        //{
+            //this.list = list;
+        //}
 
         private void DataGrid(object sender, EventArgs e)
         {
             dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowCount = list.DameNum(); 
-            dataGridView1.ColumnCount = 92; // he agafat els mateixos que mostra el SW d'exemple del profe
-            dataGridView1.Columns[0].HeaderText = "NUM";
-            dataGridView1.Columns[1].HeaderText = "SAC";
-            dataGridView1.Columns[2].HeaderText = "SIC";
-            dataGridView1.Columns[3].HeaderText = "Time";
-            dataGridView1.Columns[4].HeaderText = "Latitud";
-            dataGridView1.Columns[5].HeaderText = "Longitud";
-            dataGridView1.Columns[6].HeaderText = "h";
-            dataGridView1.Columns[7].HeaderText = "TYP020";
-            dataGridView1.Columns[8].HeaderText = "SIM020";
-            dataGridView1.Columns[9].HeaderText = "RDP020";
-            dataGridView1.Columns[10].HeaderText = "SPI020";
-            dataGridView1.Columns[11].HeaderText = "RAB020";
-            dataGridView1.Columns[12].HeaderText = "TST020";
-            dataGridView1.Columns[13].HeaderText = "ERR020";
-            dataGridView1.Columns[14].HeaderText = "XPP020";
-            dataGridView1.Columns[15].HeaderText = "ME020";
-            dataGridView1.Columns[16].HeaderText = "MI020";
-            dataGridView1.Columns[17].HeaderText = "FOEFRI_020";
-            dataGridView1.Columns[18].HeaderText = "RHO";
-            dataGridView1.Columns[19].HeaderText = "THETA";
-            dataGridView1.Columns[20].HeaderText = "V070";
-            dataGridView1.Columns[21].HeaderText = "G070";
-            dataGridView1.Columns[22].HeaderText = "Mode_3A";
-            dataGridView1.Columns[23].HeaderText = "V090";
-            dataGridView1.Columns[24].HeaderText = "G090";
-            dataGridView1.Columns[25].HeaderText = "Flight_Level";
-            dataGridView1.Columns[26].HeaderText = "ModeC_corrected";
-            dataGridView1.Columns[27].HeaderText = "SRL130";
-            dataGridView1.Columns[28].HeaderText = "SRR130";
-            dataGridView1.Columns[29].HeaderText = "SAM130";
-            dataGridView1.Columns[30].HeaderText = "PRL130";
-            dataGridView1.Columns[31].HeaderText = "PAM130";
-            dataGridView1.Columns[32].HeaderText = "RPD130";
-            dataGridView1.Columns[33].HeaderText = "APD130";
-            dataGridView1.Columns[34].HeaderText = "Target_Address";
-            dataGridView1.Columns[35].HeaderText = "Target_ID";
-            dataGridView1.Columns[36].HeaderText = "Mode_S";
-            dataGridView1.Columns[37].HeaderText = "MCP_Status";
-            dataGridView1.Columns[38].HeaderText = "MCP_ALT";
-            dataGridView1.Columns[39].HeaderText = "FMS_Status";
-            dataGridView1.Columns[40].HeaderText = "FMS_ALT";
-            dataGridView1.Columns[41].HeaderText = "BP_Status";
-            dataGridView1.Columns[42].HeaderText = "BP";
-            dataGridView1.Columns[43].HeaderText = "MODE_Status";
-            dataGridView1.Columns[44].HeaderText = "VNAV";
-            dataGridView1.Columns[45].HeaderText = "ALT_HOLD";
-            dataGridView1.Columns[46].HeaderText = "APP";
-            dataGridView1.Columns[47].HeaderText = "TARGETALT_Status";
-            dataGridView1.Columns[48].HeaderText = "TARGETALT_Source";
-            dataGridView1.Columns[49].HeaderText = "RS_Status";
-            dataGridView1.Columns[50].HeaderText = "RA";
-            dataGridView1.Columns[51].HeaderText = "TTA_Status";
-            dataGridView1.Columns[52].HeaderText = "TTA";
-            dataGridView1.Columns[53].HeaderText = "GSS_Status";
-            dataGridView1.Columns[54].HeaderText = "GS";
-            dataGridView1.Columns[55].HeaderText = "TAR_Status";
-            dataGridView1.Columns[56].HeaderText = "TAR";
-            dataGridView1.Columns[57].HeaderText = "TAS_Status";
-            dataGridView1.Columns[58].HeaderText = "TAS";
-            dataGridView1.Columns[59].HeaderText = "HDG_Status";
-            dataGridView1.Columns[60].HeaderText = "HDG";
-            dataGridView1.Columns[61].HeaderText = "IAS_Status";
-            dataGridView1.Columns[62].HeaderText = "IAS";
-            dataGridView1.Columns[63].HeaderText = "MACH_Status";
-            dataGridView1.Columns[64].HeaderText = "MACH";
-            dataGridView1.Columns[65].HeaderText = "BAR_Status";
-            dataGridView1.Columns[66].HeaderText = "BAR";
-            dataGridView1.Columns[67].HeaderText = "IVV_Status";
-            dataGridView1.Columns[68].HeaderText = "IVV";
-            dataGridView1.Columns[69].HeaderText = "Track_number";
-            dataGridView1.Columns[70].HeaderText = "X_component";
-            dataGridView1.Columns[71].HeaderText = "Y_component";
-            dataGridView1.Columns[72].HeaderText = "Ground_SpeedKT";
-            dataGridView1.Columns[73].HeaderText = "Heading";
-            dataGridView1.Columns[74].HeaderText = "CNF170";
-            dataGridView1.Columns[75].HeaderText = "RAD170";
-            dataGridView1.Columns[76].HeaderText = "DOU170";
-            dataGridView1.Columns[77].HeaderText = "MAH170";
-            dataGridView1.Columns[78].HeaderText = "CDM170";
-            dataGridView1.Columns[79].HeaderText = "TRE170";
-            dataGridView1.Columns[80].HeaderText = "GHO170";
-            dataGridView1.Columns[81].HeaderText = "SUP170";
-            dataGridView1.Columns[82].HeaderText = "TCC170";
-            dataGridView1.Columns[83].HeaderText = "Measured_Height";
-            dataGridView1.Columns[84].HeaderText = "COM230";
-            dataGridView1.Columns[85].HeaderText = "STAT230";
-            dataGridView1.Columns[86].HeaderText = "SI230";
-            dataGridView1.Columns[87].HeaderText = "MSCC230";
-            dataGridView1.Columns[88].HeaderText = "ARC230";
-            dataGridView1.Columns[89].HeaderText = "AIC230";
-            dataGridView1.Columns[90].HeaderText = "B1A230";
-            dataGridView1.Columns[91].HeaderText = "B1B230";
+            //dataGridView1.RowCount = list.DameNum(); 
+            dataGridView1.ColumnCount = headers.Length; // he agafat els mateixos que mostra el SW d'exemple del profe
 
-            for (int i = 0; i < list.DameNum(); i++) //Ponemos los valores de cada plan de vuelo en su casilla correspondiente de la tabla, y para ello debemos recorrer toda la lista
+            // Assignem les capaçaleres a cada columna
+            for (int i = 0; i < headers.Length; i++)
             {
-                dataGridView1.Rows[i].Cells[0].Value = 1; // fer-ho per cada fila --> pensar com omplir
-                
+                dataGridView1.Columns[i].HeaderText = headers[i];
             }
+
+            //for (int i = 0; i < list.DameNum(); i++) //Ponemos los valores de cada plan de vuelo en su casilla correspondiente de la tabla, y para ello debemos recorrer toda la lista
+            //{
+            //dataGridView1.Rows[i].Cells[0].Value = 1; // fer-ho per cada fila --> pensar com omplir
+
+            //}
         }
 
         /* 
@@ -141,5 +65,8 @@ namespace AsterixForms
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private ToolStrip toolStrip1;
+        private ToolStripButton BtnFilter;
+        private ToolStripButton BtnGoogleEarth;
     }
 }

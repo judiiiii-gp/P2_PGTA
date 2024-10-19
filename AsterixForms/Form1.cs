@@ -45,10 +45,8 @@ namespace AsterixForms
                             byte[] buffer = new byte[(bitsToRead + 7) / 8]; // Redondear hacia arriba
                             reader.Read(buffer, 0, buffer.Length);
                             string DataBlock = ConvertirByte2String(buffer); //Dades que tenim en un DataBlock
-                            MessageBox.Show(DataBlock);
                             //Ara hem de mirar el FSPEC per saber quants DataItems tenim al record 
                             int FSPEC_bits = FSPEC(DataBlock); //Obtenim quants bits té el FSPEC
-                            MessageBox.Show("FSPEC_bits.ToString()");
                             //MessageBox.Show(FSPEC_bits.ToString());
                         }
                         else
@@ -79,15 +77,14 @@ namespace AsterixForms
         static int FSPEC(string DataBlock)
         {
             int length = DataBlock.Length; //No hem de superar mai la longitud
-            MessageBox.Show(length.ToString());
+            //MessageBox.Show(length.ToString());
             for (int i = 0; i < length; i=i+8)
             {   
-                MessageBox.Show(i.ToString());
                 int a = i;
                 if (a + 8 <= length)
                 {
                     string aux = DataBlock.Substring(i, 8);
-                    MessageBox.Show(aux);
+                    //MessageBox.Show(aux);
                     char ultimbit = aux[i + 7]; //Busquem el valor de l'últim bit per saber si hi ha més FSPEC
                     if (ultimbit == '0')
                     {
@@ -97,8 +94,9 @@ namespace AsterixForms
             }
             return -1; //Si hi ha algun error 
         }
-        void Motor(string motor)
+        bool Motor(string motor)
         {
+            bool found = true;
             // Archivos
             for (int i = 0; i < Directory.EnumerateFiles(CarpetaBusqueda).Count(); i++)
             { 
@@ -118,152 +116,30 @@ namespace AsterixForms
                     if (i >= 5000)
                     {
                         MessageBox.Show("No s'ha trobat el arxiu");
-                        break;
-                    }
-                    else
-                    {
-                        string msg = BuscarBox.Text;
-                        DataGridView dataGridView = new DataGridView(msg);
-                        dataGridView.Show();
+                        return false;
                     }
                 }
+                
+            }
+            return true;
+        }
+        void CargarDataGridView(bool found)
+        {
+            if (found)
+            {
+                string msg = BuscarBox.Text;
+                
+                DataGridView dataGridView = new DataGridView(msg);
+                dataGridView.ShowDialog();
             }
         }
 
-        private void ReadPacket(int[] read, string DataBlock)
-        {
-            AsterixLib.DataItem dataitem = AsterixLib.DataItem();
-            for (int i = 0; i < (DataBlock.Length - read.Length); i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.DataSourceIdentifier id = dataitem;
-                            id.Decodificar();
-                            dataitem = id;
-                        }
-                        break;
-                    case 1:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.TimeOfDay tod = dataitem;
-                            tod.Decodificar();
-                            dataitem = tod;
-                        }
-                        break;
-                    case 2:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.TargetReportDescriptor tr = dataitem;
-                            tr.Decodificar();
-                            dataitem = tr;
-                        }
-                        break;
-                    case 3:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.Position_Polar ppc = dataitem;
-                            ppc.Decodificar();
-                            dataitem = ppc;
-                        }
-                        break;
-                    case 4:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.Mode3A m3a = dataitem;
-                            m3a.Decodificar();
-                            dataitem = m3a;
-                        }
-                        break;
-                    case 5:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.FlightLevel fl = dataitem;
-                            fl.Decodificar();
-                            dataitem = fl;
-                        }
-                        break;
-                    case 6:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.RadarPlotChar rpc = dataitem;
-                            rpc.Decodificar();
-                            dataitem = rpc;
-                        }
-                        break;
-                    case 7:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.AircraftAdd aa = dataitem;
-                            aa.Decodificar();
-                            dataitem = aa;
-                        }
-                        break;
-                    case 8:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.AircraftID ai = dataitem;
-                            ai.Decodificar();
-                            dataitem = ai;
-                        }
-                        break;
-                    case 9:
-                        if (read[i] == 1)
-                        {
-                            //decodificar 010 preguntar julia
-                        }
-                        break;
-                    case 10:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.TrackNum tn = dataitem;
-                            tn.Decodificar();
-                            dataitem = tn;
-                        }
-                        break;
-                    case 11:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.Position_Cartesian pc = dataitem;
-                            pc.Decodificar();
-                            dataitem = pc;
-                        }
-                        break;
-                    case 12:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.TrackVelocityPolar tvp = dataitem;
-                            tvp.Decodificar();
-                            dataitem = tvp;
-                        }
-                        break;
-                    case 13:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.H_3D_RADAR h3r = dataitem;
-                            h3r.Decodificar();
-                            dataitem = h3r;
-                        }
-                        break;
-                    case 14:
-                        if (read[i] == 1)
-                        {
-                            AsterixLib.CommACAS h3r = dataitem;
-                            h3r.Decodificar();
-                            dataitem = h3r;
-                        }
-                        break;
-                }
-            }
-        }
 
         //### EVENTS ####################################################################################################################
         private void Buscar_Click(object sender, EventArgs e)
         {
             if (CarpetaBusqueda == null) { MessageBox.Show("Falta seleccioanr una carpeta"); }
-            else { Motor(CarpetaBusqueda); }
+            else { bool found =Motor(CarpetaBusqueda); CargarDataGridView(found); }
         }
         private void Seleccionar_Click(object sender, EventArgs e)
         {

@@ -216,9 +216,6 @@ namespace AsterixLib
                     EscribirEnFichero(ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";");
                 }
             }
-
-
-            
         }
     }
 }
