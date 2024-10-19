@@ -24,8 +24,9 @@ namespace AsterixLib
             // SIGN 1 = West (e.g. 315 = -45°) 
             if (MagHead == 1)
             {
-                MagHead = Convert.ToInt32(base.info.Substring(2, 10))*(90/512);
-                MagHeadtxt = MagHead.ToString();
+                MagHead = Convert.ToInt32(base.info.Substring(2, 10));
+                float MagHead_num = (float)MagHead * (90 / 512);
+                MagHeadtxt = MagHead_num.ToString();
             }
             else
             {

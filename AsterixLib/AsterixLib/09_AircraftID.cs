@@ -17,30 +17,48 @@ namespace AsterixLib
 
         }
 
+        private static readonly Dictionary<char, string> ia5Mapping = new Dictionary<char, string>
+    {
+        {'A', "000001"}, {'B', "000010"}, {'C', "000011"}, {'D', "000100"}, {'E', "000101"},
+        {'F', "000110"}, {'G', "000111"}, {'H', "001000"}, {'I', "001001"}, {'J', "001010"},
+        {'K', "001011"}, {'L', "001100"}, {'M', "001101"}, {'N', "001110"}, {'O', "001111"},
+        {'P', "010000"}, {'Q', "010001"}, {'R', "010010"}, {'S', "010011"}, {'T', "010100"},
+        {'U', "010101"}, {'V', "010110"}, {'W', "010111"}, {'X', "011000"}, {'Y', "011001"},
+        {'Z', "011010"}, {'0', "110000"}, {'1', "110001"}, {'2', "110010"}, {'3', "110011"},
+        {'4', "110100"}, {'5', "110101"}, {'6', "110110"}, {'7', "110111"}, {'8', "111000"},
+        {'9', "111001"}, {' ', "100000"}, 
+    };
 
 
-       
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al AircraftId");
-            int length = 6;
-            int pos = 0;
-            int i = 0;
-            int[] posición = new int[8];
-            char[] characters = new char[8];
-            while (i<8)
+            string aircraftId = "";
+            if (base.info.Length %6 != 0)
             {
-                posición[i]= Convert.ToInt32(base.info.Substring(pos, length), 2);
-                characters[i]= Convert.ToChar(posición[i]);
-                pos = pos +length;
-                i++;
+                throw new ArgumentException("La cadena no és múltiple de 6");
             }
-
-            string aircraftID = new string(characters); //Convertimos los characteres en una secuencia
-
+            for (int i=0; i<base.info.Length; i += 6)
+            {
+                string block = base.info.Substring(i, 6);
+                aircraftId += ConvertirBitsAChar(block);
+            }
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(aircraftID + ";");
+            EscribirEnFichero(aircraftId + ";");
             //Debug.WriteLine("Hem escrit al fitxer");
+        }
+
+        static char ConvertirBitsAChar(string cadena)
+        {
+            foreach (var entry in ia5Mapping)
+            {
+                if (entry.Value == cadena)
+                {
+                    return entry.Key;
+                }
+            }
+            return '?';
+
+            
         }
     }
 }

@@ -41,7 +41,8 @@ namespace AsterixLib
                 G = "Garbled code";
             }
                        
-            int message = Convert.ToInt32(base.info.Substring(2), 2);
+            int message = (Convert.ToInt32(base.info.Substring(2), 2));
+            message = message / 4;
 
 
             // Llamada al método EscribirEnFichero de la clase base
