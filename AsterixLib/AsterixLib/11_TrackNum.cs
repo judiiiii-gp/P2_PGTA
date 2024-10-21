@@ -17,12 +17,13 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al TrackNum");
-            string TrackNum = base.info.Substring(0, 16);
+            string spare = base.info.Substring(0, 4);
+            string TrackNum = base.info.Substring(4, 12);
             int TrackNumDecimal = Convert.ToInt32(TrackNum, 2);
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(TrackNum) + ";");
+            EscribirEnFichero(Convert.ToString(TrackNumDecimal) + ";");
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
