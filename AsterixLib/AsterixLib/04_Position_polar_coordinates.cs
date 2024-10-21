@@ -1,17 +1,18 @@
 using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class Position_Polar : DataItem
+    public class Position_Polar : DataItem
     {
 
        
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public Position_Polar(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public Position_Polar(string info)
+            : base( info)
         {
            
 
@@ -21,6 +22,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            //Debug.WriteLine("Estem al Position Polar");
             int length = 16; //Cada octeto tiene 8 bits
 
             string rho = base.info.Substring(0, length);
@@ -32,6 +34,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(Rho) + ";" + Convert.ToString(Theta) + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

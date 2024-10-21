@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class H_3D_RADAR : DataItem
+    public class H_3D_RADAR : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public H_3D_RADAR(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public H_3D_RADAR(string info)
+            : base(info)
         {
 
         }
@@ -20,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-
+            //Debug.WriteLine("Estem al height radar");
             string SPARE = base.info.Substring(0, 2); //Siempre seran 0
 
        
@@ -42,6 +43,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Convert.ToString(height) + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
 
         //Funció on invertim els bits per a fer el complement A2    

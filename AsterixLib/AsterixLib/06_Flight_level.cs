@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class FlightLevel : DataItem
+    public class FlightLevel : DataItem
     {
 
 
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public FlightLevel(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public FlightLevel(string info)
+            : base(info)
         {
 
         }
@@ -20,7 +21,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-
+            //Debug.WriteLine("Estem al Flight Level");
             string V = base.info.Substring(0, 1);
             if (V == "0")
             {
@@ -40,11 +41,13 @@ namespace AsterixLib
                 G = "Garbled code";
             }
                        
-            int message = Convert.ToInt32(base.info.Substring(2), 2);
+            int message = (Convert.ToInt32(base.info.Substring(2), 2));
+            message = message / 4;
 
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(V + ";" + G + ";" + Convert.ToString(message) + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

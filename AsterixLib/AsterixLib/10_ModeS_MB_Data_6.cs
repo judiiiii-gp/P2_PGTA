@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class ModeS6 : DataItem
+    public class ModeS6 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS6(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public ModeS6(string info)
+            : base(info)
         {
 
         }
@@ -17,13 +18,15 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            //Debug.WriteLine("Estem al ModeS MB-6");
             string MagHeadtxt;
             int MagHead = Convert.ToInt32(base.info.Substring(0, 1));
             // SIGN 1 = West (e.g. 315 = -45°) 
             if (MagHead == 1)
             {
-                MagHead = Convert.ToInt32(base.info.Substring(2, 10))*(90/512);
-                MagHeadtxt = MagHead.ToString();
+                MagHead = Convert.ToInt32(base.info.Substring(2, 10));
+                float MagHead_num = (float)MagHead * (90 / 512);
+                MagHeadtxt = MagHead_num.ToString();
             }
             else
             {
@@ -82,6 +85,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

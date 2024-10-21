@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class TargetReportDescriptor : DataItem
+    public class TargetReportDescriptor : DataItem
     {
 
         
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public TargetReportDescriptor(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public TargetReportDescriptor(string info)
+            : base( info)
         {
             
         }
@@ -20,6 +21,7 @@ namespace AsterixLib
         string FX;
         public override void Descodificar()
         {
+            //Debug.WriteLine("Estem al TargetReport");
             //primero separaremos todos los valores y luego los decodificaremos
             string TYP = base.info.Substring(0, 3);
             switch (TYP)
@@ -87,6 +89,7 @@ namespace AsterixLib
             }
             FX = base.info.Substring(7, 1);
             EscribirEnFichero(TYP + ";" + SIM + ";" + RDP + ";" + SPI + ";" + RAB + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
             if (FX == "1")
             {
                 string TST = base.info.Substring(8, 1);
@@ -153,6 +156,7 @@ namespace AsterixLib
 
                 FX = base.info.Substring(15, 1);
                 EscribirEnFichero(TST + ";" + ERR + ";" + XPP + ";" + ME + ";" + MI + ";" + FOE + ";");
+                //Debug.WriteLine("Hem escrit al fitxer");
 
 
                 if (FX == "1")
@@ -214,8 +218,12 @@ namespace AsterixLib
                     string SPARE = base.info.Substring(22, 1); //Siempre será 0
                     string FX = base.info.Substring(23, 1);
                     EscribirEnFichero(ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";");
+                    //Debug.WriteLine("Hem escrit al fitxer");
                 }
             }
+
+
+            
         }
     }
 }

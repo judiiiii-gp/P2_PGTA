@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class ModeS5 : DataItem
+    public class ModeS5 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS5(string category, int code, int length, string info)
-            : base(category, code, info, length)
+        public ModeS5(string info)
+            : base(info)
         {
 
         }
@@ -17,6 +18,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            //Debug.WriteLine("Estem al ModeS MB-5");
             string Rolltxt;
             int Roll = Convert.ToInt32(base.info.Substring(0, 1));
             // SIGN 1 = Left Wing Down
@@ -82,6 +84,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

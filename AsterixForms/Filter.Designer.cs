@@ -36,9 +36,9 @@
             // 
             // BtnFilter
             // 
-            BtnFilter.Location = new Point(392, 127);
+            BtnFilter.Location = new Point(395, 143);
             BtnFilter.Name = "BtnFilter";
-            BtnFilter.Size = new Size(105, 29);
+            BtnFilter.Size = new Size(94, 29);
             BtnFilter.TabIndex = 0;
             BtnFilter.Text = "Filter";
             BtnFilter.UseVisualStyleBackColor = true;
@@ -54,14 +54,14 @@
             // 
             // txtBox_Start
             // 
-            txtBox_Start.Location = new Point(382, 12);
+            txtBox_Start.Location = new Point(364, 13);
             txtBox_Start.Name = "txtBox_Start";
             txtBox_Start.Size = new Size(125, 27);
             txtBox_Start.TabIndex = 2;
             // 
             // txtBox_End
             // 
-            txtBox_End.Location = new Point(382, 75);
+            txtBox_End.Location = new Point(364, 79);
             txtBox_End.Name = "txtBox_End";
             txtBox_End.Size = new Size(125, 27);
             txtBox_End.TabIndex = 3;
@@ -70,13 +70,13 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(533, 168);
+            ClientSize = new Size(503, 185);
             Controls.Add(txtBox_End);
             Controls.Add(txtBox_Start);
             Controls.Add(comboBox1);
             Controls.Add(BtnFilter);
             Name = "Filter";
-            Text = "Order";
+            Text = "Filter";
             Load += Filter_Load;
             ResumeLayout(false);
             PerformLayout();

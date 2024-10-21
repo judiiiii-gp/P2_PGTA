@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
-    class ModeS4 : DataItem
+    public class ModeS4 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
-        public ModeS4(string category, int code, string info,int length)
-            : base(category, code, info, length)
+        public ModeS4(string info)
+            : base(info)
         {
 
         }
@@ -17,6 +18,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+            //Debug.WriteLine("Estem al ModeS MB-4");
             string MCP_FCUtxt;
             int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
             if (MCP_FCU == 1)
@@ -55,6 +57,7 @@ namespace AsterixLib
 
             // Llamada al método EscribirEnFichero de la clase base
             EscribirEnFichero(MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";");
+            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

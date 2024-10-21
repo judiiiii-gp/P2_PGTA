@@ -33,7 +33,8 @@ namespace AsterixForms
         private void FilterCmd() { CmdGen(); }
         private void CmdGen()
         {
-            try {
+            try
+            {
                 if (comboBox1.SelectedIndex == 92) { cmd = "0;"; }
                 else if (comboBox1.SelectedIndex == -1) { MessageBox.Show("Select a field"); }
                 else
@@ -44,19 +45,23 @@ namespace AsterixForms
                     else if (txtBox_Start.Text != "" && txtBox_End.Text != "") { cmd = "3;" + comboBox1.SelectedIndex.ToString() + ";" + OrderTwoString(txtBox_Start.Text, txtBox_End.Text); }
                     else { cmd = "null;"; }
                 }
-            } catch { MessageBox.Show("Seleccione un campo"); }
-            
+            }
+            catch { MessageBox.Show("Seleccione un campo"); }
         }
-
         private string OrderTwoString(string strMax, string strMin)
         {
-            float aux;
             float max = float.Parse(strMax);
             float min = float.Parse(strMin);
             if (max >= min) { return strMin + ";" + strMax + ";"; }
             else if (min > max) { return strMax + ";" + strMin + ";"; }
             else return "NAN;NAN;";
         }
+        /*### EVENTS FUNCTIONS #####################################*/
+        private void Filter_Load(object sender, EventArgs e)
+        {
+            CreateComboBox();
+        }
+
         private void BtnFilter_Click(object sender, EventArgs e)
         {
             FilterCmd();
@@ -66,10 +71,6 @@ namespace AsterixForms
                 this.DialogResult = DialogResult.OK; // Indica que se aceptó el diálogo
                 this.Close();
             }
-        }
-        private void Filter_Load(object sender, EventArgs e)
-        {
-            CreateComboBox();
         }
     }
 }
