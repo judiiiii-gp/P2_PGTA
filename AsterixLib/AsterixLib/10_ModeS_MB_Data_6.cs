@@ -13,7 +13,7 @@ namespace AsterixLib
 
         }
 
-        
+
 
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
@@ -37,7 +37,7 @@ namespace AsterixLib
             int IndAir = Convert.ToInt32(base.info.Substring(12, 1));
             if (IndAir == 1)
             {
-                IndAir = Convert.ToInt32(base.info.Substring(13, 9))*1;
+                IndAir = Convert.ToInt32(base.info.Substring(13, 9)) * 1;
                 IndAirtxt = IndAir.ToString();
             }
             else
@@ -48,8 +48,8 @@ namespace AsterixLib
             string MACHtxt;
             int MACH = Convert.ToInt32(base.info.Substring(23, 1));
             if (MACH == 1)
-            {   
-                double MACHdou = Convert.ToDouble(base.info.Substring(24, 10))*(2.048/512);
+            {
+                double MACHdou = Convert.ToDouble(base.info.Substring(24, 10)) * (2.048 / 512);
                 MACHtxt = MACHdou.ToString();
             }
             else
@@ -62,7 +62,7 @@ namespace AsterixLib
             // SIGN 1 = Below
             if (BarAlt == 1)
             {
-                BarAlt = Convert.ToInt32(base.info.Substring(36, 9))*32;
+                BarAlt = Convert.ToInt32(base.info.Substring(36, 9)) * 32;
                 BarAlttxt = BarAlt.ToString();
             }
             else
@@ -75,17 +75,13 @@ namespace AsterixLib
             // SIGN 1 = Below
             if (InerVert == 1)
             {
-                InerVert = Convert.ToInt32(base.info.Substring(47, 9))*32;
+                InerVert = Convert.ToInt32(base.info.Substring(47, 9)) * 32;
                 InerVerttxt = InerVert.ToString();
             }
             else
             {
                 InerVerttxt = "N/A";
             }
-
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";");
-            //Debug.WriteLine("Hem escrit al fitxer");
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AsterixForms
 {
@@ -25,24 +26,26 @@ namespace AsterixForms
             InitializeComponent();
             cmd = "null;"; // Valor per defecto
         }
+        /*### INIT FUNCTIONS ########################################*/
         private void CreateComboBox()
         {
-            foreach (var name in lista) { comboBox1.Items.Add(name); }
-            comboBox1.Items.Add("-None-");
+            foreach (var name in lista) { FilterCombBox.Items.Add(name); }
+            FilterCombBox.Items.Add("-None-");
         }
+        /*### COMMAND FUNCTIONS #####################################*/
         private void FilterCmd() { CmdGen(); }
         private void CmdGen()
         {
             try
             {
-                if (comboBox1.SelectedIndex == 92) { cmd = "0;"; }
-                else if (comboBox1.SelectedIndex == -1) { MessageBox.Show("Select a field"); }
+                if (FilterCombBox.SelectedIndex == 92) { cmd = "0;"; }
+                else if (FilterCombBox.SelectedIndex == -1) { MessageBox.Show("Select a field"); }
                 else
                 {
                     if (txtBox_Start.Text == "" && txtBox_End.Text == "") { MessageBox.Show("Fill at least one field"); }
-                    else if (txtBox_Start.Text != "" && txtBox_End.Text == "") { cmd = "1;" + comboBox1.SelectedIndex.ToString() + ";" + txtBox_Start.Text + ";"; }
-                    else if (txtBox_Start.Text == "" && txtBox_End.Text != "") { cmd = "2;" + comboBox1.SelectedIndex.ToString() + ";" + txtBox_End.Text + ";"; }
-                    else if (txtBox_Start.Text != "" && txtBox_End.Text != "") { cmd = "3;" + comboBox1.SelectedIndex.ToString() + ";" + OrderTwoString(txtBox_Start.Text, txtBox_End.Text); }
+                    else if (txtBox_Start.Text != "" && txtBox_End.Text == "") { cmd = "1;" + FilterCombBox.SelectedIndex.ToString() + ";" + txtBox_Start.Text + ";"; }
+                    else if (txtBox_Start.Text == "" && txtBox_End.Text != "") { cmd = "2;" + FilterCombBox.SelectedIndex.ToString() + ";" + txtBox_End.Text + ";"; }
+                    else if (txtBox_Start.Text != "" && txtBox_End.Text != "") { cmd = "3;" + FilterCombBox.SelectedIndex.ToString() + ";" + OrderTwoString(txtBox_Start.Text, txtBox_End.Text); }
                     else { cmd = "null;"; }
                 }
             }

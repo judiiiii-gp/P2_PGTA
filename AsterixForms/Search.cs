@@ -26,6 +26,7 @@ namespace AsterixForms
             InitializeComponent();
             cmd = "null;";
         }
+        /*### INIT FUNCTIONS ######################################*/
         private void CreateCombBox()
         {
             foreach (var name in lista) { SearchCombBox.Items.Add(name); }
@@ -47,7 +48,6 @@ namespace AsterixForms
         {
             CreateCombBox();
         }
-
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchCmd();

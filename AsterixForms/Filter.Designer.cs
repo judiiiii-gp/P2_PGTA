@@ -28,53 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BtnFilter = new Button();
-            comboBox1 = new ComboBox();
+            FilterCombBox = new ComboBox();
             txtBox_Start = new TextBox();
             txtBox_End = new TextBox();
+            BtnFilter = new Button();
             SuspendLayout();
             // 
-            // BtnFilter
+            // FilterCombBox
             // 
-            BtnFilter.Location = new Point(395, 143);
-            BtnFilter.Name = "BtnFilter";
-            BtnFilter.Size = new Size(94, 29);
-            BtnFilter.TabIndex = 0;
-            BtnFilter.Text = "Filter";
-            BtnFilter.UseVisualStyleBackColor = true;
-            BtnFilter.Click += BtnFilter_Click;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 12);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 1;
+            FilterCombBox.FormattingEnabled = true;
+            FilterCombBox.Location = new Point(12, 12);
+            FilterCombBox.Name = "FilterCombBox";
+            FilterCombBox.Size = new Size(151, 28);
+            FilterCombBox.TabIndex = 0;
             // 
             // txtBox_Start
             // 
-            txtBox_Start.Location = new Point(364, 13);
+            txtBox_Start.Location = new Point(357, 11);
             txtBox_Start.Name = "txtBox_Start";
             txtBox_Start.Size = new Size(125, 27);
-            txtBox_Start.TabIndex = 2;
+            txtBox_Start.TabIndex = 1;
             // 
             // txtBox_End
             // 
-            txtBox_End.Location = new Point(364, 79);
+            txtBox_End.Location = new Point(357, 82);
             txtBox_End.Name = "txtBox_End";
             txtBox_End.Size = new Size(125, 27);
-            txtBox_End.TabIndex = 3;
+            txtBox_End.TabIndex = 2;
+            // 
+            // BtnFilter
+            // 
+            BtnFilter.Location = new Point(388, 154);
+            BtnFilter.Name = "BtnFilter";
+            BtnFilter.Size = new Size(94, 29);
+            BtnFilter.TabIndex = 3;
+            BtnFilter.Text = "Filter";
+            BtnFilter.UseVisualStyleBackColor = true;
+            BtnFilter.Click += BtnFilter_Click;
             // 
             // Filter
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(503, 185);
+            ClientSize = new Size(497, 193);
+            Controls.Add(BtnFilter);
             Controls.Add(txtBox_End);
             Controls.Add(txtBox_Start);
-            Controls.Add(comboBox1);
-            Controls.Add(BtnFilter);
+            Controls.Add(FilterCombBox);
             Name = "Filter";
             Text = "Filter";
             Load += Filter_Load;
@@ -84,9 +84,9 @@
 
         #endregion
 
-        private Button BtnFilter;
-        private ComboBox comboBox1;
+        private ComboBox FilterCombBox;
         private TextBox txtBox_Start;
         private TextBox txtBox_End;
+        private Button BtnFilter;
     }
 }

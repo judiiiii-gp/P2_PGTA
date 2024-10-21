@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AsterixForms
 {
@@ -145,6 +146,7 @@ namespace AsterixForms
             PerformLayout();
         }
 
+
         /*### FUNCIONES DATAGRIDVIEW ##############################*/
         private void CrearDataGridView()
         {
@@ -163,7 +165,7 @@ namespace AsterixForms
             if (index % 2 != 0) { dataGridView2.Rows[index].DefaultCellStyle.BackColor = Color.LightCyan; }
             else { dataGridView2.Rows[index].DefaultCellStyle.BackColor = Color.LightBlue; }
         }
-        private void EscribirEnDataGridView(string[] datos)
+        private void EscribirEnDataGridView(string [] datos)
         {
             dataGridView2.Rows.Add();
 
@@ -306,7 +308,15 @@ namespace AsterixForms
             CrearDataGridView();
             if (dgv_index == 0) { CargarMain(); }
         }
-        private void BtnFilter_Click(object sender, EventArgs e) { OpenFilter(); }
-        private void BtnSearch_Click(object sender, EventArgs e) { OpenSearch(); }
+
+        private void BtnFilter_Click(object sender, EventArgs e)
+        {
+            OpenFilter();
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            OpenSearch();
+        }
     }
 }
