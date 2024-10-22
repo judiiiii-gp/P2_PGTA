@@ -29,7 +29,7 @@ namespace AsterixLib
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(groundspeed) + ";" + Convert.ToString(heading) + ";");
+            EscribirEnFichero(Convert.ToString(groundspeed) + ";" + Convert.ToString(heading) + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }

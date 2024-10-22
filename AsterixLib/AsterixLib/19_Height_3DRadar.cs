@@ -42,7 +42,7 @@ namespace AsterixLib
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(height) + ";");
+            EscribirEnFichero(Convert.ToString(height) + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
 

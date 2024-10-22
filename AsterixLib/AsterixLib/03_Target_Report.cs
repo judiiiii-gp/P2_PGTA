@@ -88,7 +88,7 @@ namespace AsterixLib
                 RAB = "Report from field monitor (fixed transponder)";
             }
             FX = base.info.Substring(7, 1);
-            EscribirEnFichero(TYP + ";" + SIM + ";" + RDP + ";" + SPI + ";" + RAB + ";");
+            EscribirEnFichero(TYP + ";" + SIM + ";" + RDP + ";" + SPI + ";" + RAB + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
             if (FX == "1")
             {
@@ -155,7 +155,7 @@ namespace AsterixLib
                 }
 
                 FX = base.info.Substring(15, 1);
-                EscribirEnFichero(TST + ";" + ERR + ";" + XPP + ";" + ME + ";" + MI + ";" + FOE + ";");
+                EscribirEnFichero(TST + ";" + ERR + ";" + XPP + ";" + ME + ";" + MI + ";" + FOE + ";", false);
                 //Debug.WriteLine("Hem escrit al fitxer");
 
 
@@ -217,7 +217,7 @@ namespace AsterixLib
                     }
                     string SPARE = base.info.Substring(22, 1); //Siempre será 0
                     string FX = base.info.Substring(23, 1);
-                    EscribirEnFichero(ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";");
+                    EscribirEnFichero(ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";", false);
                     //Debug.WriteLine("Hem escrit al fitxer");
                 }
             }

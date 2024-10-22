@@ -53,6 +53,7 @@ namespace AsterixLib
             {
                 BARtxt = "N/A";
             }
+            EscribirEnFichero(MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";", false);
         }
     }
 }

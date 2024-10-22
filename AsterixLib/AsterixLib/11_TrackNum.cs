@@ -23,7 +23,7 @@ namespace AsterixLib
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(TrackNumDecimal) + ";");
+            EscribirEnFichero(Convert.ToString(TrackNumDecimal) + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }

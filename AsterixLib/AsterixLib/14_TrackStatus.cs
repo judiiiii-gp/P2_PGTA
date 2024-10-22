@@ -88,7 +88,7 @@ namespace AsterixLib
             }
 
             string FX = base.info.Substring(7, 1);
-            EscribirEnFichero(CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";");
+            EscribirEnFichero(CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
             if (FX == "1")
             {
@@ -129,7 +129,7 @@ namespace AsterixLib
                     TCC = "Slant range correction and a suitable projection technique are used to track in a 2D";
                 }
                 string Spare = base.info.Substring(12, 4);
-                EscribirEnFichero(TRE + ";" + GHO + ";" + SUP + ";" + TCC);
+                EscribirEnFichero(TRE + ";" + GHO + ";" + SUP + ";" + TCC+";", false);
                 //Debug.WriteLine("Hem escrit al fitxer");
             }
         }

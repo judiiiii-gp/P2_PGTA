@@ -43,7 +43,7 @@ namespace AsterixLib
                 aircraftId += ConvertirBitsAChar(block);
             }
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(aircraftId + ";");
+            EscribirEnFichero(aircraftId + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
 

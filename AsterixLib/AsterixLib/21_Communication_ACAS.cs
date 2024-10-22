@@ -117,7 +117,7 @@ namespace AsterixLib
                 ARC = "25 ft resolution";
             }
             string AIC = base.info.Substring(10, 1);
-            Debug.WriteLine("Hem agafat el AIC");
+            //Debug.WriteLine("Hem agafat el AIC");
             if (AIC == "0")
             {
                 AIC = "No";
@@ -134,7 +134,7 @@ namespace AsterixLib
             string B1B_mess = "BDS 1,0 bits 37/40="+ Convert.ToString(B1B);
             //Debug.WriteLine("Hem agafat el B1B_mess");
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";");
+            EscribirEnFichero(communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }

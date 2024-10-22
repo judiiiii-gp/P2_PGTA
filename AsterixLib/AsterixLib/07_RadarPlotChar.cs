@@ -125,7 +125,7 @@ namespace AsterixLib
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(bits, 8), 2)*(360/Math.Pow(2, 14)));
                 bits = bits + 8;
             }
-            EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";");
+            EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
 

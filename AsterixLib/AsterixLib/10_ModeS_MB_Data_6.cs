@@ -108,6 +108,7 @@ namespace AsterixLib
             {
                 InerVerttxt = "N/A";
             }
+            EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";", false);
         }
 
         public string InvertirBits(string message)
