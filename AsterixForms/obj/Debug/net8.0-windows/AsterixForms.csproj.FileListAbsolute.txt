@@ -63,3 +63,5 @@ C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixFo
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.pdb
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.genruntimeconfig.cache
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\ref\AsterixForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Filter.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\obj\Debug\net8.0-windows\AsterixForms.Search.resources

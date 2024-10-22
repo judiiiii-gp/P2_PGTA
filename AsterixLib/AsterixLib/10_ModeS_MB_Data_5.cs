@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Diagnostics;
 
 namespace AsterixLib
@@ -20,10 +21,18 @@ namespace AsterixLib
             //Debug.WriteLine("Estem al ModeS MB-5");
             string Rolltxt;
             int Roll = Convert.ToInt32(base.info.Substring(0, 1));
-            // SIGN 1 = Left Wing Down
+            int SIGN_Roll = Convert.ToInt32(base.info.Substring(1, 1)); // SIGN 1 = Left Wing Down
             if (Roll == 1)
             {
-                Roll = Convert.ToInt32(base.info.Substring(2, 9)) * (45 / 256);
+                string msg = base.info.Substring(2, 9);
+                if (SIGN_Roll == 1)
+                {
+                    Roll = Convert.ToInt32(InvertirBits(msg)) * (45 / 256);
+                }
+                else
+                {
+                    Roll = Convert.ToInt32(msg) * (45 / 256);
+                }
                 Rolltxt = Roll.ToString();
             }
             else
@@ -33,10 +42,19 @@ namespace AsterixLib
 
             string TrueTracktxt;
             int TrueTrack = Convert.ToInt32(base.info.Substring(11, 1));
-            // SIGN 1 = West (e.g. 315 = -45°) 
+            int SIGN_TrueTrack = Convert.ToInt32(base.info.Substring(12, 1)); // SIGN 1 = West (e.g. 315 = -45°) 
             if (TrueTrack == 1)
             {
-                TrueTrack = Convert.ToInt32(base.info.Substring(13, 10)) * (90 / 512);
+                string msg = base.info.Substring(13, 10);
+                if (SIGN_TrueTrack == 1)
+                {
+                    TrueTrack = Convert.ToInt32(InvertirBits(msg)) * (90 / 512);
+                }
+                else
+                {
+                    TrueTrack = Convert.ToInt32(msg) * (90 / 512);
+                }
+
                 TrueTracktxt = TrueTrack.ToString();
             }
             else
@@ -58,10 +76,19 @@ namespace AsterixLib
 
             string TrackAngletxt;
             int TrackAngle = Convert.ToInt32(base.info.Substring(34, 1));
-            // SIGN 1 = Minus
+            int SIGN_TrackAngle = Convert.ToInt32(base.info.Substring(35, 1)); // SIGN 1 = Minus
             if (TrackAngle == 1)
             {
-                TrackAngle = Convert.ToInt32(base.info.Substring(36, 9)) * (6 / 256);
+                string msg = base.info.Substring(36, 9);
+                if (SIGN_TrackAngle == 1)
+                {
+                    TrackAngle = Convert.ToInt32(InvertirBits(msg)) * (6 / 256);
+                }
+                else
+                {
+                    TrackAngle = Convert.ToInt32(msg) * (6 / 256);
+                }
+
                 TrackAngletxt = TrackAngle.ToString();
             }
             else
@@ -80,8 +107,16 @@ namespace AsterixLib
             {
                 TrueAirspeedtxt = "N/A";
             }
-
-
+        }
+        //Funció on invertim els bits per a fer el complement A2    
+        public string InvertirBits(string message)
+        {
+            char[] bitsinvertidos = new char[message.Length];
+            for (int i = 0; i < message.Length; i++)
+            {
+                bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
+            }
+            return new string(bitsinvertidos);
         }
     }
 }

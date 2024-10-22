@@ -142,5 +142,9 @@ namespace AsterixForms
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private ToolStrip toolStrip1;
+        private ToolStripButton BtnFilter;
+        private ToolStripButton BtnSearch;
+        private ToolStripButton BtnGoogleEarth;
     }
 }

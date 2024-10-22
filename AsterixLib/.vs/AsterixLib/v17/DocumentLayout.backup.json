@@ -3,19 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\11_tracknum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\11_tracknum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixforms\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixforms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\10_modes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\10_modes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\09_aircraftid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\09_aircraftid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\10_modes_mb_data_6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\10_modes_mb_data_6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\10_modes_mb_data_5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -24,10 +19,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\10_modes_mb_data_4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\10_modes_mb_data_4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\10_modes_mb_data_6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\10_modes_mb_data_6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,27 +33,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "11_TrackNum.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\11_TrackNum.cs",
-              "RelativeDocumentMoniker": "AsterixLib\\11_TrackNum.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\11_TrackNum.cs",
-              "RelativeToolTip": "AsterixLib\\11_TrackNum.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA1AAAAAAAAAA==",
+              "Title": "DataGridView.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\DataGridView.cs",
+              "RelativeDocumentMoniker": "..\\AsterixForms\\DataGridView.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\DataGridView.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\AsterixForms\\DataGridView.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T14:27:07.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "09_AircraftID.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\09_AircraftID.cs",
-              "RelativeDocumentMoniker": "AsterixLib\\09_AircraftID.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\09_AircraftID.cs",
-              "RelativeToolTip": "AsterixLib\\09_AircraftID.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T13:48:02.622Z"
+              "WhenOpened": "2024-10-22T12:39:30.677Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
@@ -72,7 +50,7 @@
               "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\Form1.cs",
               "RelativeToolTip": "..\\AsterixForms\\Form1.cs",
-              "ViewState": "AgIAADgBAAAAAAAAAAAmwE8BAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAACMBAAAAAAAAAAAmwC4BAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T13:15:30.084Z",
               "EditorCaption": ""
@@ -80,49 +58,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "10_ModeS_MB_Data_4.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_4.cs",
+              "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_4.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_4.cs",
+              "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_4.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwDYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T13:14:48.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "10_ModeS_MB_Data_5.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_5.cs",
               "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_5.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_5.cs",
               "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_5.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAYwF0AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T13:06:21.347Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "10_ModeS.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS.cs",
-              "RelativeDocumentMoniker": "AsterixLib\\10_ModeS.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS.cs",
-              "RelativeToolTip": "AsterixLib\\10_ModeS.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwB8AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T12:00:48.181Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "10_ModeS_MB_Data_4.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_4.cs",
-              "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_4.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_4.cs",
-              "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_4.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T13:14:48.956Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "10_ModeS_MB_Data_6.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_6.cs",
               "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_6.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_6.cs",
               "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_6.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAYwFMAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAA1wGgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T12:16:00.584Z"
             }
