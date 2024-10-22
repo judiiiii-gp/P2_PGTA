@@ -56,7 +56,7 @@ namespace AsterixLib
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(X) + ";" + Convert.ToString(Y) + ";");
+            EscribirEnFichero(Convert.ToString(X) + ";" + Convert.ToString(Y) + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
         public string InvertirBits(string message)

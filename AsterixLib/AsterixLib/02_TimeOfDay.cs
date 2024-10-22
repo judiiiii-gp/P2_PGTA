@@ -28,7 +28,7 @@ namespace AsterixLib
                             time.Milliseconds);
             //Debug.WriteLine("Info del time: " + totalString);
             // string str = time .ToString(@"hh\:mm\:ss\:fff"); --> per si peta el string de sobre
-            EscribirEnFichero(totalString + ";");
+            EscribirEnFichero(totalString + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }

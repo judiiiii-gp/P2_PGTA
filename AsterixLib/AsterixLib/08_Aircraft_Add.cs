@@ -31,7 +31,7 @@ namespace AsterixLib
             }
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(address + ";");
+            EscribirEnFichero(address + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
         }
     }

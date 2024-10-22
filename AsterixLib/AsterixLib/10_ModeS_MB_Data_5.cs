@@ -107,6 +107,7 @@ namespace AsterixLib
             {
                 TrueAirspeedtxt = "N/A";
             }
+            EscribirEnFichero(Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";", false);
         }
         //Funció on invertim els bits per a fer el complement A2    
         public string InvertirBits(string message)

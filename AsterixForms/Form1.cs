@@ -21,6 +21,7 @@ namespace AsterixForms
             InitializeComponent();
         }
         string CarpetaBusqueda;
+        int NumLinea=1;
         Computer usr = new Computer();
      
 
@@ -308,7 +309,7 @@ namespace AsterixForms
                                 bitsleidos = bitsleidos + 8 * octet;
                                 int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4));
                                 int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4));
-                                Debug.WriteLine("BDS1 i BDS2: " + Convert.ToString(BDS1) + Convert.ToString(BDS2));
+                                //Debug.WriteLine("BDS1 i BDS2: " + Convert.ToString(BDS1) + Convert.ToString(BDS2));
                                 if (BDS1==4 & BDS2 == 0)
                                 {
                                     di.Add(new AsterixLib.ModeS4(mensaje));
@@ -509,21 +510,31 @@ namespace AsterixForms
                 }
             }
             //Debug.WriteLine("Hem llegit tot el bloc");
-            Descodificar(di); //Cridem a la funció descodificar
+            Descodificar(di, ref NumLinea); //Cridem a la funció descodificar
             //MessageBox.Show("Hem descodificat correctament el missatge");
         }
 
-        private void Descodificar(List<DataItem> data)
+        private void Descodificar(List<DataItem> data, ref int NumLinea)
         {
             
             //AQUESTA LINEA NO VA AQUI
-            DataItem.SetNombreFichero("C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\prueba.txt"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\fitxer.csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            if (data.Count > 0)
+            {
+                data[0].EscribirEnFichero($"{NumLinea}" + ";", false);
+                
+                NumLinea++;
+            }
             for(int i=0; i<data.Count; i++)
             {
                 //MessageBox.Show("Estem dins el for de descodificar");
                 data[i].Descodificar();
             }
-            //DataItem.EscribirEnFichero("\n"); QUAN S'HAGI ESCRIT TOT AL FITXER FEM UN SALT DE LÍNEA
+            if (data.Count > 0)
+            {
+                data[0].EscribirEnFichero("\n", true);
+            }
+         
         }
         //### EVENTS ####################################################################################################################
         private void Buscar_Click(object sender, EventArgs e)

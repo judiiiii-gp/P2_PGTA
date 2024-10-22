@@ -35,7 +35,7 @@ namespace AsterixLib
         public abstract void Descodificar();
 
         // Método que escribe en un fichero
-        public void EscribirEnFichero(string mensaje)
+        public void EscribirEnFichero(string mensaje, bool Saltolinea=false)
         {
             if (string.IsNullOrEmpty(NombreFichero))
             {
@@ -44,7 +44,15 @@ namespace AsterixLib
          
             using (StreamWriter escritor = new StreamWriter(NombreFichero, true))
             {
-                escritor.Write(mensaje);
+                if (Saltolinea)
+                {
+                    escritor.WriteLine(mensaje);
+                }
+                else
+                {
+                    escritor.Write(mensaje);
+                }
+               
             }
             
 

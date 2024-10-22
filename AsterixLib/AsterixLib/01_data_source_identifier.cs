@@ -38,7 +38,7 @@ namespace AsterixLib
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(SAC_hex + ";"+ SIC_hex + ";");
+            EscribirEnFichero(SAC_hex + ";"+ SIC_hex + ";", false);
 
         }
     }
