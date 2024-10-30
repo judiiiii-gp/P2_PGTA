@@ -8,7 +8,7 @@ namespace AsterixLib
     {
 
 
-
+        public string add {  get; private set; }
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public AircraftAdd(string info)
@@ -27,12 +27,15 @@ namespace AsterixLib
                 string bits = base.info.Substring(i, 4); //Agafem grups de 4 per a passar-ho a hexadecimal
                 int decval = Convert.ToInt32(bits, 2); //Ho passem a decimal
                 string address_char = decval.ToString("X");
-                address += address_char;
+                add += address_char;
             }
 
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(address + ";", false);
-            //Debug.WriteLine("Hem escrit al fitxer");
+
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = add + ";";
+            return mensaje;
         }
     }
 }

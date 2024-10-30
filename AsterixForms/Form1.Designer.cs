@@ -36,6 +36,10 @@
             SeleccionarLabel = new Label();
             BuscarLabel = new Label();
             listBox1 = new ListBox();
+            Fichero = new Button();
+            NombreFichero = new TextBox();
+            label1 = new Label();
+            Aceptar = new Button();
             SuspendLayout();
             // 
             // Buscar
@@ -99,11 +103,53 @@
             listBox1.TabIndex = 6;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
+            // Fichero
+            // 
+            Fichero.Location = new Point(644, 290);
+            Fichero.Name = "Fichero";
+            Fichero.Size = new Size(144, 29);
+            Fichero.TabIndex = 7;
+            Fichero.Text = "Escribir un fichero";
+            Fichero.UseVisualStyleBackColor = true;
+            Fichero.Click += Fichero_Click;
+            // 
+            // NombreFichero
+            // 
+            NombreFichero.Location = new Point(644, 257);
+            NombreFichero.Name = "NombreFichero";
+            NombreFichero.Size = new Size(163, 27);
+            NombreFichero.TabIndex = 8;
+            NombreFichero.Visible = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(517, 224);
+            label1.Name = "label1";
+            label1.Size = new Size(271, 20);
+            label1.TabIndex = 9;
+            label1.Text = "Escribe el nombre del fichero a guardar";
+            label1.Visible = false;
+            // 
+            // Aceptar
+            // 
+            Aceptar.Location = new Point(672, 346);
+            Aceptar.Name = "Aceptar";
+            Aceptar.Size = new Size(94, 29);
+            Aceptar.TabIndex = 10;
+            Aceptar.Text = "Aceptar";
+            Aceptar.UseVisualStyleBackColor = true;
+            Aceptar.Click += Aceptar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Aceptar);
+            Controls.Add(label1);
+            Controls.Add(NombreFichero);
+            Controls.Add(Fichero);
             Controls.Add(listBox1);
             Controls.Add(BuscarLabel);
             Controls.Add(SeleccionarLabel);
@@ -126,5 +172,9 @@
         private Label SeleccionarLabel;
         private Label BuscarLabel;
         private ListBox listBox1;
+        private Button Fichero;
+        private TextBox NombreFichero;
+        private Label label1;
+        private Button Aceptar;
     }
 }

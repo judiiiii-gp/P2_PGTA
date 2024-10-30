@@ -6,7 +6,9 @@ namespace AsterixLib
     // Clase hija que hereda de DataItem
     public class ModeS4 : DataItem
     {
-        
+        public string MCP_FCUtxt {  get; private set; }
+        public string FMStxt { get; private set; }
+        public string BARtxt { get; private set; }
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public ModeS4(string info)
             : base(info)
@@ -18,7 +20,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al ModeS MB-4");
-            string MCP_FCUtxt;
+
             int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
             if (MCP_FCU == 1)
             {
@@ -30,7 +32,7 @@ namespace AsterixLib
                 MCP_FCUtxt = "N/A";
             }
 
-            string FMStxt;
+  
             int FMS = Convert.ToInt32(base.info.Substring(13, 1));
             if (FMS == 1)
             {
@@ -42,7 +44,7 @@ namespace AsterixLib
                 FMStxt = "N/A";
             }
 
-            string BARtxt;
+
             int BAR = Convert.ToInt32(base.info.Substring(26, 1));
             if (BAR == 1)
             {
@@ -53,7 +55,12 @@ namespace AsterixLib
             {
                 BARtxt = "N/A";
             }
-            EscribirEnFichero(MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";", false);
+            
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";";
+            return mensaje;
         }
     }
 }

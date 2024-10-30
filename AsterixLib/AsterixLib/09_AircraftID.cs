@@ -7,7 +7,7 @@ namespace AsterixLib
     public class AircraftID : DataItem
     {
 
-
+        public string ID {  get; private set; }
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -32,7 +32,7 @@ namespace AsterixLib
 
         public override void Descodificar()
         {
-            string aircraftId = "";
+            ID = "";
             if (base.info.Length %6 != 0)
             {
                 throw new ArgumentException("La cadena no és múltiple de 6");
@@ -40,11 +40,9 @@ namespace AsterixLib
             for (int i=0; i<base.info.Length; i += 6)
             {
                 string block = base.info.Substring(i, 6);
-                aircraftId += ConvertirBitsAChar(block);
+                ID += ConvertirBitsAChar(block);
             }
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(aircraftId + ";", false);
-            //Debug.WriteLine("Hem escrit al fitxer");
+
         }
 
         static char ConvertirBitsAChar(string cadena)
@@ -59,6 +57,11 @@ namespace AsterixLib
             return '?';
 
             
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = ID + ";";
+            return mensaje;
         }
     }
 }

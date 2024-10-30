@@ -7,7 +7,8 @@ namespace AsterixLib
     public class Position_Cartesian : DataItem
     {
 
-        
+        public string X { get; private set; }
+        public string Y { get; private set; }
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -28,17 +29,17 @@ namespace AsterixLib
            
              //Estan expressats amb el complement A2
             bool isNegative = x_coordinate[0] == '1';
-            int X;
-            int Y;
+            int X_num;
+            int Y_num;
             if (isNegative)
             {
 
-                X = Convert.ToInt32(InvertirBits(x_coordinate), 2) + 1;
-                X = -X; //Passem el valor a negatiu
+                X_num = Convert.ToInt32(InvertirBits(x_coordinate), 2) + 1;
+                X_num = -X_num; //Passem el valor a negatiu
             }
             else
             {
-                X = Convert.ToInt32(x_coordinate, 2); //El número està en positiu
+                X_num = Convert.ToInt32(x_coordinate, 2); //El número està en positiu
             }
             
             string y_coordinate = base.info.Substring(length);
@@ -46,18 +47,16 @@ namespace AsterixLib
             if (isNegative)
             {
 
-                Y = Convert.ToInt32(InvertirBits(y_coordinate), 2) + 1;
-                Y = -Y; //Passem el valor a negatiu
+                Y_num = Convert.ToInt32(InvertirBits(y_coordinate), 2) + 1;
+                Y_num = -Y_num; //Passem el valor a negatiu
             }
             else
             {
-                Y = Convert.ToInt32(y_coordinate, 2); //El número està en positiu
+                Y_num = Convert.ToInt32(y_coordinate, 2); //El número està en positiu
             }
+            X = Convert.ToString(X_num);
+            Y = Convert.ToString(Y_num);
 
-
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(X) + ";" + Convert.ToString(Y) + ";", false);
-            //Debug.WriteLine("Hem escrit al fitxer");
         }
         public string InvertirBits(string message)
         {
@@ -67,6 +66,11 @@ namespace AsterixLib
                 bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
             }
             return new string(bitsinvertidos);
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = X + ";" + Y + ";";
+            return mensaje;
         }
     }
 }

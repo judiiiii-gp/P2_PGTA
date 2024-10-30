@@ -8,6 +8,11 @@ namespace AsterixLib
     public class ModeS5 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
+        public string Rolltxt {  get; private set; }
+        public string TrueTracktxt { get; private set; }
+        public string TrackAngletxt { get; private set; }
+        public string GroundSpeedtxt { get; private set; }
+        public string TrueAirspeedtxt {  get; private set; }
         public ModeS5(string info)
             : base(info)
         {
@@ -19,7 +24,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al ModeS MB-5");
-            string Rolltxt;
+
             int Roll = Convert.ToInt32(base.info.Substring(0, 1));
             int SIGN_Roll = Convert.ToInt32(base.info.Substring(1, 1)); // SIGN 1 = Left Wing Down
             if (Roll == 1)
@@ -40,7 +45,7 @@ namespace AsterixLib
                 Rolltxt = "N/A";
             }
 
-            string TrueTracktxt;
+ 
             int TrueTrack = Convert.ToInt32(base.info.Substring(11, 1));
             int SIGN_TrueTrack = Convert.ToInt32(base.info.Substring(12, 1)); // SIGN 1 = West (e.g. 315 = -45°) 
             if (TrueTrack == 1)
@@ -62,7 +67,7 @@ namespace AsterixLib
                 TrueTracktxt = "N/A";
             }
 
-            string GroundSpeedtxt;
+       
             int GroundSpeed = Convert.ToInt32(base.info.Substring(23, 1));
             if (GroundSpeed == 1)
             {
@@ -74,7 +79,7 @@ namespace AsterixLib
                 GroundSpeedtxt = "N/A";
             }
 
-            string TrackAngletxt;
+            
             int TrackAngle = Convert.ToInt32(base.info.Substring(34, 1));
             int SIGN_TrackAngle = Convert.ToInt32(base.info.Substring(35, 1)); // SIGN 1 = Minus
             if (TrackAngle == 1)
@@ -96,7 +101,7 @@ namespace AsterixLib
                 TrackAngletxt = "N/A";
             }
 
-            string TrueAirspeedtxt;
+         
             int TrueAirspeed = Convert.ToInt32(base.info.Substring(45, 1));
             if (TrueAirspeed == 1)
             {
@@ -107,7 +112,7 @@ namespace AsterixLib
             {
                 TrueAirspeedtxt = "N/A";
             }
-            EscribirEnFichero(Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";", false);
+            
         }
         //Funció on invertim els bits per a fer el complement A2    
         public string InvertirBits(string message)
@@ -118,6 +123,11 @@ namespace AsterixLib
                 bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
             }
             return new string(bitsinvertidos);
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = Rolltxt + ";" + TrueTracktxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";";
+            return mensaje;
         }
     }
 }

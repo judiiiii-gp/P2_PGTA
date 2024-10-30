@@ -9,7 +9,15 @@ namespace AsterixLib
     {
 
 
-
+        public string TRE {  get; private set; }
+        public string GHO { get; private set; }
+        public string SUP {  get; private set; }
+        public string TCC { get; private set; }
+        public string CNF { get; private set; }
+        public string RAD { get; private set; }
+        public string DOU { get; private set; }
+        public string MAH { get; private set; }
+        public string CDM { get; private set; }
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public TrackStatus(string info)
@@ -23,7 +31,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al track status");
-            string CNF = base.info.Substring(0, 1);
+            CNF = base.info.Substring(0, 1);
             if (CNF == "0")
             {
                 CNF = "Confirmed Track";
@@ -33,7 +41,7 @@ namespace AsterixLib
                 CNF = "Tentative Track";
             }
 
-            string RAD = base.info.Substring(1, 2);
+            RAD = base.info.Substring(1, 2);
             switch (RAD)
             {
                 case "00":
@@ -50,7 +58,7 @@ namespace AsterixLib
                     break;
             }
 
-            string DOU = base.info.Substring(3, 1);
+            DOU = base.info.Substring(3, 1);
             if (DOU == "0")
             {
                 DOU = "Normal confidence";
@@ -60,7 +68,7 @@ namespace AsterixLib
                 DOU = "Low confidence in plot to track association.";
             }
 
-            string MAH = base.info.Substring(4, 1);
+            MAH = base.info.Substring(4, 1);
             if (MAH == "0")
             {
                 MAH = "No horizontal man.sensed";
@@ -70,7 +78,7 @@ namespace AsterixLib
                 MAH = "Horizontal man.sensed";
             }
 
-            string CDM = base.info.Substring(5, 2);
+            CDM = base.info.Substring(5, 2);
             switch (CDM)
             {
                 case "00":
@@ -88,11 +96,10 @@ namespace AsterixLib
             }
 
             string FX = base.info.Substring(7, 1);
-            EscribirEnFichero(CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";", false);
-            //Debug.WriteLine("Hem escrit al fitxer");
+               
             if (FX == "1")
             {
-                string TRE = base.info.Substring(8, 1);
+                TRE = base.info.Substring(8, 1);
                 if (TRE == "0")
                 {
                     TRE = "Track still alive";
@@ -101,7 +108,7 @@ namespace AsterixLib
                 {
                     TRE = "End of track lifetime";
                 }
-                string GHO = base.info.Substring(9, 1);
+                GHO = base.info.Substring(9, 1);
                 if (GHO == "0")
                 {
                     GHO = "True target track";
@@ -110,7 +117,7 @@ namespace AsterixLib
                 {
                     GHO = "Ghost target track";
                 }
-                string SUP = base.info.Substring(10, 1);
+                SUP = base.info.Substring(10, 1);
                 if (SUP == "0")
                 {
                     SUP = "NO";
@@ -119,7 +126,7 @@ namespace AsterixLib
                 {
                     SUP = "YES";
                 }
-                string TCC = base.info.Substring(11, 1);
+                TCC = base.info.Substring(11, 1);
                 if (TCC == "0")
                 {
                     TCC = "Tracking performed in so-called Radar Plane";
@@ -129,9 +136,19 @@ namespace AsterixLib
                     TCC = "Slant range correction and a suitable projection technique are used to track in a 2D";
                 }
                 string Spare = base.info.Substring(12, 4);
-                EscribirEnFichero(TRE + ";" + GHO + ";" + SUP + ";" + TCC+";", false);
-                //Debug.WriteLine("Hem escrit al fitxer");
+
             }
+            else{
+                TRE = "N/A";
+                GHO = "N/A";
+                SUP = "N/A";
+                TCC = "N/A";
+            }
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";" + TRE + ";" + GHO + ";" + SUP + ";" + TCC + ";" ;
+            return mensaje;
         }
     }
 }

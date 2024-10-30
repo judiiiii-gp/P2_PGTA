@@ -8,7 +8,14 @@ namespace AsterixLib
     {
 
 
-
+        public string communication {  get; private set; }
+        public string status { get; private set; }
+        public string SI {  get; private set; }
+        public string MSSC { get; private set; }
+        public string ARC { get; private set; }
+        public string AIC { get; private set; }
+        public string B1A_mess { get; private set; }
+        public string B1B_mess { get; private set; }
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public CommACAS(string info)
@@ -18,9 +25,7 @@ namespace AsterixLib
         }
 
 
-        // Implementación del método abstracto Descodificar
-        string communication;
-        string status;
+
         public override void Descodificar()
         {
 
@@ -85,7 +90,7 @@ namespace AsterixLib
                     status = "Unknown";
                     break;
             }
-            string SI =base.info.Substring(6, 1);
+           SI =base.info.Substring(6, 1);
             //Debug.WriteLine("Hem agafat el SI");
             if (SI == "0")
             {
@@ -96,7 +101,7 @@ namespace AsterixLib
                 SI = "II-Code Capable";
             }
 
-            string MSSC = base.info.Substring(8, 1); // El bit anterior es un spare bit
+            MSSC = base.info.Substring(8, 1); // El bit anterior es un spare bit
             //Debug.WriteLine("Hem agafat el MSSC");
             if (MSSC == "0")
             {
@@ -106,7 +111,7 @@ namespace AsterixLib
             {
                 MSSC = "Yes";
             }
-            string ARC =base.info.Substring(9, 1);
+            ARC =base.info.Substring(9, 1);
             //Debug.WriteLine("Hem agafat el ARC");
             if (ARC == "0")
             {
@@ -116,7 +121,7 @@ namespace AsterixLib
             {
                 ARC = "25 ft resolution";
             }
-            string AIC = base.info.Substring(10, 1);
+            AIC = base.info.Substring(10, 1);
             //Debug.WriteLine("Hem agafat el AIC");
             if (AIC == "0")
             {
@@ -127,15 +132,20 @@ namespace AsterixLib
                 AIC = "Yes";
             }
             int B1A = Convert.ToInt32(base.info.Substring(11, 1), 2);
-            string B1A_mess = "BDS 1,0 bit 16=" + Convert.ToString(B1A);
+            B1A_mess = "BDS 1,0 bit 16=" + Convert.ToString(B1A);
             //Debug.WriteLine("Hem agafat el B1A_mess");
             int B1B = Convert.ToInt32(base.info.Substring(12, 4), 2);
             //Debug.WriteLine("Tenim el int");
-            string B1B_mess = "BDS 1,0 bits 37/40="+ Convert.ToString(B1B);
+            B1B_mess = "BDS 1,0 bits 37/40="+ Convert.ToString(B1B);
             //Debug.WriteLine("Hem agafat el B1B_mess");
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";", false);
+      
             //Debug.WriteLine("Hem escrit al fitxer");
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";";
+            return mensaje;
         }
     }
 }

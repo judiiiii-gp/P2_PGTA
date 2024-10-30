@@ -8,7 +8,8 @@ namespace AsterixLib
     {
 
        
-
+        public string theta {get;private set;}
+        public string rho { get;private set;}
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public Position_Polar(string info)
@@ -25,16 +26,24 @@ namespace AsterixLib
             //Debug.WriteLine("Estem al Position Polar");
             int length = 16; //Cada octeto tiene 8 bits
 
-            string rho = base.info.Substring(0, length);
-            string theta = base.info.Substring(length);
+            string rho_bin = base.info.Substring(0, length);
+            string theta_bin = base.info.Substring(length);
             // Convertir rho y theta de binario a decimal
-            int Rho = Convert.ToInt32(rho, 2);
-            int Theta = Convert.ToInt32(theta, 2);
+            double Rho =(Convert.ToInt32(rho_bin, 2))*((double)1/256);
+            double Theta = Convert.ToInt32(theta_bin, 2)*(360/Math.Pow(2, 16));
+
+            rho = Convert.ToString(Rho);
+            theta = Convert.ToString(Theta);
 
 
             // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(Rho) + ";" + Convert.ToString(Theta) + ";", false);
+
             //Debug.WriteLine("Hem escrit al fitxer");
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = rho + ";" + theta +";";
+            return mensaje;
         }
     }
 }

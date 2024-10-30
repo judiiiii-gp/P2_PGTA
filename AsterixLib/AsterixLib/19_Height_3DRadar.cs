@@ -9,7 +9,7 @@ namespace AsterixLib
 
 
 
-
+        public string height {  get; private set; }
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public H_3D_RADAR(string info)
             : base(info)
@@ -27,23 +27,20 @@ namespace AsterixLib
        
             string message = base.info.Substring(2);
             bool isNegative = message[0] == '1';
-            int height;
+            int height_rad;
             if (isNegative)
             {
-               
-                height = Convert.ToInt32(InvertirBits(message), 2) +1;
-                height = -height; //Passem el valor a negatiu
+
+                height_rad = Convert.ToInt32(InvertirBits(message), 2) +1;
+                height_rad = -height_rad; //Passem el valor a negatiu
             }
             else
             {
-                height = Convert.ToInt32(message, 2); //El número està en positiu
+                height_rad = Convert.ToInt32(message, 2); //El número està en positiu
             }
 
+            height = Convert.ToString(height_rad);
 
-
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(height) + ";", false);
-            //Debug.WriteLine("Hem escrit al fitxer");
         }
 
         //Funció on invertim els bits per a fer el complement A2    
@@ -56,6 +53,11 @@ namespace AsterixLib
                 bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
             }
             return new string (bitsinvertidos);
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = height + ";";
+            return mensaje;
         }
     }
 }
