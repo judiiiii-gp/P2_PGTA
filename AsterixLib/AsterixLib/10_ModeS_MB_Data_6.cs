@@ -7,6 +7,11 @@ namespace AsterixLib
     public class ModeS6 : DataItem
     {
         // Constructor que inicializa las variables utilizando el constructor de la clase base
+        public string MagHeadtxt { get; private set; }
+        public string IndAirtxt { get; private set; }
+        public string MACHtxt { get; private set; }
+        public string BarAlttxt { get; private set; }
+        public string InerVerttxt { get; private set; }
         public ModeS6(string info)
             : base(info)
         {
@@ -19,7 +24,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al ModeS MB-6");
-            string MagHeadtxt;
+
             int MagHead = Convert.ToInt32(base.info.Substring(0, 1));
             int SIGN_MagHead = Convert.ToInt32(base.info.Substring(1, 1)); // SIGN 1 = West (e.g. 315 = -45°) 
             if (MagHead == 1)
@@ -41,7 +46,6 @@ namespace AsterixLib
                 MagHeadtxt = "N/A";
             }
 
-            string IndAirtxt;
             int IndAir = Convert.ToInt32(base.info.Substring(12, 1));
             if (IndAir == 1)
             {
@@ -53,7 +57,7 @@ namespace AsterixLib
                 IndAirtxt = "N/A";
             }
 
-            string MACHtxt;
+            
             int MACH = Convert.ToInt32(base.info.Substring(23, 1));
             if (MACH == 1)
             {
@@ -65,7 +69,7 @@ namespace AsterixLib
                 MACHtxt = "N/A";
             }
 
-            string BarAlttxt;
+           
             int BarAlt = Convert.ToInt32(base.info.Substring(34, 1));
             int SIGN_BarAlt = Convert.ToInt32(base.info.Substring(35, 1)); // SIGN 1 = Below
             if (BarAlt == 1)
@@ -87,7 +91,7 @@ namespace AsterixLib
                 BarAlttxt = "N/A";
             }
 
-            string InerVerttxt;
+            
             int InerVert = Convert.ToInt32(base.info.Substring(45, 1));
             int SIGN_InerVert = Convert.ToInt32(base.info.Substring(46, 1)); // SIGN 1 = Below
             if (InerVert == 1)
@@ -108,7 +112,7 @@ namespace AsterixLib
             {
                 InerVerttxt = "N/A";
             }
-            EscribirEnFichero(MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";", false);
+     
         }
 
         public string InvertirBits(string message)
@@ -119,6 +123,11 @@ namespace AsterixLib
                 bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
             }
             return new string(bitsinvertidos);
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";";
+            return mensaje;
         }
     }
 }

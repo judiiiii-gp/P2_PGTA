@@ -8,7 +8,8 @@ namespace AsterixLib
     // Clase hija que hereda de DataItem
     public class DataSourceIdentifier : DataItem
     {
-
+        public string SIC {  get; private set; }
+        public string SAC { get; private set; }
        
        
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -22,24 +23,31 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            int length = 8; //Cada octeto tiene 8 bits
+            if (base.info == "N/A")
+            {
+                SIC = "N/A";
+                SAC = "N/A";
+            }
+            else
+            {
+                int length = 8; //Cada octeto tiene 8 bits
 
-            string SAC = base.info.Substring(0, length);
+                string SAC_bit = base.info.Substring(0, length);
 
-            string SIC = base.info.Substring(length);
+                string SIC_bit = base.info.Substring(length);
 
-            // Convertir SAC y SIC de binario a decimal
-            int sacDecimal = Convert.ToInt32(SAC, 2);
-            string SAC_hex = sacDecimal.ToString("X");
+                // Convertir SAC y SIC de binario a decimal
 
-            int sicDecimal = Convert.ToInt32(SIC, 2);
-            string SIC_hex = sicDecimal.ToString("X");
-
+                SAC = Convert.ToString(Convert.ToInt32(SAC_bit, 2));
+                SIC = Convert.ToString(Convert.ToInt32(SIC_bit, 2));
+            }
 
 
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(SAC_hex + ";"+ SIC_hex + ";", false);
-
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = SAC + ";" + SIC + ";";
+            return mensaje;
         }
     }
 }

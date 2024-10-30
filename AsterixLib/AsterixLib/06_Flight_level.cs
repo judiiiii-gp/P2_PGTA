@@ -7,7 +7,9 @@ namespace AsterixLib
     public class FlightLevel : DataItem
     {
 
-
+        public string V {  get; private set; }
+        public string G { get; private set; }
+        public string FL { get; private set; }
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -22,7 +24,7 @@ namespace AsterixLib
         public override void Descodificar()
         {
             //Debug.WriteLine("Estem al Flight Level");
-            string V = base.info.Substring(0, 1);
+            V = base.info.Substring(0, 1);
             if (V == "0")
             {
                 V = "Code validated";
@@ -31,7 +33,7 @@ namespace AsterixLib
             {
                 V = "Code not validated";
             }
-            string G = base.info.Substring(1, 1);
+            G = base.info.Substring(1, 1);
             if (G == "0")
             {
                 G = "Default";
@@ -42,12 +44,15 @@ namespace AsterixLib
             }
                        
             int message = (Convert.ToInt32(base.info.Substring(2), 2));
-            message = message / 4;
+            FL = Convert.ToString(message / 4);
 
 
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(V + ";" + G + ";" + Convert.ToString(message) + ";", false);
             //Debug.WriteLine("Hem escrit al fitxer");
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje =V + ";" + G + ";"+ FL + ";";
+            return mensaje;
         }
     }
 }

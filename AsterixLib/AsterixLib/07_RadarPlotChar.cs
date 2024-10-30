@@ -6,6 +6,14 @@ namespace AsterixLib
     // Clase hija que hereda de DataItem
     public class RadarPlotChar : DataItem
     {
+        public string SRL {  get; private set; }
+        public string SRR { get; private set; }
+        public string SAM { get; private set; }
+        public string PRL { get; private set; }
+        public string PAM { get; private set; }
+        public string RPD { get; private set; }
+        public string APD { get; private set; }
+
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public RadarPlotChar(string info)
             : base(info)
@@ -16,7 +24,7 @@ namespace AsterixLib
         {
             int bits = 8;
             double LSB = 360 / Math.Pow(2, 13);
-            string SRL = base.info.Substring(0, 1);
+            SRL = base.info.Substring(0, 1);
             if (SRL == "0")
             {
                 SRL = "N/A";
@@ -29,7 +37,7 @@ namespace AsterixLib
                 
             }
 
-            string SRR = base.info.Substring(1, 1);
+            SRR = base.info.Substring(1, 1);
             if (SRR == "0")
             {
                 SRR = "N/A";
@@ -41,7 +49,7 @@ namespace AsterixLib
                 
             }
 
-            string SAM = base.info.Substring(2, 1);
+            SAM = base.info.Substring(2, 1);
             if (SAM == "0")
             {
                 SAM = "N/A";
@@ -67,7 +75,7 @@ namespace AsterixLib
                 
             }
 
-            string PRL = base.info.Substring(3, 1);
+            PRL = base.info.Substring(3, 1);
             if (PRL == "0")
             {
                 PRL = "N/A";
@@ -78,7 +86,7 @@ namespace AsterixLib
                 bits = bits + 8;
             }
 
-            string PAM = base.info.Substring(4, 1);
+            PAM = base.info.Substring(4, 1);
             if (PAM == "0")
             {
                 PAM = "N/A";
@@ -103,7 +111,7 @@ namespace AsterixLib
 
             }
 
-            string RPD = base.info.Substring(5, 1);
+            RPD = base.info.Substring(5, 1);
             if (RPD == "0")
             {
                 RPD = "N/A";
@@ -115,7 +123,7 @@ namespace AsterixLib
                 bits = bits + 8;
             }
 
-            string APD = base.info.Substring(6, 1);
+            APD = base.info.Substring(6, 1);
             if (APD == "0")
             {
                 APD = "N/A";
@@ -125,7 +133,7 @@ namespace AsterixLib
                 APD = Convert.ToString(Convert.ToInt32(base.info.Substring(bits, 8), 2)*(360/Math.Pow(2, 14)));
                 bits = bits + 8;
             }
-            EscribirEnFichero(SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";", false);
+
             //Debug.WriteLine("Hem escrit al fitxer");
         }
 
@@ -139,6 +147,11 @@ namespace AsterixLib
                 bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
             }
             return new string(bitsinvertidos);
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";";
+            return mensaje;
         }
     }
 }
