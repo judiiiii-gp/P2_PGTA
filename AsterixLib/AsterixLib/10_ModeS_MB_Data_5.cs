@@ -23,6 +23,7 @@ namespace AsterixLib
 
         public override void Descodificar()
         {
+            
             if (base.info == "N/A")
             {
                 Rolltxt = "N/A";
@@ -123,10 +124,10 @@ namespace AsterixLib
                     TrueAirspeedtxt = "N/A";
                 }
             }
-
-
-   
             
+
+
+
         }
         //Funció on invertim els bits per a fer el complement A2    
         public string InvertirBits(string message)

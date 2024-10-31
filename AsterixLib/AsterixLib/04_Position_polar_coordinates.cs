@@ -41,6 +41,7 @@ namespace AsterixLib
 
                 rho = Convert.ToString(Rho);
                 theta = Convert.ToString(Theta);
+                
             }
         }
         public override string ObtenerAtributos()

@@ -20,6 +20,7 @@ namespace AsterixLib
 
         public override void Descodificar()
         {
+            
             if (base.info == "N/A")
             {
                 MCP_FCUtxt = "N/A";
@@ -30,10 +31,10 @@ namespace AsterixLib
             {
                 //Debug.WriteLine("Estem al ModeS MB-4");
 
-                int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
+                long MCP_FCU = Convert.ToInt64(base.info.Substring(0, 1));
                 if (MCP_FCU == 1)
                 {
-                    MCP_FCU = Convert.ToInt32(base.info.Substring(1, 12)) * 16;
+                    MCP_FCU = Convert.ToInt64(base.info.Substring(1, 12)) * 16;
                     MCP_FCUtxt = Convert.ToString(MCP_FCU);
                 }
                 else
@@ -42,10 +43,10 @@ namespace AsterixLib
                 }
 
 
-                int FMS = Convert.ToInt32(base.info.Substring(13, 1));
+                long FMS = Convert.ToInt64(base.info.Substring(13, 1));
                 if (FMS == 1)
                 {
-                    FMS = Convert.ToInt32(base.info.Substring(14, 12)) * 16;
+                    FMS = Convert.ToInt64(base.info.Substring(14, 12)) * 16;
                     FMStxt = Convert.ToString(FMS);
                 }
                 else
@@ -54,7 +55,7 @@ namespace AsterixLib
                 }
 
 
-                int BAR = Convert.ToInt32(base.info.Substring(26, 1));
+                long BAR = Convert.ToInt64(base.info.Substring(26, 1));
                 if (BAR == 1)
                 {
                     double BARdou = Convert.ToDouble(base.info.Substring(27, 12)) * 0.1;
@@ -65,9 +66,10 @@ namespace AsterixLib
                     BARtxt = "N/A";
                 }
             }
+            
 
-            
-            
+
+
         }
         public override string ObtenerAtributos()
         {

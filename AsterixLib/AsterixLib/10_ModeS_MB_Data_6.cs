@@ -33,7 +33,7 @@ namespace AsterixLib
             }
             else
             {
-                //Debug.WriteLine("Estem al ModeS MB-6");
+                
 
                 int MagHead = Convert.ToInt32(base.info.Substring(0, 1));
                 int SIGN_MagHead = Convert.ToInt32(base.info.Substring(1, 1)); // SIGN 1 = West (e.g. 315 = -45°) 
@@ -123,7 +123,7 @@ namespace AsterixLib
                     InerVerttxt = "N/A";
                 }
             }
-
+            
         }
 
         public string InvertirBits(string message)

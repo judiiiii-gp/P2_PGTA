@@ -66,6 +66,7 @@ namespace AsterixLib
                 message = Convert.ToString(message_bit, 8);
                 //Debug.WriteLine("Tenim el missatge");
             }
+           
 
         }
         public override string ObtenerAtributos()

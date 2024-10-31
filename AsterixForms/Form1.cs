@@ -345,9 +345,9 @@ namespace AsterixForms
                                 mensaje = DataBlock.Substring(bitsleidos, 8 * octet);
                                 //Debug.WriteLine("El missatge és: " + mensaje);
                                 
-                                int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4));
+                                int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4),2);
                                 //MessageBox.Show("BDS1:" + Convert.ToString(BDS1));
-                                int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4));
+                                int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4),2);                             
                                 //MessageBox.Show("BDS2:" + Convert.ToString(BDS2));
                                 //Debug.WriteLine("BDS1 i BDS2: " + Convert.ToString(BDS1) + Convert.ToString(BDS2));
                                 if (BDS1 == 4 & BDS2 == 0)
@@ -358,6 +358,7 @@ namespace AsterixForms
                                 }
                                 else if (BDS1 == 5 & BDS2 == 0)
                                 {
+                                    
                                     //MessageBox.Show("Dins 50");
                                     di.Add(new AsterixLib.ModeS5(mensaje));
                                     //MessageBox.Show("Fora 50");
@@ -380,9 +381,10 @@ namespace AsterixForms
                         }
                         break;
                     case 10:
+                      
                         if (read[i] == 1)
                         {
-                            //MessageBox.Show("Entra NEXT");
+
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
                             //Debug.WriteLine("Missatge TrackNum: " + mensaje);
                             di.Add(new AsterixLib.TrackNum(mensaje));
@@ -396,7 +398,7 @@ namespace AsterixForms
                     case 11:
                         if (read[i] == 1)
                         {
-                            mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
+                            mensaje = DataBlock.Substring(bitsleidos, 4 * octet);                           
                             //Debug.WriteLine("Missatge Pos_Cart: " + mensaje);
                             di.Add(new AsterixLib.Position_Cartesian(mensaje));
                             bitsleidos = bitsleidos + 4 * octet;
@@ -410,6 +412,7 @@ namespace AsterixForms
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
+                            
                             //Debug.WriteLine("Missatge Track_vel: " + mensaje);
                             di.Add(new AsterixLib.TrackVelocityPolar(mensaje));
                             bitsleidos = bitsleidos + 4 * octet;
@@ -586,6 +589,7 @@ namespace AsterixForms
                 }
                 //MessageBox.Show("Acaba SWITCH");
             }
+            
             //Debug.WriteLine("Hem llegit tot el bloc");
             Descodificar(di); //Cridem a la funció descodificar
             bloque.Add(di);
@@ -608,8 +612,8 @@ namespace AsterixForms
         private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
         {
             int NumLinea = 1;
-            DataItem.SetNombreFichero("C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";           
+            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
             if (bloque.Count > 0)
             {
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);

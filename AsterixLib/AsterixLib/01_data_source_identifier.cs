@@ -23,6 +23,7 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
+
             if (base.info == "N/A")
             {
                 SIC = "N/A";
@@ -40,6 +41,7 @@ namespace AsterixLib
 
                 SAC = Convert.ToString(Convert.ToInt32(SAC_bit, 2));
                 SIC = Convert.ToString(Convert.ToInt32(SIC_bit, 2));
+             
             }
 
 
