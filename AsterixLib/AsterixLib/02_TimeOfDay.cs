@@ -35,6 +35,7 @@ namespace AsterixLib
                                 time.Minutes,
                                 time.Seconds,
                                 time.Milliseconds);
+               
             }
         }
         public override string ObtenerAtributos()

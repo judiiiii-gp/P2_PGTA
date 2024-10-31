@@ -56,6 +56,7 @@ namespace AsterixLib
                 FL = Convert.ToString(message / 4);
             }
             //Debug.WriteLine("Hem escrit al fitxer");
+            
         }
         public override string ObtenerAtributos()
         {
