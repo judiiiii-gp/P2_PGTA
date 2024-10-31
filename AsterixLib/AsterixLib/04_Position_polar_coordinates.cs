@@ -23,22 +23,25 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al Position Polar");
-            int length = 16; //Cada octeto tiene 8 bits
+            if (base.info == "N/A")
+            {
+                rho = "N/A";
+                theta = "N/A";
+            }
+            else
+            {
+                //Debug.WriteLine("Estem al Position Polar");
+                int length = 16; //Cada octeto tiene 8 bits
 
-            string rho_bin = base.info.Substring(0, length);
-            string theta_bin = base.info.Substring(length);
-            // Convertir rho y theta de binario a decimal
-            double Rho =(Convert.ToInt32(rho_bin, 2))*((double)1/256);
-            double Theta = Convert.ToInt32(theta_bin, 2)*(360/Math.Pow(2, 16));
+                string rho_bin = base.info.Substring(0, length);
+                string theta_bin = base.info.Substring(length);
+                // Convertir rho y theta de binario a decimal
+                double Rho = (Convert.ToInt32(rho_bin, 2)) * ((double)1 / 256);
+                double Theta = Convert.ToInt32(theta_bin, 2) * (360 / Math.Pow(2, 16));
 
-            rho = Convert.ToString(Rho);
-            theta = Convert.ToString(Theta);
-
-
-            // Llamada al método EscribirEnFichero de la clase base
-
-            //Debug.WriteLine("Hem escrit al fitxer");
+                rho = Convert.ToString(Rho);
+                theta = Convert.ToString(Theta);
+            }
         }
         public override string ObtenerAtributos()
         {

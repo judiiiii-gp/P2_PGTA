@@ -597,7 +597,7 @@ namespace AsterixForms
         private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
         {
             int NumLinea = 1;
-            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            DataItem.SetNombreFichero("C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
             string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";           
             if (bloque.Count > 0)
             {

@@ -24,40 +24,49 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al Mode3A");
-            V = base.info.Substring(0, 1);
-            if (V == "0")
+            if (base.info == "N/A")
             {
-                V = "Code validated";
+                V = "N/A";
+                G = "N/A";
+                L = "N/A";
+                message = "N/A";
             }
             else
             {
-                V = "Code not validated";
+                //Debug.WriteLine("Estem al Mode3A");
+                V = base.info.Substring(0, 1);
+                if (V == "0")
+                {
+                    V = "Code validated";
+                }
+                else
+                {
+                    V = "Code not validated";
+                }
+                G = base.info.Substring(1, 1);
+                if (G == "0")
+                {
+                    G = "Default";
+                }
+                else
+                {
+                    G = "Garbled code";
+                }
+                L = base.info.Substring(2, 1);
+                if (L == "0")
+                {
+                    L = "Mode-3/A code derived from the reply of the transponder";
+                }
+                else
+                {
+                    L = "Mode-3/A code not extracted during the last scan";
+                }
+                string SPARE = base.info.Substring(3, 1); //Spare bit que siempre será 0
+                int message_bit = Convert.ToInt32(base.info.Substring(4), 2);
+                message = Convert.ToString(message_bit, 8);
+                //Debug.WriteLine("Tenim el missatge");
             }
-            G = base.info.Substring(1,1);
-            if (G == "0")
-            {
-                G = "Default";
-            }
-            else
-            {
-                G = "Garbled code";
-            }
-            L = base.info.Substring(2,1);
-            if (L == "0")
-            {
-                L = "Mode-3/A code derived from the reply of the transponder";
-            }
-            else
-            {
-                L = "Mode-3/A code not extracted during the last scan";
-            }
-            string SPARE = base.info.Substring(3,1); //Spare bit que siempre será 0
-            int message_bit = Convert.ToInt32(base.info.Substring(4), 2);
-            message = Convert.ToString(message_bit, 8);
-            //Debug.WriteLine("Tenim el missatge");
 
-            //Debug.WriteLine("Hem escrit al fitxer");
         }
         public override string ObtenerAtributos()
         {

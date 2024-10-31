@@ -32,17 +32,23 @@ namespace AsterixLib
 
         public override void Descodificar()
         {
-            ID = "";
-            if (base.info.Length %6 != 0)
+            if (base.info == "N/A")
             {
-                throw new ArgumentException("La cadena no és múltiple de 6");
+                ID = "N/A";
             }
-            for (int i=0; i<base.info.Length; i += 6)
+            else
             {
-                string block = base.info.Substring(i, 6);
-                ID += ConvertirBitsAChar(block);
+                ID = "";
+                if (base.info.Length % 6 != 0)
+                {
+                    throw new ArgumentException("La cadena no és múltiple de 6");
+                }
+                for (int i = 0; i < base.info.Length; i += 6)
+                {
+                    string block = base.info.Substring(i, 6);
+                    ID += ConvertirBitsAChar(block);
+                }
             }
-
         }
 
         static char ConvertirBitsAChar(string cadena)
@@ -54,9 +60,7 @@ namespace AsterixLib
                     return entry.Key;
                 }
             }
-            return '?';
-
-            
+            return '?'; 
         }
         public override string ObtenerAtributos()
         {

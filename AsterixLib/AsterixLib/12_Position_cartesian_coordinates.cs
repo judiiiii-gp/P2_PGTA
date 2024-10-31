@@ -22,40 +22,50 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al Pos Cartes");
-            int length = 16; //Cada octeto tiene 8 bits
-
-            string x_coordinate = base.info.Substring(0, length);
-           
-             //Estan expressats amb el complement A2
-            bool isNegative = x_coordinate[0] == '1';
-            int X_num;
-            int Y_num;
-            if (isNegative)
+            if (base.info == "N/A")
             {
-
-                X_num = Convert.ToInt32(InvertirBits(x_coordinate), 2) + 1;
-                X_num = -X_num; //Passem el valor a negatiu
+                X = "N/A";
+                Y = "N/A";
             }
             else
             {
-                X_num = Convert.ToInt32(x_coordinate, 2); //El número està en positiu
-            }
-            
-            string y_coordinate = base.info.Substring(length);
-            isNegative = y_coordinate[0] == '1';
-            if (isNegative)
-            {
+                //Debug.WriteLine("Estem al Pos Cartes");
+                int length = 16; //Cada octeto tiene 8 bits
 
-                Y_num = Convert.ToInt32(InvertirBits(y_coordinate), 2) + 1;
-                Y_num = -Y_num; //Passem el valor a negatiu
+                string x_coordinate = base.info.Substring(0, length);
+
+                //Estan expressats amb el complement A2
+                bool isNegative = x_coordinate[0] == '1';
+                int X_num;
+                int Y_num;
+                if (isNegative)
+                {
+
+                    X_num = Convert.ToInt32(InvertirBits(x_coordinate), 2) + 1;
+                    X_num = -X_num; //Passem el valor a negatiu
+                }
+                else
+                {
+                    X_num = Convert.ToInt32(x_coordinate, 2); //El número està en positiu
+                }
+
+                string y_coordinate = base.info.Substring(length);
+                isNegative = y_coordinate[0] == '1';
+                if (isNegative)
+                {
+
+                    Y_num = Convert.ToInt32(InvertirBits(y_coordinate), 2) + 1;
+                    Y_num = -Y_num; //Passem el valor a negatiu
+                }
+                else
+                {
+                    Y_num = Convert.ToInt32(y_coordinate, 2); //El número està en positiu
+                }
+                X = Convert.ToString(X_num);
+                Y = Convert.ToString(Y_num);
+
             }
-            else
-            {
-                Y_num = Convert.ToInt32(y_coordinate, 2); //El número està en positiu
-            }
-            X = Convert.ToString(X_num);
-            Y = Convert.ToString(Y_num);
+
 
         }
         public string InvertirBits(string message)
