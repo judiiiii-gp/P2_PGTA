@@ -21,26 +21,32 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al height radar");
-            string SPARE = base.info.Substring(0, 2); //Siempre seran 0
-
-       
-            string message = base.info.Substring(2);
-            bool isNegative = message[0] == '1';
-            int height_rad;
-            if (isNegative)
+            if (base.info == "N/A")
             {
-
-                height_rad = Convert.ToInt32(InvertirBits(message), 2) +1;
-                height_rad = -height_rad; //Passem el valor a negatiu
+                height = "N/A";
             }
             else
             {
-                height_rad = Convert.ToInt32(message, 2); //El número està en positiu
+                //Debug.WriteLine("Estem al height radar");
+                string SPARE = base.info.Substring(0, 2); //Siempre seran 0
+
+
+                string message = base.info.Substring(2);
+                bool isNegative = message[0] == '1';
+                int height_rad;
+                if (isNegative)
+                {
+
+                    height_rad = Convert.ToInt32(InvertirBits(message), 2) + 1;
+                    height_rad = -height_rad; //Passem el valor a negatiu
+                }
+                else
+                {
+                    height_rad = Convert.ToInt32(message, 2); //El número està en positiu
+                }
+
+                height = Convert.ToString(height_rad);
             }
-
-            height = Convert.ToString(height_rad);
-
         }
 
         //Funció on invertim els bits per a fer el complement A2    
