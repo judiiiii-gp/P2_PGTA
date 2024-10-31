@@ -29,6 +29,7 @@ namespace AsterixLib
                 TrueTracktxt = "N/A";
                 TrackAngletxt = "N/A";
                 TrueAirspeedtxt = "N/A";
+                GroundSpeedtxt = "N/A";
             }
             else
             {
@@ -47,7 +48,7 @@ namespace AsterixLib
                     {
                         Roll = Convert.ToInt32(msg) * (45 / 256);
                     }
-                    Rolltxt = Roll.ToString();
+                    Rolltxt = Convert.ToString(Roll);
                 }
                 else
                 {
@@ -69,7 +70,7 @@ namespace AsterixLib
                         TrueTrack = Convert.ToInt32(msg) * (90 / 512);
                     }
 
-                    TrueTracktxt = TrueTrack.ToString();
+                    TrueTracktxt = Convert.ToString(TrueTrack);
                 }
                 else
                 {
@@ -81,7 +82,7 @@ namespace AsterixLib
                 if (GroundSpeed == 1)
                 {
                     GroundSpeed = Convert.ToInt32(base.info.Substring(24, 10)) * (1024 / 512);
-                    GroundSpeedtxt = GroundSpeed.ToString();
+                    GroundSpeedtxt = Convert.ToString(GroundSpeed);
                 }
                 else
                 {
@@ -103,7 +104,7 @@ namespace AsterixLib
                         TrackAngle = Convert.ToInt32(msg) * (6 / 256);
                     }
 
-                    TrackAngletxt = TrackAngle.ToString();
+                    TrackAngletxt = Convert.ToString(TrackAngle);
                 }
                 else
                 {
@@ -115,7 +116,7 @@ namespace AsterixLib
                 if (TrueAirspeed == 1)
                 {
                     TrueAirspeed = Convert.ToInt32(base.info.Substring(46, 10)) * (2);
-                    TrueAirspeedtxt = TrueAirspeed.ToString();
+                    TrueAirspeedtxt = Convert.ToString(TrueAirspeed);
                 }
                 else
                 {
@@ -139,7 +140,7 @@ namespace AsterixLib
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = Rolltxt + ";" + TrueTracktxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";";
+            string mensaje = Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";";
             return mensaje;
         }
     }

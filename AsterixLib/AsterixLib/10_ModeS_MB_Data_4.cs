@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.Authentication;
 
 namespace AsterixLib
 {
@@ -33,7 +34,7 @@ namespace AsterixLib
                 if (MCP_FCU == 1)
                 {
                     MCP_FCU = Convert.ToInt32(base.info.Substring(1, 12)) * 16;
-                    MCP_FCUtxt = MCP_FCU.ToString();
+                    MCP_FCUtxt = Convert.ToString(MCP_FCU);
                 }
                 else
                 {
@@ -45,7 +46,7 @@ namespace AsterixLib
                 if (FMS == 1)
                 {
                     FMS = Convert.ToInt32(base.info.Substring(14, 12)) * 16;
-                    FMStxt = FMS.ToString();
+                    FMStxt = Convert.ToString(FMS);
                 }
                 else
                 {
@@ -57,7 +58,7 @@ namespace AsterixLib
                 if (BAR == 1)
                 {
                     double BARdou = Convert.ToDouble(base.info.Substring(27, 12)) * 0.1;
-                    BARtxt = BARdou.ToString();
+                    BARtxt = Convert.ToString(BARdou);
                 }
                 else
                 {

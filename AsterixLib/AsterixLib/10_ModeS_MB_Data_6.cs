@@ -49,7 +49,7 @@ namespace AsterixLib
                     {
                         MagHead = Convert.ToInt32(msg) * (6 / 256);
                     }
-                    MagHeadtxt = MagHead.ToString();
+                    MagHeadtxt = Convert.ToString(MagHead);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace AsterixLib
                 if (IndAir == 1)
                 {
                     IndAir = Convert.ToInt32(base.info.Substring(13, 9)) * 1;
-                    IndAirtxt = IndAir.ToString();
+                    IndAirtxt = Convert.ToString(IndAir);
                 }
                 else
                 {
@@ -72,7 +72,7 @@ namespace AsterixLib
                 if (MACH == 1)
                 {
                     double MACHdou = Convert.ToDouble(base.info.Substring(24, 10)) * (2.048 / 512);
-                    MACHtxt = MACHdou.ToString();
+                    MACHtxt = Convert.ToString(MACHdou);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace AsterixLib
                     {
                         BarAlt = Convert.ToInt32(msg) * (6 / 256);
                     }
-                    BarAlttxt = BarAlt.ToString();
+                    BarAlttxt = Convert.ToString(BarAlt);
                 }
                 else
                 {
@@ -116,7 +116,7 @@ namespace AsterixLib
                     {
                         InerVert = Convert.ToInt32(msg) * (6 / 256);
                     }
-                    InerVerttxt = InerVert.ToString();
+                    InerVerttxt = Convert.ToString(InerVert);
                 }
                 else
                 {

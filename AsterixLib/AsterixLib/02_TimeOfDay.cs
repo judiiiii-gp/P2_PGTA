@@ -25,10 +25,12 @@ namespace AsterixLib
                 long total = Convert.ToInt64(base.info.Substring(0, 24), 2);
                 //Debug.WriteLine("Hem tallat la string: "+ total);
                 total = total / 128;
+
                 //Debug.WriteLine("Tenim el int");
                 TimeSpan time = TimeSpan.FromSeconds(total);
                 //Debug.WriteLine("Hem agafat el TimeSpan");
-                totalTime = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D3}",
+     
+                totalTime = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
                                 time.Hours,
                                 time.Minutes,
                                 time.Seconds,

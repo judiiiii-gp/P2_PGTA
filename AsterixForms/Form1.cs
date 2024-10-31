@@ -337,31 +337,40 @@ namespace AsterixForms
                             mensaje = DataBlock.Substring(bitsleidos, octet);
                             bitsleidos = bitsleidos + octet;
                             int rep = Convert.ToInt32(mensaje, 2); // Passem a int per saber el nombre de repeticions
+                            //MessageBox.Show("REP:" + Convert.ToString(rep));
                             //Debug.WriteLine("Hem de repetir: " + rep);
                             for (int k = 0; k < rep; k++)
                             {
+                                //MessageBox.Show("Entra FOR");
                                 mensaje = DataBlock.Substring(bitsleidos, 8 * octet);
                                 //Debug.WriteLine("El missatge és: " + mensaje);
-                                bitsleidos = bitsleidos + 8 * octet;
+                                
                                 int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4));
+                                //MessageBox.Show("BDS1:" + Convert.ToString(BDS1));
                                 int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4));
+                                //MessageBox.Show("BDS2:" + Convert.ToString(BDS2));
                                 //Debug.WriteLine("BDS1 i BDS2: " + Convert.ToString(BDS1) + Convert.ToString(BDS2));
                                 if (BDS1 == 4 & BDS2 == 0)
                                 {
+                                    //MessageBox.Show("Dins 40");
                                     di.Add(new AsterixLib.ModeS4(mensaje));
+                                    //MessageBox.Show("Fora 40");
                                 }
                                 else if (BDS1 == 5 & BDS2 == 0)
                                 {
+                                    //MessageBox.Show("Dins 50");
                                     di.Add(new AsterixLib.ModeS5(mensaje));
+                                    //MessageBox.Show("Fora 50");
                                 }
                                 else if (BDS1 == 6 & BDS2 == 0)
                                 {
+                                    //MessageBox.Show("Dins 60");
                                     di.Add(new AsterixLib.ModeS6(mensaje));
+                                    //MessageBox.Show("Fora 60");
                                 }
+                                bitsleidos = bitsleidos + 8 * octet;
                             }
-
-
-
+                            //MessageBox.Show("Surt FOR");
                         }
                         else
                         {
@@ -373,6 +382,7 @@ namespace AsterixForms
                     case 10:
                         if (read[i] == 1)
                         {
+                            //MessageBox.Show("Entra NEXT");
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
                             //Debug.WriteLine("Missatge TrackNum: " + mensaje);
                             di.Add(new AsterixLib.TrackNum(mensaje));
@@ -574,6 +584,7 @@ namespace AsterixForms
 
 
                 }
+                //MessageBox.Show("Acaba SWITCH");
             }
             //Debug.WriteLine("Hem llegit tot el bloc");
             Descodificar(di); //Cridem a la funció descodificar
