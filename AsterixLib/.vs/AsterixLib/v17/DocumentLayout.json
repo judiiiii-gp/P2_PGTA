@@ -3,7 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixforms\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixforms\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixforms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixforms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixforms\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\asterixlib\\asterixlib\\14_trackstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,17 +69,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.cs",
               "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.cs",
               "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.cs",
               "RelativeToolTip": "..\\AsterixForms\\Form1.cs",
-              "ViewState": "AgIAAGQBAAAAAAAAAAAIwGoBAAALAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-01T09:15:24.988Z",
               "IsPinned": true,
@@ -75,7 +87,57 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DataGridView.cs",
+              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\DataGridView.cs",
+              "RelativeDocumentMoniker": "..\\AsterixForms\\DataGridView.cs",
+              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\DataGridView.cs",
+              "RelativeToolTip": "..\\AsterixForms\\DataGridView.cs",
+              "ViewState": "AgIAAMoDAAAAAAAAAAAtwNoDAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T18:44:22.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DataGridView.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\DataGridView.cs",
+              "RelativeDocumentMoniker": "..\\AsterixForms\\DataGridView.cs",
+              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\DataGridView.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\AsterixForms\\DataGridView.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T18:44:16.363Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.cs",
+              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\AsterixForms\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T18:34:37.324Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\Form1.Designer.cs",
+              "RelativeToolTip": "..\\AsterixForms\\Form1.Designer.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAIAwwDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T18:34:03.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "21_Communication_ACAS.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\21_Communication_ACAS.cs",
               "RelativeDocumentMoniker": "AsterixLib\\21_Communication_ACAS.cs",
@@ -83,12 +145,11 @@
               "RelativeToolTip": "AsterixLib\\21_Communication_ACAS.cs",
               "ViewState": "AgIAAIoAAAAAAAAAAAAuwJMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T11:58:59.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T11:58:59.642Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "19_Height_3DRadar.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\19_Height_3DRadar.cs",
               "RelativeDocumentMoniker": "AsterixLib\\19_Height_3DRadar.cs",
@@ -96,12 +157,11 @@
               "RelativeToolTip": "AsterixLib\\19_Height_3DRadar.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T11:58:55.152Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T11:58:55.152Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "14_TrackStatus.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\14_TrackStatus.cs",
               "RelativeDocumentMoniker": "AsterixLib\\14_TrackStatus.cs",
@@ -109,12 +169,11 @@
               "RelativeToolTip": "AsterixLib\\14_TrackStatus.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAUwD8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T11:57:35.603Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T11:57:35.603Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "13_TrackVelocitiPolar.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\13_TrackVelocitiPolar.cs",
               "RelativeDocumentMoniker": "AsterixLib\\13_TrackVelocitiPolar.cs",
@@ -122,12 +181,11 @@
               "RelativeToolTip": "AsterixLib\\13_TrackVelocitiPolar.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAgwCUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T11:53:43.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T11:53:43.072Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "03_Target_Report.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\03_Target_Report.cs",
               "RelativeDocumentMoniker": "AsterixLib\\03_Target_Report.cs",
@@ -135,12 +193,11 @@
               "RelativeToolTip": "AsterixLib\\03_Target_Report.cs",
               "ViewState": "AgIAAEMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T09:56:11.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T09:56:11.363Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "05_Mode_3A.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\05_Mode_3A.cs",
               "RelativeDocumentMoniker": "AsterixLib\\05_Mode_3A.cs",
@@ -152,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "06_Flight_level.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\06_Flight_level.cs",
               "RelativeDocumentMoniker": "AsterixLib\\06_Flight_level.cs",
@@ -164,7 +221,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "10_ModeS_MB_Data_4.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_4.cs",
               "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_4.cs",
@@ -176,7 +233,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "10_ModeS_MB_Data_5.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_5.cs",
               "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_5.cs",
@@ -184,12 +241,11 @@
               "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_5.cs",
               "ViewState": "AgIAAHIAAAAAAAAAAAAiwIoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T12:48:03.904Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-31T12:48:03.904Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "10_ModeS_MB_Data_6.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\10_ModeS_MB_Data_6.cs",
               "RelativeDocumentMoniker": "AsterixLib\\10_ModeS_MB_Data_6.cs",
@@ -197,12 +253,11 @@
               "RelativeToolTip": "AsterixLib\\10_ModeS_MB_Data_6.cs",
               "ViewState": "AgIAAIUAAAAAAAAAAAAwwIkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T12:48:05.044Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-31T12:48:05.044Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "data_item.cs",
               "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\data_item.cs",
               "RelativeDocumentMoniker": "AsterixLib\\data_item.cs",
