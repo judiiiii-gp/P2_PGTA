@@ -52,7 +52,7 @@ namespace AsterixLib
                     G = "Garbled code";
                 }
 
-                int message = (Convert.ToInt32(base.info.Substring(2), 2));
+                double message = Convert.ToDouble((Convert.ToInt32(base.info.Substring(2), 2)));
                 FL = Convert.ToString(message / 4);
             }
             //Debug.WriteLine("Hem escrit al fitxer");

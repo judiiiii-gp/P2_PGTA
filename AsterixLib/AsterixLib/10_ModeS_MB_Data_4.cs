@@ -10,6 +10,12 @@ namespace AsterixLib
         public string MCP_FCUtxt {  get; private set; }
         public string FMStxt { get; private set; }
         public string BARtxt { get; private set; }
+        public string Mode_stat_txt { get; private set; }
+        public string VNAVMODEtxt { get; private set; }
+        public string ALTHOLDtxt { get; private set; }
+        public string Approachtxt { get; private set; }
+        public string StatusTargAlt { get; private set; }
+        public string TargetAltSourcetxt { get; private set; }
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public ModeS4(string info)
             : base(info)
@@ -26,6 +32,12 @@ namespace AsterixLib
                 MCP_FCUtxt = "N/A";
                 FMStxt = "N/A";
                 BARtxt = "N/A";
+                VNAVMODEtxt = "N/A";
+                ALTHOLDtxt = "N/A";
+                Approachtxt = "N/A";
+                Mode_stat_txt = "N/A";
+                StatusTargAlt = "N/A";
+                TargetAltSourcetxt = "N/A";
             }
             else
             {
@@ -51,7 +63,7 @@ namespace AsterixLib
                 }
                 else
                 {
-                    FMStxt = "N/A";
+                    FMStxt = "0";
                 }
 
 
@@ -73,6 +85,32 @@ namespace AsterixLib
                 {
                     BARtxt = "N/A";
                 }
+
+                int Mode_stat = Convert.ToInt32(base.info.Substring(49, 1), 2);
+                Mode_stat_txt = Convert.ToString(Mode_stat);
+                if (Mode_stat == 1)
+                {
+                    VNAVMODEtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(48, 1)));
+                    ALTHOLDtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(49, 1)));
+                    Approachtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(50, 1)));
+                }
+                else
+                {
+                    VNAVMODEtxt = "0";
+                    ALTHOLDtxt = "0";
+                    Approachtxt = "0";
+                }
+
+                int targ_stat = Convert.ToInt32(base.info.Substring(49, 1), 2);
+                StatusTargAlt = Convert.ToString(targ_stat);
+                if (targ_stat == 1)
+                {
+                    TargetAltSourcetxt = Convert.ToString(Convert.ToInt32(base.info.Substring(54, 1)));
+                }
+                else
+                {
+                    TargetAltSourcetxt = "0";
+                }
             }
             
 
@@ -81,7 +119,7 @@ namespace AsterixLib
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";";
+            string mensaje = MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";"+ Mode_stat_txt + ";" + VNAVMODEtxt + ";" + ALTHOLDtxt + ";" + Approachtxt + ";" + StatusTargAlt + ";" + TargetAltSourcetxt + ";";
             return mensaje;
         }
     }

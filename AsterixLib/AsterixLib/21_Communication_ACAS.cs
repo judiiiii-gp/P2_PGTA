@@ -145,10 +145,8 @@ namespace AsterixLib
                 }
                 int B1A = Convert.ToInt32(base.info.Substring(11, 1), 2);
                 B1A_mess = "BDS 1,0 bit 16=" + Convert.ToString(B1A);
-                //Debug.WriteLine("Hem agafat el B1A_mess");
-                int B1B = Convert.ToInt32(base.info.Substring(12, 4), 2);
-                //Debug.WriteLine("Tenim el int");
-                B1B_mess = "BDS 1,0 bits 37/40=" + Convert.ToString(B1B);
+              
+                B1B_mess = "BDS 1,0 bits 37/40=" + base.info.Substring(12, 4);
                 //Debug.WriteLine("Hem agafat el B1B_mess");
                 // Llamada al método EscribirEnFichero de la clase base
 

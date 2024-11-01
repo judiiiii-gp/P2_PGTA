@@ -354,38 +354,51 @@ namespace AsterixForms
                                 }
                                 else if (BDS1 == 5 & BDS2 == 0)
                                 {
-                                    if (flag4 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS4("N/A"));
-                                        flag4 = 1;
-                                    }
                                     di.Add(new AsterixLib.ModeS5(mensaje));
                                     flag5 = 1;
                                 }
                                 else if (BDS1 == 6 & BDS2 == 0)
                                 {
-                                    if (flag4 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS4("N/A"));
-                                        flag4 = 1;
-                                    }
-                                    else if (flag5 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS5("N/A"));
-                                        flag5 = 1;
-                                    }
                                     di.Add(new AsterixLib.ModeS6(mensaje));
                                     flag6 = 1;
                                 }
                                 bitsleidos = bitsleidos + 8 * octet;
                             }
-
-                            if (flag4 == 0 & flag5 == 0 & flag6 == 0)
+                            if (flag4 == 0 & flag5==0 & flag6==0)
                             {
                                 di.Add(new AsterixLib.ModeS4("N/A"));
                                 di.Add(new AsterixLib.ModeS5("N/A"));
                                 di.Add(new AsterixLib.ModeS6("N/A"));
                             }
+                            else if (flag4==0 & flag5 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                            }
+                            else if (flag4==0 & flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+                            else if (flag5 ==0 & flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+                            else if (flag4 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                            }
+                            else if (flag5 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                            }
+                            else if (flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+
+
                         }
                         else
                         {
@@ -457,13 +470,13 @@ namespace AsterixForms
 
                             mensaje = String.Join("", cadena); //Unim tots els bits en una sola string
                             //Debug.WriteLine("Missatge TrackStat: " + mensaje);
-                            di.Add(new AsterixLib.TargetReportDescriptor(mensaje));
+                            di.Add(new AsterixLib.TrackStatus(mensaje));
                             cadena.Clear(); //Buidem la llista per a no gastar memòria
 
                         }
                         else
                         {
-                            di.Add(new AsterixLib.TargetReportDescriptor("N/A"));
+                            di.Add(new AsterixLib.TrackStatus("N/A"));
                         }
                         break;
                     case 14:
@@ -626,8 +639,8 @@ namespace AsterixForms
         private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
         {
             int NumLinea = 1;
-            DataItem.SetNombreFichero("C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+            DataItem.SetNombreFichero("C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\" + nombreFichero + ".csv"); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
             if (bloque.Count > 0)
             {
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);

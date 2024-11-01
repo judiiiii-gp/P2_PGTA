@@ -35,53 +35,57 @@ namespace AsterixLib
             {
                 
 
-                int MagHead = Convert.ToInt32(base.info.Substring(0, 1), 2);
+                double MagHead = Convert.ToInt32(base.info.Substring(0, 1), 2);
                 int SIGN_MagHead = Convert.ToInt32(base.info.Substring(1, 1), 2); // SIGN 1 = West (e.g. 315 = -45°) 
                 if (MagHead == 1)
                 {
                     string msg = base.info.Substring(2, 10);
                     if (SIGN_MagHead == 1)
                     {
-                        MagHead = Convert.ToInt32(InvertirBits(msg), 2) * (90 / 512);
+                        MagHead = (Convert.ToInt32(InvertirBits(msg), 2)) * ((double)90 / 512);
                         MagHead = -MagHead;
                     }
 
                     else
                     {
-                        MagHead = Convert.ToInt32(msg, 2) * (6 / 256);
+                        MagHead = Convert.ToInt32(msg, 2) * ((double)90 / 512);
                     }
                     MagHeadtxt = Convert.ToString(MagHead);
+                  
                 }
                 else
                 {
                     MagHeadtxt = "N/A";
                 }
+                
 
                 int IndAir = Convert.ToInt32(base.info.Substring(12, 1), 2);
                 if (IndAir == 1)
                 {
-                    IndAir = Convert.ToInt32(base.info.Substring(13, 9), 2) * 1;
+                    IndAir = Convert.ToInt32(base.info.Substring(13, 10), 2) * 1;
                     IndAirtxt = Convert.ToString(IndAir);
                 }
                 else
                 {
                     IndAirtxt = "N/A";
                 }
+              
 
 
                 int MACH = Convert.ToInt32(base.info.Substring(23, 1), 2);
                 if (MACH == 1)
                 {
-                    double MACHdou = Convert.ToDouble(base.info.Substring(24, 10)) * (2.048 / 512);
+                    double MACHdou = Convert.ToDouble(Convert.ToInt32(base.info.Substring(24, 10),2)) * (2.048 / 512);
                     MACHtxt = Convert.ToString(MACHdou);
                 }
                 else
                 {
                     MACHtxt = "N/A";
                 }
+                
 
 
-                int BarAlt = Convert.ToInt32(base.info.Substring(34, 1), 2);
+                double BarAlt = Convert.ToInt32(base.info.Substring(34, 1), 2);
                 int SIGN_BarAlt = Convert.ToInt32(base.info.Substring(35, 1), 2); // SIGN 1 = Below
                 if (BarAlt == 1)
                 {
@@ -89,11 +93,15 @@ namespace AsterixLib
                     if (SIGN_BarAlt == 1)
                     {
                         BarAlt = Convert.ToInt32(InvertirBits(msg), 2) * 32;
-                        BarAlt = -BarAlt;
+                        if (BarAlt != 0)
+                        {
+                            BarAlt = -BarAlt;
+                        }
+                        
                     }
                     else
                     {
-                        BarAlt = Convert.ToInt32(msg, 2) * (6 / 256);
+                        BarAlt = Convert.ToInt32(msg, 2) * 32;
                     }
                     BarAlttxt = Convert.ToString(BarAlt);
                 }
@@ -101,9 +109,9 @@ namespace AsterixLib
                 {
                     BarAlttxt = "N/A";
                 }
+                
 
-
-                int InerVert = Convert.ToInt32(base.info.Substring(45, 1), 2);
+                double InerVert = Convert.ToInt32(base.info.Substring(45, 1), 2);
                 int SIGN_InerVert = Convert.ToInt32(base.info.Substring(46, 1), 2); // SIGN 1 = Below
                 if (InerVert == 1)
                 {
@@ -111,11 +119,15 @@ namespace AsterixLib
                     if (SIGN_InerVert == 1)
                     {
                         InerVert = Convert.ToInt32(InvertirBits(msg), 2) * 32;
-                        InerVert = -InerVert;
+                        if (InerVert != 0)
+                        {
+                            InerVert = -InerVert;
+                        }
+
                     }
                     else
                     {
-                        InerVert = Convert.ToInt32(msg, 2) * (6 / 256);
+                        InerVert = Convert.ToInt32(msg, 2) * 32;
                     }
                     InerVerttxt = Convert.ToString(InerVert);
                 }
@@ -123,6 +135,8 @@ namespace AsterixLib
                 {
                     InerVerttxt = "N/A";
                 }
+                
+               
             }
             
         }
