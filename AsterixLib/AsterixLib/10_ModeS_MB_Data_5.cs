@@ -36,21 +36,26 @@ namespace AsterixLib
             {
                 //Debug.WriteLine("Estem al ModeS MB-5");
 
-                long Roll = Convert.ToInt64(base.info.Substring(0, 1), 2);
+                double Roll = Convert.ToInt64(base.info.Substring(0, 1), 2);
                 long SIGN_Roll = Convert.ToInt64(base.info.Substring(1, 1), 2); // SIGN 1 = Left Wing Down
                 if (Roll == 1)
                 {
                     string msg = base.info.Substring(2, 9);
                     if (SIGN_Roll == 1)
                     {
-                        Roll = Convert.ToInt32(InvertirBits(msg), 2) * (45 / 256);
-                        Roll = -Roll;
+                        Roll = Convert.ToInt32(InvertirBits(msg), 2) * ((double)45 / 256);
+                        if (Roll != 0)
+                        {
+                            Roll = -Roll;
+                        }
+                        
                     }
                     else
                     {
-                        Roll = Convert.ToInt64(msg, 2) * (45 / 256);
+                        Roll = Convert.ToInt64(msg, 2) * ((double)45 / 256);
                     }
                     Rolltxt = Convert.ToString(Roll);
+                    
                 }
                 else
                 {
@@ -58,22 +63,27 @@ namespace AsterixLib
                 }
 
 
-                long TrueTrack = Convert.ToInt64(base.info.Substring(11, 1), 2);
+                double TrueTrack = Convert.ToInt64(base.info.Substring(11, 1), 2);
                 long SIGN_TrueTrack = Convert.ToInt64(base.info.Substring(12, 1), 2); // SIGN 1 = West (e.g. 315 = -45°) 
                 if (TrueTrack == 1)
                 {
                     string msg = base.info.Substring(13, 10);
                     if (SIGN_TrueTrack == 1)
                     {
-                        TrueTrack = Convert.ToInt64(InvertirBits(msg), 2) * (90 / 512);
-                        TrueTrack = -TrueTrack;
+                        TrueTrack = Convert.ToInt64(InvertirBits(msg), 2) * ((double)90 / 512);
+                        if (TrueTrack != 0)
+                        {
+                            TrueTrack = -TrueTrack;
+                        }
+
                     }
                     else
                     {
-                        TrueTrack = Convert.ToInt64(msg, 2) * (90 / 512);
+                        TrueTrack = Convert.ToInt64(msg, 2) * ((double)90 / 512);
                     }
 
                     TrueTracktxt = Convert.ToString(TrueTrack);
+                    
                 }
                 else
                 {
@@ -81,11 +91,12 @@ namespace AsterixLib
                 }
 
 
-                long GroundSpeed = Convert.ToInt64(base.info.Substring(23, 1), 2);
+                double GroundSpeed = Convert.ToInt64(base.info.Substring(23, 1), 2);
                 if (GroundSpeed == 1)
                 {
-                    GroundSpeed = Convert.ToInt64(base.info.Substring(24, 10), 2) * (1024 / 512);
+                    GroundSpeed = Convert.ToInt64(base.info.Substring(24, 10), 2) * ((double)1024 / 512);
                     GroundSpeedtxt = Convert.ToString(GroundSpeed);
+                    
                 }
                 else
                 {
@@ -93,21 +104,26 @@ namespace AsterixLib
                 }
 
 
-                long TrackAngle = Convert.ToInt64(base.info.Substring(34, 1), 2);
+                double TrackAngle = Convert.ToInt64(base.info.Substring(34, 1), 2);
                 long SIGN_TrackAngle = Convert.ToInt64(base.info.Substring(35, 1), 2); // SIGN 1 = Minus
                 if (TrackAngle == 1)
                 {
                     string msg = base.info.Substring(36, 9);
                     if (SIGN_TrackAngle == 1)
                     {
-                        TrackAngle = Convert.ToInt64(InvertirBits(msg), 2) * (6 / 256);
-                        TrackAngle = -TrackAngle;
+                        TrackAngle = Convert.ToInt64(InvertirBits(msg), 2) * ((double)6 / 256);
+                        if (TrackAngle !=0)
+                        {
+                            TrackAngle = -TrackAngle;
+                        }
+
                     }
                     else
                     {
-                        TrackAngle = Convert.ToInt64(msg, 2) * (6 / 256);
+                        TrackAngle = Convert.ToInt64(msg, 2) * ((double)6 / 256);
                     }
                     TrackAngletxt = Convert.ToString(TrackAngle);
+                    
                 }
                 else
                 {
@@ -120,6 +136,7 @@ namespace AsterixLib
                 {
                     TrueAirspeed = Convert.ToInt64(base.info.Substring(46, 10), 2) * (2);
                     TrueAirspeedtxt = Convert.ToString(TrueAirspeed);
+                   
                 }
                 else
                 {
