@@ -32,9 +32,10 @@ namespace AsterixLib
                 //Debug.WriteLine("Estem al track vel");
                 int length = 16; //Cada octeto tiene 8 bits
 
-                groundspeed = Convert.ToString(Convert.ToInt32(base.info.Substring(0, length), 2));
-                heading = Convert.ToString(Convert.ToInt32(base.info.Substring(length), 2));
+                groundspeed = Convert.ToString(Convert.ToInt32(base.info.Substring(0, length), 2)*0.22);
+                heading = Convert.ToString(Convert.ToInt32(base.info.Substring(length), 2)*((double)360/Math.Pow(2, 16)));
             }
+            
         }
         public override string ObtenerAtributos()
         {

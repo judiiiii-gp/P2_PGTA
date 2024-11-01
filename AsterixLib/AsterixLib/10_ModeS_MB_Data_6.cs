@@ -101,7 +101,7 @@ namespace AsterixLib
                     }
                     else
                     {
-                        BarAlt = Convert.ToInt32(msg, 2) * ((double)6 / 256);
+                        BarAlt = Convert.ToInt32(msg, 2) * 32;
                     }
                     BarAlttxt = Convert.ToString(BarAlt);
                 }
@@ -127,7 +127,7 @@ namespace AsterixLib
                     }
                     else
                     {
-                        InerVert = Convert.ToInt32(msg, 2) * ((double)6 / 256);
+                        InerVert = Convert.ToInt32(msg, 2) * 32;
                     }
                     InerVerttxt = Convert.ToString(InerVert);
                 }
@@ -135,7 +135,7 @@ namespace AsterixLib
                 {
                     InerVerttxt = "N/A";
                 }
-                Debug.WriteLine(MagHeadtxt + "  " +IndAirtxt + "  " + MACHtxt + "  " + BarAlttxt + "  " + InerVerttxt);
+                
                
             }
             

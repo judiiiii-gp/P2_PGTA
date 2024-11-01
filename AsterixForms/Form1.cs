@@ -354,38 +354,51 @@ namespace AsterixForms
                                 }
                                 else if (BDS1 == 5 & BDS2 == 0)
                                 {
-                                    if (flag4 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS4("N/A"));
-                                        flag4 = 1;
-                                    }
                                     di.Add(new AsterixLib.ModeS5(mensaje));
                                     flag5 = 1;
                                 }
                                 else if (BDS1 == 6 & BDS2 == 0)
                                 {
-                                    if (flag4 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS4("N/A"));
-                                        flag4 = 1;
-                                    }
-                                    else if (flag5 == 0)
-                                    {
-                                        di.Add(new AsterixLib.ModeS5("N/A"));
-                                        flag5 = 1;
-                                    }
                                     di.Add(new AsterixLib.ModeS6(mensaje));
                                     flag6 = 1;
                                 }
                                 bitsleidos = bitsleidos + 8 * octet;
                             }
-
-                            if (flag4 == 0 & flag5 == 0 & flag6 == 0)
+                            if (flag4 == 0 & flag5==0 & flag6==0)
                             {
                                 di.Add(new AsterixLib.ModeS4("N/A"));
                                 di.Add(new AsterixLib.ModeS5("N/A"));
                                 di.Add(new AsterixLib.ModeS6("N/A"));
                             }
+                            else if (flag4==0 & flag5 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                            }
+                            else if (flag4==0 & flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+                            else if (flag5 ==0 & flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+                            else if (flag4 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS4("N/A"));
+                            }
+                            else if (flag5 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS5("N/A"));
+                            }
+                            else if (flag6 == 0)
+                            {
+                                di.Add(new AsterixLib.ModeS6("N/A"));
+                            }
+
+
                         }
                         else
                         {
@@ -457,13 +470,13 @@ namespace AsterixForms
 
                             mensaje = String.Join("", cadena); //Unim tots els bits en una sola string
                             //Debug.WriteLine("Missatge TrackStat: " + mensaje);
-                            di.Add(new AsterixLib.TargetReportDescriptor(mensaje));
+                            di.Add(new AsterixLib.TrackStatus(mensaje));
                             cadena.Clear(); //Buidem la llista per a no gastar memòria
 
                         }
                         else
                         {
-                            di.Add(new AsterixLib.TargetReportDescriptor("N/A"));
+                            di.Add(new AsterixLib.TrackStatus("N/A"));
                         }
                         break;
                     case 14:
