@@ -37,10 +37,11 @@
             // Seleccionar
             // 
             Seleccionar.BackColor = Color.Blue;
+            Seleccionar.Dock = DockStyle.Fill;
             Seleccionar.Image = (Image)resources.GetObject("Seleccionar.Image");
-            Seleccionar.Location = new Point(-27, -9);
+            Seleccionar.Location = new Point(0, 0);
             Seleccionar.Name = "Seleccionar";
-            Seleccionar.Size = new Size(834, 469);
+            Seleccionar.Size = new Size(800, 450);
             Seleccionar.TabIndex = 3;
             Seleccionar.Text = "Seleccionar";
             Seleccionar.UseVisualStyleBackColor = false;
@@ -48,12 +49,13 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlText;
-            label2.Location = new Point(175, 9);
+            label2.Location = new Point(175, 44);
             label2.Name = "label2";
-            label2.Size = new Size(423, 31);
+            label2.Size = new Size(427, 31);
             label2.TabIndex = 11;
             label2.Text = "Escull el fitxer .ast que vols descodificar";
             // 
