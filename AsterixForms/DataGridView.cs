@@ -29,7 +29,7 @@ namespace AsterixForms
         List<List<DataItem>> bloque = new List<List<DataItem>>(); //tindrem una llista separada pels diferents blocs
         private string FilePath;
 
-        string[] lista = {
+        /*string[] lista = {
         "NUM", "SAC", "SIC", "Time", "Latitud", "Longitud", "h", "TYP020", "SIM020", "RDP020","SPI020", "RAB020", "TST020", "ERR020", "XPP020", "ME020", "MI020", "FOEFRI_020", "RHO","THETA", "V070", "G070", "Mode_3A", "V090", "G090",
         "Flight_Level", "ModeC_corrected","SRL130", "SRR130", "SAM130", "PRL130", "PAM130", "RPD130", "APD130", "Target_Address","Target_ID", "Mode_S", "MCP_Status", "MCP_ALT", "FMS_Status", "FMS_ALT", "BP_Status","BP", "MODE_Status",
         "VNAV", "ALT_HOLD", "APP", "TARGETALT_Status", "TARGETALT_Source","RS_Status", "RA", "TTA_Status", "TTA", "GSS_Status", "GS", "TAR_Status", "TAR", "TAS_Status", "TAS", "HDG_Status", "HDG", "IAS_Status", "IAS", "MACH_Status",
@@ -78,7 +78,8 @@ namespace AsterixForms
         "219", "220", "221", "222", "223", "224", "225", "226", "227", "228", "229", "230", "231", "232", "233", "234", "235","236", "237", "238", "239", "240", "241", "242", "243", "244", "245", "246", "247", "248", "249", "250", "251", "252",
         "253", "254", "255", "256", "257", "258", "259", "260", "261", "262", "263", "264", "265", "266", "267", "268", "269",
         "270", "271", "272", "273", "274", "275", "276"
-        };
+        };*/
+
         int index = 0;
         public int dgv_index { get; set; }
         public DataGridView(string FilePath)
@@ -106,10 +107,11 @@ namespace AsterixForms
             // dataGridView2
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(12, 53);
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(0, 0);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(869, 188);
+            dataGridView2.Size = new Size(1484, 763);
             dataGridView2.TabIndex = 0;
             // 
             // toolStrip1
@@ -118,7 +120,7 @@ namespace AsterixForms
             toolStrip1.Items.AddRange(new ToolStripItem[] { BtnFilter, BtnSearch, toolStripButton1, CSVFile });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(927, 27);
+            toolStrip1.Size = new Size(1484, 27);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -163,7 +165,8 @@ namespace AsterixForms
             // 
             // DataGridView
             // 
-            ClientSize = new Size(927, 390);
+            AutoSize = true;
+            ClientSize = new Size(1484, 763);
             Controls.Add(toolStrip1);
             Controls.Add(dataGridView2);
             Name = "DataGridView";
@@ -177,7 +180,7 @@ namespace AsterixForms
 
 
         /*### FUNCIONES DATAGRIDVIEW ##############################*/
-        private void CrearDataGridView()
+        /*private void CrearDataGridView()
         {
             if (dataGridView2 != null)
             {
@@ -205,7 +208,7 @@ namespace AsterixForms
             }
             ColorDataGridView(index);
             index++;
-        }
+        }*/
         /*### FILTER ##############################################*/
         void FilterDataGridView(string condition)
         {
@@ -219,7 +222,7 @@ namespace AsterixForms
         private void NumFilterGrid(string[] aux)
         {
             DataGridView NumFilterGridView = new DataGridView();
-            NumFilterGridView.CrearDataGridView();
+            //NumFilterGridView.CrearDataGridView();
             NumFilterGridView.dgv_index = 1;
             index = int.Parse(aux[1]);
 
@@ -231,7 +234,7 @@ namespace AsterixForms
         private void TimeFilterGrid(string[] aux)
         {
             DataGridView TimeFilterGridView = new DataGridView();
-            TimeFilterGridView.CrearDataGridView();
+            //TimeFilterGridView.CrearDataGridView();
 
             if (aux[0].ToString().Equals("1")) { TimeClone(TimeFilterGridView, TimeConverter(aux[2]), TimeConverter("23:59:59:999")); }
             else if (aux[0].ToString().Equals("2")) { TimeClone(TimeFilterGridView, TimeConverter("00:00:00:000"), TimeConverter(aux[2])); }
@@ -327,15 +330,87 @@ namespace AsterixForms
             using (Search SearchForm = new Search()) { if (SearchForm.ShowDialog() == DialogResult.OK) { SearchDataGridView(SearchForm.cmd); } }
         }
         /*### LOAD FUNCTIONS ######################################*/
-        private void CargarMain()
+        private void CargarMain(List<List<DataItem>> bloque)
         {
-            for (int i = 0; i < 5; i++) { EscribirEnDataGridView(lista1); EscribirEnDataGridView(lista2); EscribirEnDataGridView(lista3); }
+            // Configura las cabeceras del DataGridView
+            dataGridView2.Columns.Clear();  // Limpiar cualquier columna existente
+            dataGridView2.ColumnHeadersVisible = true;
+
+            dataGridView2.EnableHeadersVisualStyles = false;  
+            dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkTurquoise; 
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold); 
+            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+            dataGridView2.RowHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dataGridView2.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            
+            List<string> lista = new List<string> {
+            "SAC", "SIC", "Time of Day", "TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
+            "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
+            "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
+            "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
+            "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
+            "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
+            "Inertial Vertical Velocity", "Track Number", "X-Cartesian", "Y-Cartesian", "Calculated groundspeed", "Calculated heading",
+            "CNF", "RAD", "DOU", "MAH", "CDM", "TRE", "GHO", "SUP", "TCC", "Height Measured by a 3D Radar", "COM", "STATUS",
+            "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
+
+            foreach (var nombreColumna in lista)
+            {
+                dataGridView2.Columns.Add(nombreColumna, nombreColumna);
+            }
+
+            int NumLinea = 1;
+
+
+            foreach (var data in bloque)
+            {
+                List<string> atributosDI = new List<string>();
+
+                foreach (DataItem item in data)
+                {
+                    string atributos = item.ObtenerAtributos();
+                    atributosDI.AddRange(atributos.Split(';'));
+
+                }
+
+                int rowIndex = dataGridView2.Rows.Add();
+
+                dataGridView2.Rows[rowIndex].HeaderCell.Value = NumLinea.ToString();
+
+                int columna = 0; // Empieza desde la primera columna
+
+                foreach (string atribut in atributosDI)
+                {
+                    if(!string.IsNullOrEmpty(atribut))
+                    {
+                        if (columna < dataGridView2.Columns.Count)
+                        {
+                            dataGridView2.Rows[rowIndex].Cells[columna].Value = atribut;
+                            columna++; 
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                NumLinea++;
+            }
         }
+
+
         /*### EVENTS FUNCTION #####################################*/
         private void DataGridView_Load(object sender, EventArgs e)
         {
-            CrearDataGridView();
-            if (dgv_index == 0) { CargarMain(); }
+            //CrearDataGridView();
+            if (dgv_index == 0) 
+            {
+                CargarMain(bloque);
+            }
         }
 
         private void BtnFilter_Click(object sender, EventArgs e)
