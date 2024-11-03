@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace AsterixForms
 {
@@ -87,6 +88,7 @@ namespace AsterixForms
             InitializeComponent();
             this.FilePath = FilePath;
             ReadBinaryFile(FilePath);
+            Corrected_Altitude(bloque);
             //MessageBox.Show(msg);
             dgv_index = 0;
         }
@@ -349,7 +351,7 @@ namespace AsterixForms
             List<string> lista = new List<string> {
             "SAC", "SIC", "Time of Day", "TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
             "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
-            "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
+            "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
             "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
             "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
             "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
@@ -368,6 +370,7 @@ namespace AsterixForms
             foreach (var data in bloque)
             {
                 List<string> atributosDI = new List<string>();
+                string correct_Alt = string.Empty;
 
                 foreach (DataItem item in data)
                 {
@@ -384,12 +387,12 @@ namespace AsterixForms
 
                 foreach (string atribut in atributosDI)
                 {
-                    if(!string.IsNullOrEmpty(atribut))
+                    if (!string.IsNullOrEmpty(atribut))
                     {
                         if (columna < dataGridView2.Columns.Count)
                         {
                             dataGridView2.Rows[rowIndex].Cells[columna].Value = atribut;
-                            columna++; 
+                            columna++;
                         }
                         else
                         {
@@ -397,6 +400,8 @@ namespace AsterixForms
                         }
                     }
                 }
+                        
+              
 
                 NumLinea++;
             }
@@ -478,7 +483,9 @@ namespace AsterixForms
                             MessageBox.Show("El paquete no pertenece a la ct 48 y no se lee");
                         }
                     }
+                    
                     MessageBox.Show("Tot el fitxer s'ha descodificat correctament");
+                    
                 }
             }
             catch (Exception ex)
@@ -722,6 +729,7 @@ namespace AsterixForms
 
                                 int BDS1 = Convert.ToInt32(mensaje.Substring(56, 4), 2);
                                 int BDS2 = Convert.ToInt32(mensaje.Substring(60, 4), 2);
+
 
                                 if (BDS1 == 4 & BDS2 == 0)
                                 {
@@ -1016,7 +1024,7 @@ namespace AsterixForms
         {
             int NumLinea = 1;
             DataItem.SetNombreFichero(nombreFichero); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
             if (bloque.Count > 0)
             {
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
@@ -1061,6 +1069,61 @@ namespace AsterixForms
                     EscribirFichero(bloque, filePath);
                     MessageBox.Show("S'ha escrit el fitxer correctament");
                 }
+            }
+        }
+
+        public void Corrected_Altitude(List<List<DataItem>> bloques)
+        {
+            foreach (var bloque in bloques)
+            {
+                // Primero, obtenemos la presión del bloque
+                double? presion = null;
+                foreach (var di in bloque)
+                {
+                    if (di is ModeS4 diConPresion)
+                    {
+                        if (diConPresion.BARtxt != "N/A")
+                        {
+                            string p = diConPresion.BARtxt;
+                            presion = Convert.ToDouble(p);
+                            break; // Obtenemos la presión una vez y salimos
+                        }
+                    }
+                }
+
+                // Si tenemos presión, procesamos los elementos que necesitan la corrección
+                if (presion.HasValue)
+                {
+                    foreach (var di in bloque)
+                    {
+                        if (di is FlightLevel fl)
+                        {
+                            if (fl.FL != "N/A")
+                            {
+                                // Llamamos a CorrectedAltitude y almacenamos el valor en CorrectedAltitudeValue
+                                fl.CorrectedAltitude(presion.Value);
+                            }
+                            else
+                            {
+                                fl.Alt_correct = " ";
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var di in bloque)
+                    {
+                        if (di is FlightLevel fl)
+                        {
+                            fl.Alt_correct = " ";
+                        }
+                    }
+                }
+
+
+
             }
         }
     }

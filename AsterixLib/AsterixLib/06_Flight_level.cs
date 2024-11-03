@@ -10,6 +10,7 @@ namespace AsterixLib
         public string V {  get; private set; }
         public string G { get; private set; }
         public string FL { get; private set; }
+        public string Alt_correct { get; set; }
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -51,17 +52,55 @@ namespace AsterixLib
                 {
                     G = "Garbled code";
                 }
-
-                double message = Convert.ToDouble((Convert.ToInt32(base.info.Substring(2), 2)));
-                FL = Convert.ToString(message / 4);
+                string message = base.info.Substring(2);
+                bool isNegative = message[0] == '1';
+                double FL_num;
+                int Numero;
+                if (isNegative)
+                {
+                    Numero = Convert.ToInt32(InvertirBits(message),2) +1;
+                    FL_num = Convert.ToDouble(Numero);
+                    FL_num = -FL_num / 4;
+                }
+                else
+                {
+                    Numero = Convert.ToInt32(message,2);
+                    FL_num = Convert.ToDouble(Numero) / 4;
+                }
+                FL = Convert.ToString(FL_num);
             }
             //Debug.WriteLine("Hem escrit al fitxer");
             
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = V + ";" + G + ";"+ FL + ";";
+            string mensaje = V + ";" + G + ";"+ FL + ";" + Alt_correct + ";";
             return mensaje;
+        }
+        public string InvertirBits(string message)
+        {
+            char[] bitsinvertidos = new char[message.Length];
+            for (int i = 0; i < message.Length; i++)
+            {
+                bitsinvertidos[i] = message[i] == '0' ? '1' : '0'; //Invertim els bits
+            }
+            return new string(bitsinvertidos);
+        }
+
+        public override void CorrectedAltitude(double p)
+        {
+
+            double FL_number = Convert.ToDouble(FL);
+            if (FL_number < 0.0)
+            {
+                double Alt = FL_number * 100 + (p - 1013.2) * 30;
+                Alt_correct = Convert.ToString(Math.Round(Alt,2));
+            }
+            else
+            {
+                Alt_correct = " ";
+            }
+       
         }
     }
 }

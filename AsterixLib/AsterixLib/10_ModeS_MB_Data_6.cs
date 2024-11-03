@@ -42,7 +42,7 @@ namespace AsterixLib
                     string msg = base.info.Substring(2, 10);
                     if (SIGN_MagHead == 1)
                     {
-                        MagHead = (Convert.ToInt32(InvertirBits(msg), 2)) * ((double)90 / 512);
+                        MagHead = (Convert.ToInt32(InvertirBits(msg), 2) +1) * ((double)90 / 512);
                         MagHead = -MagHead;
                     }
 
