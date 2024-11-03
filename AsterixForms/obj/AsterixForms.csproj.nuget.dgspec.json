@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixForms\\AsterixForms.csproj": {}
+    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixForms\\AsterixForms.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixForms\\AsterixForms.csproj": {
+    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixForms\\AsterixForms.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixForms\\AsterixForms.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
         "projectName": "AsterixForms",
-        "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixForms\\AsterixForms.csproj",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixForms\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixForms\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,11 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
-                "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
+              "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
+                "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
+              },
+              "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\SkyTrackerLib.csproj": {
+                "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\SkyTrackerLib.csproj"
               }
             }
           }
@@ -76,14 +79,79 @@
         }
       }
     },
-    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
+    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
         "projectName": "AsterixLib",
-        "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\Projecte2_PGTA\\Asterix\\P2_PGTA-judit1\\P2_PGTA-judit1\\AsterixLib\\AsterixLib\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\AsterixLib\\AsterixLib\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\SkyTrackerLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\SkyTrackerLib.csproj",
+        "projectName": "SkyTrackerLib",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\SkyTrackerLib.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\Universitat\\5A\\PGTA\\P2\\GitHub\\PGTA_0211\\P2_PGTA\\SkyTrackerLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

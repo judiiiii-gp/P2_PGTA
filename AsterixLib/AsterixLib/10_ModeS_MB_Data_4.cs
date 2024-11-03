@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.Authentication;
 
 namespace AsterixLib
 {
     // Clase hija que hereda de DataItem
     public class ModeS4 : DataItem
     {
-        
+        public string MCP_FCUtxt {  get; private set; }
+        public string FMStxt { get; private set; }
+        public string BARtxt { get; private set; }
+        public string Mode_stat_txt { get; private set; }
+        public string VNAVMODEtxt { get; private set; }
+        public string ALTHOLDtxt { get; private set; }
+        public string Approachtxt { get; private set; }
+        public string StatusTargAlt { get; private set; }
+        public string TargetAltSourcetxt { get; private set; }
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public ModeS4(string info)
             : base(info)
@@ -17,42 +26,101 @@ namespace AsterixLib
 
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al ModeS MB-4");
-            string MCP_FCUtxt;
-            int MCP_FCU = Convert.ToInt32(base.info.Substring(0, 1));
-            if (MCP_FCU == 1)
-            {
-                MCP_FCU = Convert.ToInt32(base.info.Substring(1, 12))*16;
-                MCP_FCUtxt = MCP_FCU.ToString();
-            }
-            else
+            
+            if (base.info == "N/A")
             {
                 MCP_FCUtxt = "N/A";
-            }
-
-            string FMStxt;
-            int FMS = Convert.ToInt32(base.info.Substring(13, 1));
-            if (FMS == 1)
-            {
-                FMS = Convert.ToInt32(base.info.Substring(14, 12))*16;
-                FMStxt = FMS.ToString();
-            }
-            else
-            {
                 FMStxt = "N/A";
-            }
-
-            string BARtxt;
-            int BAR = Convert.ToInt32(base.info.Substring(26, 1));
-            if (BAR == 1)
-            {
-                double BARdou = Convert.ToDouble(base.info.Substring(27, 12))*0.1;
-                BARtxt = BARdou.ToString();
+                BARtxt = "N/A";
+                VNAVMODEtxt = "N/A";
+                ALTHOLDtxt = "N/A";
+                Approachtxt = "N/A";
+                Mode_stat_txt = "N/A";
+                StatusTargAlt = "N/A";
+                TargetAltSourcetxt = "N/A";
             }
             else
             {
-                BARtxt = "N/A";
+                //Debug.WriteLine("Estem al ModeS MB-4");
+
+                long MCP_FCU = Convert.ToInt64(base.info.Substring(0, 1),2);
+                if (MCP_FCU == 1)
+                {
+                    MCP_FCU = Convert.ToInt64(base.info.Substring(1, 12), 2) * 16;
+                    MCP_FCUtxt = Convert.ToString(MCP_FCU);
+                }
+                else
+                {
+                    MCP_FCUtxt = "N/A";
+                }
+
+
+                long FMS = Convert.ToInt64(base.info.Substring(13, 1), 2);
+                if (FMS == 1)
+                {
+                    FMS = Convert.ToInt64(base.info.Substring(14, 12), 2) * 16;
+                    FMStxt = Convert.ToString(FMS);
+                }
+                else
+                {
+                    FMStxt = "0";
+                }
+
+
+                long BAR = Convert.ToInt64(base.info.Substring(26, 1), 2);
+                if (BAR == 1)
+                {
+                    BAR = Convert.ToInt64(base.info.Substring(27, 12), 2);
+                    double BARdou = ((BAR)/ 10) + 800;
+                    if (BARdou > 1209 || BARdou < 800)
+                    {
+                        BARtxt = "NV";
+                    }
+                    else
+                    {
+                        BARtxt = Convert.ToString(BARdou);
+                    }
+                }
+                else
+                {
+                    BARtxt = "N/A";
+                }
+
+                int Mode_stat = Convert.ToInt32(base.info.Substring(49, 1), 2);
+                Mode_stat_txt = Convert.ToString(Mode_stat);
+                if (Mode_stat == 1)
+                {
+                    VNAVMODEtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(48, 1)));
+                    ALTHOLDtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(49, 1)));
+                    Approachtxt = Convert.ToString(Convert.ToInt32(base.info.Substring(50, 1)));
+                }
+                else
+                {
+                    VNAVMODEtxt = "0";
+                    ALTHOLDtxt = "0";
+                    Approachtxt = "0";
+                }
+
+                int targ_stat = Convert.ToInt32(base.info.Substring(49, 1), 2);
+                StatusTargAlt = Convert.ToString(targ_stat);
+                if (targ_stat == 1)
+                {
+                    TargetAltSourcetxt = Convert.ToString(Convert.ToInt32(base.info.Substring(54, 1)));
+                }
+                else
+                {
+                    TargetAltSourcetxt = "0";
+                }
             }
+            
+
+
+
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";"+ Mode_stat_txt + ";" + VNAVMODEtxt + ";" + ALTHOLDtxt + ";" + Approachtxt + ";" + StatusTargAlt + ";" + TargetAltSourcetxt + ";";
+            return mensaje;
         }
     }
 }

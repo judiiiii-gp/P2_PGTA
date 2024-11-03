@@ -8,7 +8,7 @@ namespace AsterixLib
     {
 
 
-
+        public string add {  get; private set; }
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public AircraftAdd(string info)
@@ -21,18 +21,29 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            string address = string.Empty;
-            for (int i=0; i<base.info.Length; i+=4)
+            if (base.info == "N/A")
             {
-                string bits = base.info.Substring(i, 4); //Agafem grups de 4 per a passar-ho a hexadecimal
-                int decval = Convert.ToInt32(bits, 2); //Ho passem a decimal
-                string address_char = decval.ToString("X");
-                address += address_char;
+                add = "N/A";
             }
+            else
+            {
+                string address = string.Empty;
+                for (int i = 0; i < base.info.Length; i += 4)
+                {
+                    string bits = base.info.Substring(i, 4); //Agafem grups de 4 per a passar-ho a hexadecimal
+                    int decval = Convert.ToInt32(bits, 2); //Ho passem a decimal
+                    string address_char = decval.ToString("X");
+                    add += address_char;
+                }
+            }
+                
 
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(address + ";");
-            //Debug.WriteLine("Hem escrit al fitxer");
+
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = add + ";";
+            return mensaje;
         }
     }
 }

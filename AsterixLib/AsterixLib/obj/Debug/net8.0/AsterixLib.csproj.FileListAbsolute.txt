@@ -34,15 +34,3 @@ C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLi
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\refint\AsterixLib.dll
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.pdb
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\ref\AsterixLib.dll
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\bin\Debug\net8.0\AsterixLib.deps.json
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\bin\Debug\net8.0\AsterixLib.dll
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\bin\Debug\net8.0\AsterixLib.pdb
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.AssemblyInfoInputs.cache
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.AssemblyInfo.cs
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.csproj.CoreCompileInputs.cache
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.sourcelink.json
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.dll
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\refint\AsterixLib.dll
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.pdb
-C:\Users\Alex\Desktop\Universitat\5A\PGTA\P2\GitHub\Projecte2_PGTA\Asterix\P2_PGTA-judit1\P2_PGTA-judit1\AsterixLib\AsterixLib\obj\Debug\net8.0\ref\AsterixLib.dll

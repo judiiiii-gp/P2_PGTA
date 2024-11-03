@@ -29,88 +29,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Buscar = new Button();
-            SeleccionarBox = new TextBox();
-            BuscarBox = new TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             Seleccionar = new Button();
-            SeleccionarLabel = new Label();
-            BuscarLabel = new Label();
-            listBox1 = new ListBox();
+            label2 = new Label();
             SuspendLayout();
-            // 
-            // Buscar
-            // 
-            Buscar.Location = new Point(644, 409);
-            Buscar.Name = "Buscar";
-            Buscar.Size = new Size(94, 29);
-            Buscar.TabIndex = 0;
-            Buscar.Text = "Buscar";
-            Buscar.UseVisualStyleBackColor = true;
-            Buscar.Click += Buscar_Click;
-            // 
-            // SeleccionarBox
-            // 
-            SeleccionarBox.Location = new Point(12, 36);
-            SeleccionarBox.Name = "SeleccionarBox";
-            SeleccionarBox.Size = new Size(626, 27);
-            SeleccionarBox.TabIndex = 1;
-            // 
-            // BuscarBox
-            // 
-            BuscarBox.Location = new Point(12, 411);
-            BuscarBox.Name = "BuscarBox";
-            BuscarBox.Size = new Size(626, 27);
-            BuscarBox.TabIndex = 2;
             // 
             // Seleccionar
             // 
-            Seleccionar.Location = new Point(644, 35);
+            Seleccionar.BackColor = Color.Blue;
+            Seleccionar.Dock = DockStyle.Fill;
+            Seleccionar.Image = (Image)resources.GetObject("Seleccionar.Image");
+            Seleccionar.Location = new Point(0, 0);
             Seleccionar.Name = "Seleccionar";
-            Seleccionar.Size = new Size(94, 29);
+            Seleccionar.Size = new Size(800, 450);
             Seleccionar.TabIndex = 3;
             Seleccionar.Text = "Seleccionar";
-            Seleccionar.UseVisualStyleBackColor = true;
+            Seleccionar.UseVisualStyleBackColor = false;
             Seleccionar.Click += Seleccionar_Click;
             // 
-            // SeleccionarLabel
+            // label2
             // 
-            SeleccionarLabel.AutoSize = true;
-            SeleccionarLabel.Location = new Point(12, 13);
-            SeleccionarLabel.Name = "SeleccionarLabel";
-            SeleccionarLabel.Size = new Size(146, 20);
-            SeleccionarLabel.TabIndex = 4;
-            SeleccionarLabel.Text = "Seleccioni la carpeta";
-            // 
-            // BuscarLabel
-            // 
-            BuscarLabel.AutoSize = true;
-            BuscarLabel.Location = new Point(12, 388);
-            BuscarLabel.Name = "BuscarLabel";
-            BuscarLabel.Size = new Size(105, 20);
-            BuscarLabel.TabIndex = 5;
-            BuscarLabel.Text = "Nom del fitxer";
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(12, 69);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(626, 304);
-            listBox1.TabIndex = 6;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ControlText;
+            label2.Location = new Point(175, 44);
+            label2.Name = "label2";
+            label2.Size = new Size(427, 31);
+            label2.TabIndex = 11;
+            label2.Text = "Escull el fitxer .ast que vols descodificar";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(listBox1);
-            Controls.Add(BuscarLabel);
-            Controls.Add(SeleccionarLabel);
+            Controls.Add(label2);
             Controls.Add(Seleccionar);
-            Controls.Add(BuscarBox);
-            Controls.Add(SeleccionarBox);
-            Controls.Add(Buscar);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -118,13 +73,7 @@
         }
 
         #endregion
-
-        private Button Buscar;
-        private TextBox SeleccionarBox;
-        private TextBox BuscarBox;
         private Button Seleccionar;
-        private Label SeleccionarLabel;
-        private Label BuscarLabel;
-        private ListBox listBox1;
+        private Label label2;
     }
 }

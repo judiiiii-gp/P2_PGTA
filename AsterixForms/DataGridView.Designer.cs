@@ -145,6 +145,7 @@ namespace AsterixForms
         private ToolStrip toolStrip1;
         private ToolStripButton BtnFilter;
         private ToolStripButton BtnSearch;
-        private ToolStripButton BtnGoogleEarth;
+        private ToolStripButton CSVFile;
+        private ToolStripButton toolStripButton1;
     }
 }

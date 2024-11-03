@@ -6,7 +6,10 @@ namespace AsterixLib
     // Clase hija que hereda de DataItem
     public class Mode3A : DataItem
     {
-
+        public string V {  get; private set; }
+        public string G { get; private set; }
+        public string L { get; private set; }
+        public string message { get; private set; }
 
 
 
@@ -21,43 +24,55 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al Mode3A");
-            string V = base.info.Substring(0, 1);
-            if (V == "0")
+            if (base.info == "N/A")
             {
-                V = "Code validated";
+                V = "N/A";
+                G = "N/A";
+                L = "N/A";
+                message = "N/A";
             }
             else
             {
-                V = "Code not validated";
+                //Debug.WriteLine("Estem al Mode3A");
+                V = base.info.Substring(0, 1);
+                if (V == "0")
+                {
+                    V = "Code validated";
+                }
+                else
+                {
+                    V = "Code not validated";
+                }
+                G = base.info.Substring(1, 1);
+                if (G == "0")
+                {
+                    G = "Default";
+                }
+                else
+                {
+                    G = "Garbled code";
+                }
+                L = base.info.Substring(2, 1);
+                if (L == "0")
+                {
+                    L = "Mode-3/A code derived from the reply of the transponder";
+                }
+                else
+                {
+                    L = "Mode-3/A code not extracted during the last scan";
+                }
+                string SPARE = base.info.Substring(3, 1); //Spare bit que siempre será 0
+                int message_bit = Convert.ToInt32(base.info.Substring(4), 2);
+                message = Convert.ToString(message_bit, 8);
+                //Debug.WriteLine("Tenim el missatge");
             }
-            string G = base.info.Substring(1,1);
-            if (G == "0")
-            {
-                G = "Default";
-            }
-            else
-            {
-                G = "Garbled code";
-            }
-            string L = base.info.Substring(2,1);
-            if (L == "0")
-            {
-                L = "Mode-3/A code derived from the reply of the transponder";
-            }
-            else
-            {
-                L = "Mode-3/A code not extracted during the last scan";
-            }
-            string SPARE = base.info.Substring(3,1); //Spare bit que siempre será 0
-            int message = Convert.ToInt32(base.info.Substring(4), 2);
-            string mensaje_octal = Convert.ToString(message, 8);
-            //Debug.WriteLine("Tenim el missatge");
+           
 
-
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(V + ";" + G + ";" + L + ";" + mensaje_octal + ";");
-            //Debug.WriteLine("Hem escrit al fitxer");
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = V + ";" + G + ";" + L + ";" + message + ";";
+            return mensaje;
         }
     }
 }

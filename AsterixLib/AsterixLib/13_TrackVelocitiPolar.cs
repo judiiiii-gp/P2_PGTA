@@ -7,7 +7,8 @@ namespace AsterixLib
     public class TrackVelocityPolar : DataItem
     {
 
-
+        public string groundspeed {  get; private set; }
+        public string heading {  get; private set; }
 
 
         // Constructor que inicializa las variables utilizando el constructor de la clase base
@@ -21,16 +22,25 @@ namespace AsterixLib
         // Implementación del método abstracto Descodificar
         public override void Descodificar()
         {
-            //Debug.WriteLine("Estem al track vel");
-            int length = 16; //Cada octeto tiene 8 bits
+            if (base.info == "N/A")
+            {
+                groundspeed = "N/A";
+                heading = "N/A";
+            }
+            else
+            {
+                //Debug.WriteLine("Estem al track vel");
+                int length = 16; //Cada octeto tiene 8 bits
 
-            int groundspeed = Convert.ToInt32(base.info.Substring(0, length), 2);
-            int heading = Convert.ToInt32(base.info.Substring(length), 2);
-
-
-            // Llamada al método EscribirEnFichero de la clase base
-            EscribirEnFichero(Convert.ToString(groundspeed) + ";" + Convert.ToString(heading) + ";");
-            //Debug.WriteLine("Hem escrit al fitxer");
+                groundspeed = Convert.ToString(Convert.ToInt32(base.info.Substring(0, length), 2)*0.22);
+                heading = Convert.ToString(Convert.ToInt32(base.info.Substring(length), 2)*((double)360/Math.Pow(2, 16)));
+            }
+            
+        }
+        public override string ObtenerAtributos()
+        {
+            string mensaje = groundspeed + ";" + heading + ";";
+            return mensaje;
         }
     }
 }
