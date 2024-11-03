@@ -99,5 +99,10 @@ namespace AsterixLib
         {
             NombreFichero = nombreFichero;
         }
+
+        public virtual void CorrectedAltitude(double p)
+        {
+
+        }
     }
 }
