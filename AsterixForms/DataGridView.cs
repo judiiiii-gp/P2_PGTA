@@ -20,6 +20,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Xml.Linq;
+using MultiCAT6.Utils;
+using System.Runtime.CompilerServices;
 
 namespace AsterixForms
 {
@@ -89,6 +91,7 @@ namespace AsterixForms
             this.FilePath = FilePath;
             ReadBinaryFile(FilePath);
             Corrected_Altitude(bloque);
+            Calcular_Lat_Long(bloque);
             //MessageBox.Show(msg);
             dgv_index = 0;
         }
@@ -349,7 +352,7 @@ namespace AsterixForms
 
             
             List<string> lista = new List<string> {
-            "SAC", "SIC", "Time of Day", "TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
+            "SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
             "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
             "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
             "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
@@ -1024,7 +1027,7 @@ namespace AsterixForms
         {
             int NumLinea = 1;
             DataItem.SetNombreFichero(nombreFichero); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;YP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
             if (bloque.Count > 0)
             {
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
@@ -1122,9 +1125,81 @@ namespace AsterixForms
                     }
                 }
 
-
-
             }
+
+        }
+        public void Calcular_Lat_Long(List<List<DataItem>> bloques)
+        {
+            
+            foreach (var elemento in bloques)
+            {
+                double? Flight = null;
+                foreach (var di in elemento)
+                {
+                    if (di is FlightLevel fl)
+                    {
+                        if (fl.FL != "N/A")
+                        {
+                            Flight = Convert.ToDouble(fl.FL);
+                        }
+                        else
+                        {
+                            Flight = null;
+                        }
+                        
+                        
+                    }
+                }
+                if (Flight.HasValue)
+                {
+                    double Rho;
+                    double Theta;
+                    double Elev;
+                    double Lat;
+                    double Long;
+                    double h;
+                    string mensaje;
+                    CoordinatesWGS84 coord = new CoordinatesWGS84(41.300702 * GeoUtils.DEGS2RADS, 2.102058 * GeoUtils.DEGS2RADS, 2.007 + 25.25);
+                    GeoUtils geoUtils = new GeoUtils();
+                    for (int i = 0; i< elemento.Count; i++)
+                    {
+                        if (elemento[i] is Position_Polar polar)
+                        {
+                            Rho = Convert.ToDouble(polar.rho)*GeoUtils.NM2METERS;
+                            Theta = Convert.ToDouble(polar.theta);
+                            double RadEarth = geoUtils.CalculateEarthRadius(coord);
+                            Elev = GeoUtils.CalculateElevation(coord, RadEarth, Rho, Math.Abs(Convert.ToDouble(Flight))*100*GeoUtils.FEET2METERS);
+                            CoordinatesXYZ cartesian = GeoUtils.change_radar_spherical2radar_cartesian(new CoordinatesPolar(Rho, Theta*GeoUtils.DEGS2RADS, Elev));
+                            CoordinatesXYZ geocentric = geoUtils.change_radar_cartesian2geocentric(coord, cartesian);
+                            CoordinatesWGS84 geodesic = geoUtils.change_geocentric2geodesic(geocentric); //Obtenim la latitud, longitud i elevació
+                            double Lat_rad = geodesic.Lat;
+                            double Long_rad = geodesic.Lon;
+                            Lat = Lat_rad * GeoUtils.RADS2DEGS;
+                            Long = Long_rad * GeoUtils.RADS2DEGS;
+                            h = geodesic.Height;
+                            mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
+                            Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
+                            geocoord.Descodificar();
+                            elemento.Insert(2,geocoord);
+                            break;
+
+
+
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    string mensaje = "N/A";
+                    Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
+                    geocoord.Descodificar();
+                    elemento.Insert(2, geocoord);
+
+
+                }
+            }
+            
         }
     }
 }
