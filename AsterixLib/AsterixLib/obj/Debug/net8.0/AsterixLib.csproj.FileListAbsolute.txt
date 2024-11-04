@@ -38,3 +38,5 @@ C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixLib\AsterixLib\bin\
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.csproj.AssemblyReference.cache
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net8.0\Accord.dll.config
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.csproj.AssemblyReference.cache
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixLib\AsterixLib\bin\Debug\net8.0\AsterixLib.runtimeconfig.json
+C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixLib\AsterixLib\obj\Debug\net8.0\AsterixLib.genruntimeconfig.cache

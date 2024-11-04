@@ -249,7 +249,9 @@
       },
       "AsterixLib/1.0.0": {
         "dependencies": {
-          "Accord.Math": "3.8.0"
+          "Accord.Math": "3.8.0",
+          "GMap.NET.Core": "2.1.7",
+          "GMap.NET.WindowsForms": "1.7.5"
         },
         "runtime": {
           "AsterixLib.dll": {

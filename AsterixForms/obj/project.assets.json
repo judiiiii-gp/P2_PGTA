@@ -475,7 +475,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Accord.Math": "3.8.0"
+          "Accord.Math": "3.8.0",
+          "GMap.NET.Core": "2.1.7",
+          "GMap.NET.WindowsForms": "1.7.5"
         },
         "compile": {
           "bin/placeholder/AsterixLib.dll": {}
@@ -1477,19 +1479,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\julia\\.nuget\\packages\\": {}
+    "C:\\Users\\judig\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
+      "projectUniqueName": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
       "projectName": "AsterixForms",
-      "projectPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
-      "packagesPath": "C:\\Users\\julia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\obj\\",
+      "projectPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
+      "packagesPath": "C:\\Users\\judig\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixForms\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\judig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1503,8 +1510,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
-              "projectPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
+            "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj": {
+              "projectPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixLib.csproj"
             }
           }
         }

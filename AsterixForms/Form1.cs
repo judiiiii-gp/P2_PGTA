@@ -81,6 +81,8 @@ namespace AsterixForms
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                //DataGridView formulari = new DataGridView(openFileDialog.FileName);
+                //formulari.ShowDialog();
                 ReadBinaryFile(openFileDialog.FileName);
             }
 
