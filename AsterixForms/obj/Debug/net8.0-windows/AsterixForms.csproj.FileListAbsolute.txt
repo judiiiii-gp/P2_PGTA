@@ -73,3 +73,24 @@ C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.Core.dll
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll.config
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.Core.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Accord.Math.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\EntityFramework.SqlServer.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\EntityFramework.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\GMap.NET.Core.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\GMap.NET.WindowsForms.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\System.Data.SQLite.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\System.Data.SQLite.EF6.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\linux-x64\native\SQLite.Interop.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\osx-x64\native\SQLite.Interop.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win-x64\native\SQLite.Interop.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\AsterixForms\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
