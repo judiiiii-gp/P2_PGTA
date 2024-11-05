@@ -49,5 +49,13 @@ namespace AsterixLib
             string mensaje = rho + ";" + theta +";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Rho = rho;
+            grid.Theta = theta;
+            return grid;
+
+        }
     }
 }

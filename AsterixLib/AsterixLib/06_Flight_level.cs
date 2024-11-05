@@ -102,5 +102,15 @@ namespace AsterixLib
             }
        
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.V_90 = V;
+            grid.G_90 = G;
+            grid.Flight_Level = FL;
+            grid.Mode_C_Correction = Alt_correct;
+            return grid;
+
+        }
     }
 }

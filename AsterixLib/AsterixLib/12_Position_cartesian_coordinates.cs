@@ -82,5 +82,14 @@ namespace AsterixLib
             string mensaje = X + ";" + Y + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.X_Component = X;
+            grid.Y_Component = Y;
+            return grid;
+
+
+        }
     }
 }

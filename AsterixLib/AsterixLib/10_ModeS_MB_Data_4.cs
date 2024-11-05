@@ -16,6 +16,7 @@ namespace AsterixLib
         public string Approachtxt { get; private set; }
         public string StatusTargAlt { get; private set; }
         public string TargetAltSourcetxt { get; private set; }
+        public string BDS4 { get; private set; }
         // Constructor que inicializa las variables utilizando el constructor de la clase base
         public ModeS4(string info)
             : base(info)
@@ -38,11 +39,12 @@ namespace AsterixLib
                 Mode_stat_txt = "N/A";
                 StatusTargAlt = "N/A";
                 TargetAltSourcetxt = "N/A";
+                BDS4 = "N/A";
             }
             else
             {
                 //Debug.WriteLine("Estem al ModeS MB-4");
-
+                BDS4 = "4,0";
                 long MCP_FCU = Convert.ToInt64(base.info.Substring(0, 1),2);
                 if (MCP_FCU == 1)
                 {
@@ -119,8 +121,24 @@ namespace AsterixLib
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";"+ Mode_stat_txt + ";" + VNAVMODEtxt + ";" + ALTHOLDtxt + ";" + Approachtxt + ";" + StatusTargAlt + ";" + TargetAltSourcetxt + ";";
+            string mensaje = BDS4 + ";" + MCP_FCUtxt + ";" + FMStxt + ";" + BARtxt + ";"+ Mode_stat_txt + ";" + VNAVMODEtxt + ";" + ALTHOLDtxt + ";" + Approachtxt + ";" + StatusTargAlt + ";" + TargetAltSourcetxt + ";";
             return mensaje;
+        }
+
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.BDS_4_0 = BDS4;
+            grid.MCP_FCUtxt = MCP_FCUtxt;
+            grid.FMStxt = FMStxt;
+            grid.BARtxt = BARtxt;
+            grid.Mode_stat_txt = Mode_stat_txt;
+            grid.VNAVMODEtxt = VNAVMODEtxt;
+            grid.ALTHOLDtxt = ALTHOLDtxt;
+            grid.Approachtxt = Approachtxt;
+            grid.StatusTargAlt = StatusTargAlt;
+            grid.TargetAltSourcetxt = TargetAltSourcetxt;
+            return grid;
         }
     }
 }

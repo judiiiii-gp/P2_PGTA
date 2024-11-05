@@ -41,5 +41,16 @@ namespace AsterixLib
             string mensaje = Lat + ";" + Long + ";" + Height + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Latitude = Lat;
+            grid.Longitude = Long;
+            grid.Height = Height;
+
+            return grid;
+
+
+        }
     }
 }

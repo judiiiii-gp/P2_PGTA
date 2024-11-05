@@ -45,5 +45,12 @@ namespace AsterixLib
             string mensaje = add + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Aircraft_Address = add;
+            return grid;
+
+        }
     }
 }

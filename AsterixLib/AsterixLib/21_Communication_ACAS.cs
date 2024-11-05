@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Accord.Collections;
+using System;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.Arm;
 
 namespace AsterixLib
 {
@@ -158,6 +160,23 @@ namespace AsterixLib
         {
             string mensaje = communication + ";" + status + ";" + SI + ";" + MSSC + ";" + ARC + ";" + AIC + ";" + B1A_mess + ";" + B1B_mess + ";";
             return mensaje;
+        }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.COM = communication;
+            grid.STAT = status;
+            grid.SI = SI;
+            grid.MSSC = MSSC;
+            grid.ARC = ARC;
+            grid.AIC = AIC;
+            grid.B1A = B1A_mess;
+            grid.B1B = B1B_mess;
+
+            return grid;
+         
+
+
         }
     }
 }

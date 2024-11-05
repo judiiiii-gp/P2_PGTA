@@ -17,6 +17,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using GMap.NET.WindowsForms.Markers;
 using System.Drawing;
 using System.Reflection.Metadata;
+using MultiCAT6.Utils;
 
 
 namespace AsterixForms
@@ -29,6 +30,7 @@ namespace AsterixForms
         }
 
         List<List<DataItem>> bloque = new List<List<DataItem>>();
+        List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
         int time;
 
 
@@ -84,6 +86,9 @@ namespace AsterixForms
                 //DataGridView formulari = new DataGridView(openFileDialog.FileName);
                 //formulari.ShowDialog();
                 ReadBinaryFile(openFileDialog.FileName);
+                Corrected_Altitude(bloque);
+                Calcular_Lat_Long(bloque);
+                GenerarAsterix(bloque);
             }
 
             groupBox1.Hide();
@@ -678,10 +683,13 @@ namespace AsterixForms
             for (int i = 0; i < data.Count; i++)
             {
                 //MessageBox.Show("Estem dins el for de descodificar");
-                data[i].Descodificar();
+                data[i].Descodificar();               
+             
             }
 
         }
+
+        
 
         private void NewDataBut_Click(object sender, EventArgs e)
         {
@@ -693,14 +701,18 @@ namespace AsterixForms
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 ReadBinaryFile(openFileDialog.FileName);
+                Corrected_Altitude(bloque);
+                Calcular_Lat_Long(bloque);
+                GenerarAsterix(bloque);
             }
             // falta posar reiniciar simulacio i timer
         }
 
         private void ShowDataBut_Click(object sender, EventArgs e)
         {
-            //DataGridView formulari = new DataGridView(FilePath);
-            //formulari.Show(); // Al obtenir el fitxer obrirem el nou formulari
+            
+            DataGridView formulari = new DataGridView(asterixGrids);
+            formulari.Show(); // Al obtenir el fitxer obrirem el nou formulari
             // Cal passar la info per poder fer el datagridview
             // passen vector amb info i no fitxer asterix crec
         }
@@ -1028,7 +1040,278 @@ namespace AsterixForms
             //public List<Vector> Positions { get; set; }
             //public string Description { get; set; }
         }
+        //Funció per a escriure en el fitxer
+        private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
+        {
+            int NumLinea = 1;
+            DataItem.SetNombreFichero(nombreFichero); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;YP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+            if (bloque.Count > 0)
+            {
+                bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
+            }
+            foreach (var data in bloque)
+            {
+                List<string> atributosDI = new List<string>();
+
+                foreach (DataItem item in data)
+                {
+                    atributosDI.Add(item.ObtenerAtributos()); // Obtenim els atributs dels elements
+                }
+                string mensaje = string.Join("", atributosDI);
+                if (data.Count > 0)
+                {
+                    data[0].EscribirEnFichero($"{NumLinea}" + ";", false);
+
+                    NumLinea++;
+                }
+                data[0].EscribirEnFichero(mensaje, false); //Escribim al fitxer
+                if (data.Count > 0)
+                {
+                    data[0].EscribirEnFichero("\n", true);
+                }
+            }
 
 
+
+        }
+
+        private void CSV_File_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                saveFileDialog.Title = "Seleccionar la ubicación y el nombre del fichero";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    EscribirFichero(bloque, filePath);
+                    MessageBox.Show("S'ha escrit el fitxer correctament");
+                }
+            }
+        }
+        public void Corrected_Altitude(List<List<DataItem>> bloques)
+        {
+            foreach (var bloque in bloques)
+            {
+                // Primero, obtenemos la presión del bloque
+                double? presion = null;
+                foreach (var di in bloque)
+                {
+                    if (di is ModeS4 diConPresion)
+                    {
+                        if (diConPresion.BARtxt != "N/A")
+                        {
+                            string p = diConPresion.BARtxt;
+                            presion = Convert.ToDouble(p);
+                            break; // Obtenemos la presión una vez y salimos
+                        }
+                    }
+                }
+
+                // Si tenemos presión, procesamos los elementos que necesitan la corrección
+                if (presion.HasValue)
+                {
+                    foreach (var di in bloque)
+                    {
+                        if (di is FlightLevel fl)
+                        {
+                            if (fl.FL != "N/A")
+                            {
+                                // Llamamos a CorrectedAltitude y almacenamos el valor en CorrectedAltitudeValue
+                                fl.CorrectedAltitude(presion.Value);
+                            }
+                            else
+                            {
+                                fl.Alt_correct = " ";
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var di in bloque)
+                    {
+                        if (di is FlightLevel fl)
+                        {
+                            fl.Alt_correct = " ";
+                        }
+                    }
+                }
+
+            }
+
+        }
+        public void Calcular_Lat_Long(List<List<DataItem>> bloques)
+        {
+
+            foreach (var elemento in bloques)
+            {
+                double? Flight = null;
+                foreach (var di in elemento)
+                {
+                    if (di is FlightLevel fl)
+                    {
+                        if (fl.FL != "N/A")
+                        {
+                            Flight = Convert.ToDouble(fl.FL);
+                        }
+                        else
+                        {
+                            Flight = null;
+                        }
+
+
+                    }
+                }
+                if (Flight.HasValue)
+                {
+                    double Rho;
+                    double Theta;
+                    double Elev;
+                    double Lat;
+                    double Long;
+                    double h;
+                    string mensaje;
+                    CoordinatesWGS84 coord = new CoordinatesWGS84(41.300702 * GeoUtils.DEGS2RADS, 2.102058 * GeoUtils.DEGS2RADS, 2.007 + 25.25);
+                    GeoUtils geoUtils = new GeoUtils();
+                    for (int i = 0; i < elemento.Count; i++)
+                    {
+                        if (elemento[i] is Position_Polar polar)
+                        {
+                            Rho = Convert.ToDouble(polar.rho) * GeoUtils.NM2METERS;
+                            Theta = Convert.ToDouble(polar.theta);
+                            double RadEarth = geoUtils.CalculateEarthRadius(coord);
+                            Elev = GeoUtils.CalculateElevation(coord, RadEarth, Rho, Math.Abs(Convert.ToDouble(Flight)) * 100 * GeoUtils.FEET2METERS);
+                            CoordinatesXYZ cartesian = GeoUtils.change_radar_spherical2radar_cartesian(new CoordinatesPolar(Rho, Theta * GeoUtils.DEGS2RADS, Elev));
+                            CoordinatesXYZ geocentric = geoUtils.change_radar_cartesian2geocentric(coord, cartesian);
+                            CoordinatesWGS84 geodesic = geoUtils.change_geocentric2geodesic(geocentric); //Obtenim la latitud, longitud i elevació
+                            double Lat_rad = geodesic.Lat;
+                            double Long_rad = geodesic.Lon;
+                            Lat = Lat_rad * GeoUtils.RADS2DEGS;
+                            Long = Long_rad * GeoUtils.RADS2DEGS;
+                            h = geodesic.Height;
+                            mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
+                            Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
+                            geocoord.Descodificar();
+                            elemento.Insert(2, geocoord);
+                            break;
+
+
+
+                        }
+                    }
+
+                }
+                else
+                {
+                    string mensaje = "N/A";
+                    Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
+                    geocoord.Descodificar();
+                    elemento.Insert(2, geocoord);
+
+
+                }
+            }
+
+        }
+
+        public void GenerarAsterix(List<List<DataItem>> bloque)
+        {
+            
+            foreach (var elemento in bloque)
+            {
+                AsterixGrid grid = new AsterixGrid();
+                foreach (var di in elemento)
+                {
+                    AsterixGrid parcial = di.ObtenerAsterix();
+                    if (!string.IsNullOrEmpty(parcial.SAC)) grid.SAC = parcial.SAC;
+                    if (!string.IsNullOrEmpty(parcial.SIC)) grid.SIC = parcial.SIC;
+                    if (!string.IsNullOrEmpty(parcial.Time)) grid.Time = parcial.Time;
+                    if (!string.IsNullOrEmpty(parcial.TYP)) grid.TYP = parcial.TYP;
+                    if (!string.IsNullOrEmpty(parcial.SIM)) grid.SIM = parcial.SIM;
+                    if (!string.IsNullOrEmpty(parcial.RDP)) grid.RDP = parcial.RDP;
+                    if (!string.IsNullOrEmpty(parcial.SPI)) grid.SPI = parcial.SPI;
+                    if (!string.IsNullOrEmpty(parcial.RAB)) grid.RAB = parcial.RAB;
+                    if (!string.IsNullOrEmpty(parcial.TST)) grid.TST = parcial.TST;
+                    if (!string.IsNullOrEmpty(parcial.ERR)) grid.ERR = parcial.ERR;
+                    if (!string.IsNullOrEmpty(parcial.XPP)) grid.XPP = parcial.XPP;
+                    if (!string.IsNullOrEmpty(parcial.ME)) grid.ME = parcial.ME;
+                    if (!string.IsNullOrEmpty(parcial.MI)) grid.MI = parcial.MI;
+                    if (!string.IsNullOrEmpty(parcial.FOE)) grid.FOE = parcial.FOE;
+                    if (!string.IsNullOrEmpty(parcial.ADS_EP)) grid.ADS_EP = parcial.ADS_EP;
+                    if (!string.IsNullOrEmpty(parcial.ADS_VAL)) grid.ADS_VAL = parcial.ADS_VAL;
+                    if (!string.IsNullOrEmpty(parcial.SCN_EP)) grid.SCN_EP = parcial.SCN_EP;
+                    if (!string.IsNullOrEmpty(parcial.SCN_VAL)) grid.SCN_VAL = parcial.SCN_VAL;
+                    if (!string.IsNullOrEmpty(parcial.PAI_EP)) grid.PAI_EP = parcial.PAI_EP;
+                    if (!string.IsNullOrEmpty(parcial.PAI_VAL)) grid.PAI_VAL = parcial.PAI_VAL;
+                    if (!string.IsNullOrEmpty(parcial.Rho)) grid.Rho = parcial.Rho;
+                    if (!string.IsNullOrEmpty(parcial.Theta)) grid.Theta = parcial.Theta;
+                    if (!string.IsNullOrEmpty(parcial.Latitude)) grid.Latitude = parcial.Latitude;
+                    if (!string.IsNullOrEmpty(parcial.Longitude)) grid.Longitude = parcial.Longitude;
+                    if (!string.IsNullOrEmpty(parcial.Height)) grid.Height = parcial.Height;
+                    if (!string.IsNullOrEmpty(parcial.V_70)) grid.V_70 = parcial.V_70;
+                    if (!string.IsNullOrEmpty(parcial.G_70)) grid.G_70 = parcial.G_70;
+                    if (!string.IsNullOrEmpty(parcial.L_70)) grid.L_70 = parcial.L_70;
+                    if (!string.IsNullOrEmpty(parcial.Mode3_A_Reply)) grid.Mode3_A_Reply = parcial.Mode3_A_Reply;
+                    if (!string.IsNullOrEmpty(parcial.V_90)) grid.V_90 = parcial.V_90;
+                    if (!string.IsNullOrEmpty(parcial.G_90)) grid.G_90 = parcial.G_90;
+                    if (!string.IsNullOrEmpty(parcial.Flight_Level)) grid.Flight_Level = parcial.Flight_Level;
+                    if (!string.IsNullOrEmpty(parcial.Mode_C_Correction)) grid.Mode_C_Correction = parcial.Mode_C_Correction;
+                    if (!string.IsNullOrEmpty(parcial.SRL)) grid.SRL = parcial.SRL;
+                    if (!string.IsNullOrEmpty(parcial.SRR)) grid.SRR = parcial.SRR;
+                    if (!string.IsNullOrEmpty(parcial.SAM)) grid.SAM = parcial.SAM;
+                    if (!string.IsNullOrEmpty(parcial.PRL)) grid.PRL = parcial.PRL;
+                    if (!string.IsNullOrEmpty(parcial.PAM)) grid.PAM = parcial.PAM;
+                    if (!string.IsNullOrEmpty(parcial.RPD)) grid.RPD = parcial.RPD;
+                    if (!string.IsNullOrEmpty(parcial.APD)) grid.APD = parcial.APD;
+                    if (!string.IsNullOrEmpty(parcial.Aircraft_Address)) grid.Aircraft_Address = parcial.Aircraft_Address;
+                    if (!string.IsNullOrEmpty(parcial.Aircraft_Indentification)) grid.Aircraft_Indentification = parcial.Aircraft_Indentification;
+
+
+                    // Asignamos las propiedades solo si parcial las tiene llenas
+                    if (!string.IsNullOrEmpty(parcial.BDS_4_0)) grid.BDS_4_0 = parcial.BDS_4_0;
+                    if (!string.IsNullOrEmpty(parcial.BDS_5_0)) grid.BDS_5_0 = parcial.BDS_5_0;
+                    if (!string.IsNullOrEmpty(parcial.BDS_6_0)) grid.BDS_6_0 = parcial.BDS_6_0;
+
+                    if (!string.IsNullOrEmpty(parcial.Track_Number)) grid.Track_Number = parcial.Track_Number;
+                    if (!string.IsNullOrEmpty(parcial.X_Component)) grid.X_Component = parcial.X_Component;
+                    if (!string.IsNullOrEmpty(parcial.Y_Component)) grid.Y_Component = parcial.Y_Component;
+
+                    if (!string.IsNullOrEmpty(parcial.Ground_Speed)) grid.Ground_Speed = parcial.Ground_Speed;
+                    if (!string.IsNullOrEmpty(parcial.Heading)) grid.Heading = parcial.Heading;
+
+                    if (!string.IsNullOrEmpty(parcial.CNF)) grid.CNF = parcial.CNF;
+                    if (!string.IsNullOrEmpty(parcial.RAD)) grid.RAD = parcial.RAD;
+                    if (!string.IsNullOrEmpty(parcial.DOU)) grid.DOU = parcial.DOU;
+                    if (!string.IsNullOrEmpty(parcial.MAH)) grid.MAH = parcial.MAH;
+                    if (!string.IsNullOrEmpty(parcial.CDM)) grid.CDM = parcial.CDM;
+                    if (!string.IsNullOrEmpty(parcial.TRE)) grid.TRE = parcial.TRE;
+                    if (!string.IsNullOrEmpty(parcial.GHO)) grid.GHO = parcial.GHO;
+                    if (!string.IsNullOrEmpty(parcial.SUP)) grid.SUP = parcial.SUP;
+                    if (!string.IsNullOrEmpty(parcial.TCC)) grid.TCC = parcial.TCC;
+
+                    if (!string.IsNullOrEmpty(parcial.Height_3D)) grid.Height_3D = parcial.Height_3D;
+
+                    if (!string.IsNullOrEmpty(parcial.COM)) grid.COM = parcial.COM;
+                    if (!string.IsNullOrEmpty(parcial.STAT)) grid.STAT = parcial.STAT;
+                    if (!string.IsNullOrEmpty(parcial.SI)) grid.SI = parcial.SI;
+                    if (!string.IsNullOrEmpty(parcial.MSSC)) grid.MSSC = parcial.MSSC;
+                    if (!string.IsNullOrEmpty(parcial.ARC)) grid.ARC = parcial.ARC;
+                    if (!string.IsNullOrEmpty(parcial.AIC)) grid.AIC = parcial.AIC;
+                    if (!string.IsNullOrEmpty(parcial.B1A)) grid.B1A = parcial.B1A;
+                    if (!string.IsNullOrEmpty(parcial.B1B)) grid.B1B = parcial.B1B;
+                  
+
+
+                }
+                asterixGrids.Add(grid);
+
+
+            }
+        }
     }
 }

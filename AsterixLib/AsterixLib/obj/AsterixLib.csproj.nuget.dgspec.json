@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[2.1.7, )"
             },
+            "GMap.NET.WinForms": {
+              "target": "Package",
+              "version": "[2.1.7, )"
+            },
             "GMap.NET.WindowsForms": {
               "target": "Package",
               "version": "[1.7.5, )"

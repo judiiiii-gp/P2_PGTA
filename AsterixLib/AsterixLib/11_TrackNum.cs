@@ -37,5 +37,13 @@ namespace AsterixLib
             string mensaje = TrackNumber + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Track_Number = TrackNumber;
+
+            return grid;
+
+        }
     }
 }

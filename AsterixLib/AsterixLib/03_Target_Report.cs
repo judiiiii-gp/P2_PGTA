@@ -303,6 +303,29 @@ namespace AsterixLib
             string mensaje = TYP + ";" + SIM + ";" + RDP +";" + SPI + ";" + RAB + ";" + TST + ";" + ERR + ";" + XPP +";" + ME + ";" + MI + ";" + FOE + ";" + ADSBEP + ";" + ADSBVAL + ";" + SCNEP + ";" + SCNVAL + ";" + PAIEP + ";" + PAIVAL + ";";
             return mensaje;
         }
+
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.TYP = TYP;
+            grid.SIM = SIM;
+            grid.RDP = RDP;
+            grid.SPI = SPI;
+            grid.RAB = RAB;
+            grid.TST = TST;
+            grid.ERR = ERR;
+            grid.XPP = XPP;
+            grid.ME = ME;
+            grid.MI = MI;
+            grid.FOE = FOE;
+            grid.ADS_EP = ADSBEP;
+            grid.ADS_VAL = ADSBVAL;
+            grid.PAI_EP = PAIEP;
+            grid.PAI_VAL = PAIVAL;
+            grid.SCN_EP = SCNVAL;
+            grid.SCN_VAL = SCNVAL;
+            return grid;
+        }
     }
 
 }

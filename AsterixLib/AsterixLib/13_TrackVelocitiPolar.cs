@@ -42,5 +42,14 @@ namespace AsterixLib
             string mensaje = groundspeed + ";" + heading + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Ground_Speed = groundspeed;
+            grid.Heading = heading;
+            return grid;
+
+
+        }
     }
 }
