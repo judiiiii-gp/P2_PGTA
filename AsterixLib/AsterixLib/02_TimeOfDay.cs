@@ -43,5 +43,11 @@ namespace AsterixLib
             string mensaje = totalTime + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Time=totalTime;
+            return grid;
+        }
     }
 }

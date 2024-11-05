@@ -67,5 +67,12 @@ namespace AsterixLib
             string mensaje = ID + ";";
             return mensaje;
         }
+
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Aircraft_Indentification = ID;
+            return grid;
+        }
     }
 }

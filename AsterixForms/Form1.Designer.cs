@@ -47,6 +47,8 @@
             toolStripButton5 = new ToolStripButton();
             ShowDataBut = new ToolStripButton();
             timer1 = new System.Windows.Forms.Timer(components);
+            toolStripButton1 = new ToolStripButton();
+            CSV_File = new ToolStripButton();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
@@ -132,7 +134,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { GetKMLBut, toolStripButton3, RestartSimBut, toolStripButton4, NewDataBut, toolStripButton5, ShowDataBut });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { GetKMLBut, toolStripButton3, RestartSimBut, toolStripButton4, NewDataBut, toolStripButton5, ShowDataBut, toolStripButton1, CSV_File });
             toolStrip1.Location = new Point(3, 23);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1428, 27);
@@ -210,6 +212,25 @@
             // 
             timer1.Interval = 1000;
             // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(29, 24);
+            toolStripButton1.Text = "toolStripButton1";
+            // 
+            // CSV_File
+            // 
+            CSV_File.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            CSV_File.Image = (Image)resources.GetObject("CSV_File.Image");
+            CSV_File.ImageTransparentColor = Color.Magenta;
+            CSV_File.Name = "CSV_File";
+            CSV_File.Size = new Size(29, 24);
+            CSV_File.Text = "CSV File";
+            CSV_File.Click += CSV_File_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -246,5 +267,7 @@
         private ToolStripButton toolStripButton5;
         private ToolStripButton ShowDataBut;
         private Panel panel1;
+        private ToolStripButton toolStripButton1;
+        private ToolStripButton CSV_File;
     }
 }

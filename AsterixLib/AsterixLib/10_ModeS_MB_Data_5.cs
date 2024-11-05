@@ -13,6 +13,7 @@ namespace AsterixLib
         public string TrackAngletxt { get; private set; }
         public string GroundSpeedtxt { get; private set; }
         public string TrueAirspeedtxt {  get; private set; }
+        public string BDS5 { get; private set; }
         public ModeS5(string info)
             : base(info)
         {
@@ -31,11 +32,12 @@ namespace AsterixLib
                 TrackAngletxt = "N/A";
                 TrueAirspeedtxt = "N/A";
                 GroundSpeedtxt = "N/A";
+                BDS5 = "N/A";
             }
             else
             {
                 //Debug.WriteLine("Estem al ModeS MB-5");
-
+                BDS5 = "5,0";
                 double Roll = Convert.ToInt64(base.info.Substring(0, 1), 2);
                 long SIGN_Roll = Convert.ToInt64(base.info.Substring(1, 1), 2); // SIGN 1 = Left Wing Down
                 if (Roll == 1)
@@ -160,8 +162,20 @@ namespace AsterixLib
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";";
+            string mensaje = BDS5 + ";" + Rolltxt + ";" + TrueTracktxt + ";" + GroundSpeedtxt + ";" + TrackAngletxt + ";" + TrueAirspeedtxt + ";";
             return mensaje;
+        }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.BDS_5_0 = BDS5;
+            grid.Rolltxt = Rolltxt;
+            grid.TrueTracktxt = TrueTracktxt;
+            grid.GroundSpeedtxt = GroundSpeedtxt;
+            grid.TrackAngletxt = TrackAngletxt;
+            grid.TrueAirspeedtxt = TrueAirspeedtxt;
+            return grid;
+
         }
     }
 }

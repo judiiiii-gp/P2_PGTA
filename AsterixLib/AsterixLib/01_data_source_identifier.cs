@@ -51,5 +51,13 @@ namespace AsterixLib
             string mensaje = SAC + ";" + SIC + ";";
             return mensaje;
         }
+
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.SAC=SAC;
+            grid.SIC=SIC;
+            return grid;
+        }
     }
 }

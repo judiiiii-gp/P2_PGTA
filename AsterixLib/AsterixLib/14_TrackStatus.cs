@@ -170,5 +170,20 @@ namespace AsterixLib
             string mensaje = CNF + ";" + RAD + ";" + DOU + ";" + MAH + ";" + CDM + ";" + TRE + ";" + GHO + ";" + SUP + ";" + TCC + ";" ;
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.CNF = CNF;
+            grid.RAD = RAD;
+            grid.DOU = DOU;
+            grid.MAH = MAH;
+            grid.CDM = CDM;
+            grid.TRE = TRE;
+            grid.GHO = GHO;
+            grid.SUP = SUP;
+            grid.TCC = TCC;
+
+            return grid;
+        }
     }
 }

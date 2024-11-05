@@ -12,6 +12,7 @@ namespace AsterixLib
         public string MACHtxt { get; private set; }
         public string BarAlttxt { get; private set; }
         public string InerVerttxt { get; private set; }
+        public string BDS6 { get; private set; }
         public ModeS6(string info)
             : base(info)
         {
@@ -30,11 +31,12 @@ namespace AsterixLib
                 MACHtxt = "N/A";
                 BarAlttxt = "N/A";
                 InerVerttxt = "N/A";
+                BDS6 = "N/A";
             }
             else
             {
-                
 
+                BDS6 = "6,0";
                 double MagHead = Convert.ToInt32(base.info.Substring(0, 1), 2);
                 int SIGN_MagHead = Convert.ToInt32(base.info.Substring(1, 1), 2); // SIGN 1 = West (e.g. 315 = -45°) 
                 if (MagHead == 1)
@@ -152,8 +154,20 @@ namespace AsterixLib
         }
         public override string ObtenerAtributos()
         {
-            string mensaje = MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";";
+            string mensaje = BDS6 + ";" + MagHeadtxt + ";" + IndAirtxt + ";" + MACHtxt + ";" + BarAlttxt + ";" + InerVerttxt + ";";
             return mensaje;
+        }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.BDS_6_0 = BDS6;
+            grid.MagHeadtxt = MagHeadtxt;
+            grid.IndAirtxt = IndAirtxt;
+            grid.MACHtxt = MACHtxt;
+            grid.BarAlttxt = BarAlttxt;
+            grid.InerVerttxt = InerVerttxt;
+            return grid;
+
         }
     }
 }

@@ -74,5 +74,15 @@ namespace AsterixLib
             string mensaje = V + ";" + G + ";" + L + ";" + message + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.V_70 = V;
+            grid.G_70 = G;
+            grid.L_70 = L;
+            grid.Mode3_A_Reply = message;
+            return grid;
+
+        }
     }
 }

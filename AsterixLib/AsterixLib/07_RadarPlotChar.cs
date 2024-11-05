@@ -166,5 +166,18 @@ namespace AsterixLib
             string mensaje = SRL + ";" + SRR + ";" + SAM + ";" + PRL + ";" + PAM + ";" + RPD + ";" + APD + ";";
             return mensaje;
         }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.SRL = SRL;
+            grid.SRR = SRR;
+            grid.SAM = SAM;
+            grid.PRL = PRL;
+            grid.PAM = PAM;
+            grid.RPD = RPD;
+            grid.APD = APD;
+            return grid;
+
+        }
     }
 }

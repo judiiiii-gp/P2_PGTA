@@ -34,6 +34,7 @@ namespace AsterixLib
         // Método abstracto que será implementado por las clases hijas
         public abstract void Descodificar();
         public abstract string ObtenerAtributos();
+        public abstract AsterixGrid ObtenerAsterix();
 
         // Método que escribe en un fichero
         public void EscribirEnFichero(string mensaje, bool Saltolinea=false)

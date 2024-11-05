@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Accord.Collections;
+using System;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.Arm;
 
 namespace AsterixLib
 {
@@ -64,6 +66,14 @@ namespace AsterixLib
         {
             string mensaje = height + ";";
             return mensaje;
+        }
+        public override AsterixGrid ObtenerAsterix()
+        {
+            AsterixGrid grid = new AsterixGrid();
+            grid.Height_3D = height;
+
+            return grid;
+
         }
     }
 }
