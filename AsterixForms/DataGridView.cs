@@ -31,7 +31,6 @@ namespace AsterixForms
         Computer usr = new Computer();
         List<List<DataItem>> bloque = new List<List<DataItem>>(); //tindrem una llista separada pels diferents blocs
         List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
-        private string FilePath;
 
         
         int index = 0;
@@ -41,11 +40,41 @@ namespace AsterixForms
             InitializeComponent();
             this.asterixGrids = blok;
 
+            // FEM DATA GRID VIEW
+
+            dataGridView2.ColumnHeadersVisible = true;
+
+            dataGridView2.EnableHeadersVisualStyles = false;
+            dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkTurquoise;
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+            dataGridView2.RowHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dataGridView2.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+
+            List<string> lista = new List<string> {
+            "SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
+            "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
+            "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
+            "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
+            "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
+            "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
+            "Inertial Vertical Velocity", "Track Number", "X-Cartesian", "Y-Cartesian", "Calculated groundspeed", "Calculated heading",
+            "CNF", "RAD", "DOU", "MAH", "CDM", "TRE", "GHO", "SUP", "TCC", "Height Measured by a 3D Radar", "COM", "STATUS",
+            "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
+
             dataGridView2.DataSource = asterixGrids;
-            dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            foreach (var nombreColumna in lista)
+            {
+                dataGridView2.Columns.Add(nombreColumna, nombreColumna);
+            }
+
             this.WindowState = FormWindowState.Maximized;
             //MessageBox.Show(msg);
-            dgv_index = 0;
+            //dgv_index = 0;
         }
 
         private void InitializeComponent()
@@ -286,80 +315,80 @@ namespace AsterixForms
             using (Search SearchForm = new Search()) { if (SearchForm.ShowDialog() == DialogResult.OK) { SearchDataGridView(SearchForm.cmd); } }
         }
         /*### LOAD FUNCTIONS ######################################*/
-        private void CargarMain(List<List<DataItem>> bloque)
-        {
-            // Configura las cabeceras del DataGridView
-            dataGridView2.Columns.Clear();  // Limpiar cualquier columna existente
-            dataGridView2.ColumnHeadersVisible = true;
+        //private void CargarMain(List<List<DataItem>> bloque)
+        //{
+        //    // Configura las cabeceras del DataGridView
+        //    dataGridView2.Columns.Clear();  // Limpiar cualquier columna existente
+        //    dataGridView2.ColumnHeadersVisible = true;
 
-            dataGridView2.EnableHeadersVisualStyles = false;  
-            dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkTurquoise; 
-            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold); 
-            dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        //    dataGridView2.EnableHeadersVisualStyles = false;  
+        //    dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkTurquoise; 
+        //    dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold); 
+        //    dataGridView2.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
-            dataGridView2.RowHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
-            dataGridView2.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        //    dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+        //    dataGridView2.RowHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+        //    dataGridView2.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             
-            List<string> lista = new List<string> {
-            "SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
-            "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
-            "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
-            "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
-            "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
-            "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
-            "Inertial Vertical Velocity", "Track Number", "X-Cartesian", "Y-Cartesian", "Calculated groundspeed", "Calculated heading",
-            "CNF", "RAD", "DOU", "MAH", "CDM", "TRE", "GHO", "SUP", "TCC", "Height Measured by a 3D Radar", "COM", "STATUS",
-            "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
+        //    List<string> lista = new List<string> {
+        //    "SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
+        //    "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
+        //    "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
+        //    "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
+        //    "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
+        //    "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
+        //    "Inertial Vertical Velocity", "Track Number", "X-Cartesian", "Y-Cartesian", "Calculated groundspeed", "Calculated heading",
+        //    "CNF", "RAD", "DOU", "MAH", "CDM", "TRE", "GHO", "SUP", "TCC", "Height Measured by a 3D Radar", "COM", "STATUS",
+        //    "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
 
-            foreach (var nombreColumna in lista)
-            {
-                dataGridView2.Columns.Add(nombreColumna, nombreColumna);
-            }
+        //    foreach (var nombreColumna in lista)
+        //    {
+        //        dataGridView2.Columns.Add(nombreColumna, nombreColumna);
+        //    }
 
-            int NumLinea = 1;
+        //    int NumLinea = 1;
 
 
-            foreach (var data in bloque)
-            {
-                List<string> atributosDI = new List<string>();
-                string correct_Alt = string.Empty;
+        //    foreach (var data in bloque)
+        //    {
+        //        List<string> atributosDI = new List<string>();
+        //        string correct_Alt = string.Empty;
 
-                foreach (DataItem item in data)
-                {
-                    string atributos = item.ObtenerAtributos();
-                    atributosDI.AddRange(atributos.Split(';'));
+        //        foreach (DataItem item in data)
+        //        {
+        //            string atributos = item.ObtenerAtributos();
+        //            atributosDI.AddRange(atributos.Split(';'));
 
-                }
+        //        }
 
-                int rowIndex = dataGridView2.Rows.Add();
+        //        int rowIndex = dataGridView2.Rows.Add();
 
-                dataGridView2.Rows[rowIndex].HeaderCell.Value = NumLinea.ToString();
+        //        dataGridView2.Rows[rowIndex].HeaderCell.Value = NumLinea.ToString();
 
-                int columna = 0; // Empieza desde la primera columna
+        //        int columna = 0; // Empieza desde la primera columna
 
-                foreach (string atribut in atributosDI)
-                {
-                    if (!string.IsNullOrEmpty(atribut))
-                    {
-                        if (columna < dataGridView2.Columns.Count)
-                        {
-                            dataGridView2.Rows[rowIndex].Cells[columna].Value = atribut;
-                            columna++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
+        //        foreach (string atribut in atributosDI)
+        //        {
+        //            if (!string.IsNullOrEmpty(atribut))
+        //            {
+        //                if (columna < dataGridView2.Columns.Count)
+        //                {
+        //                    dataGridView2.Rows[rowIndex].Cells[columna].Value = atribut;
+        //                    columna++;
+        //                }
+        //                else
+        //                {
+        //                    break;
+        //                }
+        //            }
+        //        }
                         
               
 
-                NumLinea++;
-            }
-        }
+        //        NumLinea++;
+        //    }
+        //}
 
 
         /*### EVENTS FUNCTION #####################################*/
