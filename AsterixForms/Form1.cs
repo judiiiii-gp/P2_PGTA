@@ -10,11 +10,8 @@ using AsterixLib;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using GMap.NET.WindowsForms.Markers;
 using System.Drawing;
 using System.Reflection.Metadata;
 using MultiCAT6.Utils;
