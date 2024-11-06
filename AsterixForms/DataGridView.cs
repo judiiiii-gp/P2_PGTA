@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using MultiCAT6.Utils;
 using System.Runtime.CompilerServices;
+using ComboBox = System.Windows.Forms.ComboBox;
 
 namespace AsterixForms
 {
@@ -31,6 +32,8 @@ namespace AsterixForms
         Computer usr = new Computer();
         List<List<DataItem>> bloque = new List<List<DataItem>>(); //tindrem una llista separada pels diferents blocs
         List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
+        BindingSource bindingSource = new BindingSource();
+        bool filterEnabled = false;
 
         
         int index = 0;
@@ -39,6 +42,7 @@ namespace AsterixForms
         {
             InitializeComponent();
             this.asterixGrids = blok;
+            bindingSource.DataSource = asterixGrids;
 
             // FEM DATA GRID VIEW
 
@@ -53,29 +57,156 @@ namespace AsterixForms
             dataGridView2.RowHeadersDefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
             dataGridView2.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            dataGridView2.AutoGenerateColumns = false;
+            dataGridView2.DataSource = bindingSource;
+            
+
+
 
             List<string> lista = new List<string> {
             "SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
             "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
             "Mode-3/A L", "Mode-3/A reply", "FL V", "FL G", "Flight level", "Modo C_corrected", "SRL", "SRR", "SAM", "PRL", "PAM", "RPD", "APD",
-            "Aircraft address", "Aircraft Identification", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
-            "Mode status", "VNAV", "ALTHOLD", "Approach", "Target status", "Target altitude source", "Roll angle", "True track angle",
-            "Ground Speed", "Track angle rate", "True Airspeed", "Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
+            "Aircraft address", "Aircraft Identification", "BDS4", "MCPU/FCU Selected altitude", "FMS Selected Altitude", "Barometric pressure setting",
+             "VNAV", "ALTHOLD", "Approach", "Mode status","Target status", "Target altitude source","BDS_5_0", "Roll angle", "True track angle",
+            "Track angle rate","True Airspeed","Ground Speed", "BDS_6_0","Magnetic heading", "Indicated airspeed", "Mach", "Barometric altitude rate",
             "Inertial Vertical Velocity", "Track Number", "X-Cartesian", "Y-Cartesian", "Calculated groundspeed", "Calculated heading",
             "CNF", "RAD", "DOU", "MAH", "CDM", "TRE", "GHO", "SUP", "TCC", "Height Measured by a 3D Radar", "COM", "STATUS",
             "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
 
-            dataGridView2.DataSource = asterixGrids;
 
-            foreach (var nombreColumna in lista)
-            {
-                dataGridView2.Columns.Add(nombreColumna, nombreColumna);
-            }
+
+            SetColumnHeaders(lista);
+
+            ////dataGridView2.DataSource = bindingSource;
+            ////dataGridView2.AutoGenerateColumns = true;
+
+
+            //foreach (var nombreColumna in lista)
+            //{
+            //    dataGridView2.Columns.Add(nombreColumna, nombreColumna);
+            //}
 
             this.WindowState = FormWindowState.Maximized;
             //MessageBox.Show(msg);
             //dgv_index = 0;
         }
+        private void SetColumnHeaders(List<string> lista)
+        {
+            Dictionary<string, string> columnMapping = new Dictionary<string, string>
+            {
+               { "SAC", "SAC" },
+                    { "SIC", "SIC" },
+                    { "Time of Day", "Time" },
+                    { "Latitud", "Latitude" },
+                    { "Longitud", "Longitude" },
+                    { "Height", "Height" },
+                    { "TYP", "TYP" },
+                    { "SIM", "SIM" },
+                    { "RDP", "RDP" },
+                    { "SPI", "SPI" },
+                    { "RAB", "RAB" },
+                    { "TST", "TST" },
+                    { "ERR", "ERR" },
+                    { "XPP", "XPP" },
+                    { "ME", "ME" },
+                    { "MI", "MI" },
+                    { "FOE", "FOE" },
+                    { "ADSBEP", "ADS_EP" },
+                    { "ADSBVAL", "ADS_VAL" },
+                    { "SCNEP", "SCN_EP" },
+                    { "SCNVAL", "SCN_VAL" },
+                    { "PAIEP", "PAI_EP" },
+                    { "PAIVAL", "PAI_VAL" },
+                    { "RHO", "Rho" },
+                    { "THETA", "Theta" },
+                    { "Mode-3/A V", "V_70" },
+                    { "Mode-3/A G", "G_70" },
+                    { "Mode-3/A L", "L_70" },
+                    { "Mode-3/A reply", "Mode3_A_Reply" },
+                    { "FL V", "V_90" },
+                    { "FL G", "G_90" },
+                    { "Flight level", "Flight_Level" },
+                    { "Modo C_corrected", "Mode_C_Correction" },
+                    { "SRL", "SRL" },
+                    { "SRR", "SRR" },
+                    { "SAM", "SAM" },
+                    { "PRL", "PRL" },
+                    { "PAM", "PAM" },
+                    { "RPD", "RPD" },
+                    { "APD", "APD" },
+                    { "Aircraft address", "Aircraft_Address" },
+                    { "Aircraft Identification", "Aircraft_Indentification" },
+                    { "BDS4", "BDS_4_0" },
+                    { "MCPU/FCU Selected altitude", "MCP_FCUtxt" },
+                    { "FMS Selected Altitude", "FMStxt" },
+                    { "Barometric pressure setting", "BARtxt" },
+                    { "VNAV", "VNAVMODEtxt" },
+                    { "ALTHOLD", "ALTHOLDtxt" },
+                    { "Approach", "Approachtxt" },
+                    { "Mode status", "Mode_stat_txt" },
+                    { "Target status", "StatusTargAlt" },
+                    { "Target altitude source", "TargetAltSourcetxt" },
+                    { "BDS_5_0", "BDS_5_0" },
+                    { "Roll angle", "Rolltxt" },
+                    { "True track angle", "TrueTracktxt" },
+                    { "Track angle rate", "TrackAngletxt" },
+                    { "True Airspeed", "TrueAirspeedtxt" },
+                    { "Ground Speed", "GroundSpeedtxt" },
+                    { "BDS_6_0", "BDS_6_0" },
+                    { "Magnetic heading", "MagHeadtxt" },
+                    { "Indicated airspeed", "IndAirtxt" },
+                    { "Mach", "MACHtxt" },
+                    { "Barometric altitude rate", "BarAlttxt" },
+                    { "Inertial Vertical Velocity", "InerVerttxt" },
+                    { "Track Number", "Track_Number" },
+                    { "X-Cartesian", "X_Component" },
+                    { "Y-Cartesian", "Y_Component" },
+                    { "Calculated groundspeed", "Ground_Speed" },
+                    { "Calculated heading", "Heading" },
+                    { "CNF", "CNF" },
+                    { "RAD", "RAD" },
+                    { "DOU", "DOU" },
+                    { "MAH", "MAH" },
+                    { "CDM", "CDM" },
+                    { "TRE", "TRE" },
+                    { "GHO", "GHO" },
+                    { "SUP", "SUP" },
+                    { "TCC", "TCC" },
+                    { "Height Measured by a 3D Radar", "Height_3D" },
+                    { "COM", "COM" },
+                    { "STATUS", "STAT" },
+                    { "SI", "SI" },
+                    { "MSSC", "MSSC" },
+                    { "ARC", "ARC" },
+                    { "AIC", "AIC" },
+                    { "B1A_message", "B1A" },
+                    { "B1B_message", "B1B" }
+            };
+            dataGridView2.Columns.Clear();
+
+            foreach (var columnName in lista)
+            {
+                var column = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = columnName
+                };
+
+                // Verificar si el nombre de la columna existe en el diccionario
+                if (columnMapping.ContainsKey(columnName))
+                {
+                    column.DataPropertyName = columnMapping[columnName];
+                }
+                else
+                {
+                    column.DataPropertyName = string.Empty; // O manejar columnas no encontradas
+                    column.HeaderText = columnName + " (No Data Property)";
+                }
+
+                dataGridView2.Columns.Add(column);
+            }
+        }
+
 
         private void InitializeComponent()
         {
@@ -403,20 +534,151 @@ namespace AsterixForms
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
-            OpenFilter();
+            filterEnabled = !filterEnabled;
+            dataGridView2.Refresh();
+
+            if (filterEnabled)
+            {
+                AddArrowToColumnHeaders(true);
+                dataGridView2.ColumnHeaderMouseClick += DataGridView2_ColumnHeaderMouseClick;
+                dataGridView2.Refresh();
+            }
+            else
+            {
+                AddArrowToColumnHeaders(false);
+                dataGridView2.ColumnHeaderMouseClick -= DataGridView2_ColumnHeaderMouseClick;
+                bindingSource.RemoveFilter();
+                RemoveFilterBoxes();
+            }
         }
+
+        private void DataGridView2_ColumnHeaderMouseClick (object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (filterEnabled)
+            {
+                string columna = dataGridView2.Columns[e.ColumnIndex].DataPropertyName;
+                ShowFilterBox(columna, e.ColumnIndex);
+            }
+        }
+
+        private void ShowFilterBox(string columna, int index)
+        {
+            string propertyName = dataGridView2.Columns[index].DataPropertyName;
+            var uniques =asterixGrids.Select(x => x.GetType().GetProperty(propertyName)?.GetValue(x)?.ToString())
+                                       .Distinct()
+                                       .Where(val => val != null)
+                                       .ToList();
+            ComboBox filterBox = new ComboBox
+            {
+                DataSource = uniques,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Width = dataGridView2.Columns[index].Width
+            };
+
+            filterBox.SelectedIndexChanged += (s, e) =>
+            {
+                string SelectedValue = filterBox.SelectedItem.ToString();
+                ApplyFilter(index, SelectedValue, columna);
+                filterBox.Dispose();
+            };
+
+            Rectangle headerRect = dataGridView2.GetCellDisplayRectangle(index, -1, true);
+            filterBox.Location = new Point(headerRect.X, headerRect.Y);
+            dataGridView2.Controls.Add(filterBox);
+            filterBox.BringToFront();
+            filterBox.DroppedDown = true;
+
+        }
+
+        public void ApplyFilter (int index, string value, string columna)
+        {
+            // Aplica el filtro
+            string propertyName = dataGridView2.Columns[index].DataPropertyName;
+            string filterString = $"{propertyName} = '{value.Replace("'", "''")}'";
+
+
+            // Aplica el filtro en el BindingSource
+            bindingSource.Filter = filterString;
+
+            // Crear un nuevo BindingSource con los datos filtrados
+            var filteredData = asterixGrids.Where(x =>
+            {
+                var propertyValue = x.GetType().GetProperty(columna)?.GetValue(x)?.ToString().Trim().ToLower();
+                return propertyValue == value.Trim().ToLower();
+            }).ToList();
+            if (filteredData.Count == 0)
+            {
+                MessageBox.Show("No se encontraron datos que coincidan con el filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;  // Si no hay datos filtrados, no crees el nuevo DataGridView
+            }
+            BindingSource newBindingSource = new BindingSource();
+            newBindingSource.DataSource = filteredData;
+
+            // Crear un nuevo DataGridView y asignarle los datos filtrados
+            DataGridFiltrado newDataGridView = new DataGridFiltrado(newBindingSource);
+            newDataGridView.Show();
+
+          
+
+            this.Hide();
+
+            //// Reemplazar el DataGridView actual con el nuevo DataGridView (si es necesario)
+            //Controls.Remove(dataGridView2);  // Elimina el DataGridView actual
+            //Controls.Add(newDataGridView);   // Añade el nuevo DataGridView
+            //newDataGridView.Dock = DockStyle.Fill;
+        }
+        private void RemoveFilterBoxes()
+        {
+            foreach (Control control in dataGridView2.Controls)
+            {
+                if (control is ComboBox)
+                {
+                    control.Dispose();
+                }
+            }
+        }
+
+        private void AddArrowToColumnHeaders(bool showArrows)
+        {
+            foreach (DataGridViewColumn column in dataGridView2.Columns)
+            {
+
+                // Añadir bordes alrededor de la flecha (cuadrado)
+                column.HeaderCell.Style.Padding = new Padding(10); // Espaciado interno
+
+                if (showArrows)
+                {
+                    // Añadir flechas al encabezado de la columna
+                    column.HeaderCell.Value = $"{column.HeaderText} ⬇"; // Flecha hacia abajo
+                }
+                else
+                {
+                    // Eliminar las flechas si no se debe mostrar
+                    column.HeaderCell.Value = column.HeaderText;
+                }
+
+                //// Añadir un borde alrededor del cuadro (cuadrado)
+                //column.HeaderCell.Style.BorderColor = Color.DarkGray;
+                //column.HeaderCell.Style.BorderWidth = 1;
+                //column.HeaderCell.Style.BorderStyle = DataGridViewHeaderBorderStyle.Single;
+            }
+        }
+
+
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             OpenSearch();
         }
-        
-        
-
-        
 
 
 
-     
+
+
+
+
+
+
+
     }
 }

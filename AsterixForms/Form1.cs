@@ -1042,7 +1042,7 @@ namespace AsterixForms
         {
             int NumLinea = 1;
             DataItem.SetNombreFichero(nombreFichero); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;YP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+            string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;BDS4;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;BDS5;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;BDS6;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
             if (bloque.Count > 0)
             {
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
@@ -1158,7 +1158,7 @@ namespace AsterixForms
                         }
                         else
                         {
-                            Flight = null;
+                            Flight = 0;
                         }
 
 
@@ -1203,28 +1203,21 @@ namespace AsterixForms
                     }
 
                 }
-                else
-                {
-                    string mensaje = "N/A";
-                    Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
-                    geocoord.Descodificar();
-                    elemento.Insert(2, geocoord);
-
-
-                }
             }
 
         }
 
         public void GenerarAsterix(List<List<DataItem>> bloque)
         {
-            
+            int Num = 1;
             foreach (var elemento in bloque)
             {
                 AsterixGrid grid = new AsterixGrid();
+                grid.Num = Convert.ToString(Num);
                 foreach (var di in elemento)
                 {
                     AsterixGrid parcial = di.ObtenerAsterix();
+                    
                     if (!string.IsNullOrEmpty(parcial.SAC)) grid.SAC = parcial.SAC;
                     if (!string.IsNullOrEmpty(parcial.SIC)) grid.SIC = parcial.SIC;
                     if (!string.IsNullOrEmpty(parcial.Time)) grid.Time = parcial.Time;
@@ -1271,8 +1264,29 @@ namespace AsterixForms
 
                     // Asignamos las propiedades solo si parcial las tiene llenas
                     if (!string.IsNullOrEmpty(parcial.BDS_4_0)) grid.BDS_4_0 = parcial.BDS_4_0;
+                    if (!string.IsNullOrEmpty(parcial.MCP_FCUtxt)) grid.MCP_FCUtxt = parcial.MCP_FCUtxt;
+                    if (!string.IsNullOrEmpty(parcial.FMStxt)) grid.FMStxt = parcial.FMStxt;
+                    if (!string.IsNullOrEmpty(parcial.BARtxt)) grid.BARtxt = parcial.BARtxt;
+                    if (!string.IsNullOrEmpty(parcial.Mode_stat_txt)) grid.Mode_stat_txt = parcial.Mode_stat_txt;
+                    if (!string.IsNullOrEmpty(parcial.VNAVMODEtxt)) grid.VNAVMODEtxt = parcial.VNAVMODEtxt;
+                    if (!string.IsNullOrEmpty(parcial.ALTHOLDtxt)) grid.ALTHOLDtxt = parcial.ALTHOLDtxt;
+                    if (!string.IsNullOrEmpty(parcial.Approachtxt)) grid.Approachtxt = parcial.Approachtxt;
+                    if (!string.IsNullOrEmpty(parcial.StatusTargAlt)) grid.StatusTargAlt = parcial.StatusTargAlt;
+                    if (!string.IsNullOrEmpty(parcial.TargetAltSourcetxt)) grid.TargetAltSourcetxt = parcial.TargetAltSourcetxt;
+
                     if (!string.IsNullOrEmpty(parcial.BDS_5_0)) grid.BDS_5_0 = parcial.BDS_5_0;
+                    if (!string.IsNullOrEmpty(parcial.Rolltxt)) grid.Rolltxt = parcial.Rolltxt;
+                    if (!string.IsNullOrEmpty(parcial.TrueTracktxt)) grid.TrueTracktxt = parcial.TrueTracktxt;
+                    if (!string.IsNullOrEmpty(parcial.GroundSpeedtxt)) grid.GroundSpeedtxt = parcial.GroundSpeedtxt;
+                    if (!string.IsNullOrEmpty(parcial.TrackAngletxt)) grid.TrackAngletxt = parcial.TrackAngletxt;
+                    if (!string.IsNullOrEmpty(parcial.TrueAirspeedtxt)) grid.TrueAirspeedtxt = parcial.TrueAirspeedtxt;
+
                     if (!string.IsNullOrEmpty(parcial.BDS_6_0)) grid.BDS_6_0 = parcial.BDS_6_0;
+                    if (!string.IsNullOrEmpty(parcial.MagHeadtxt)) grid.MagHeadtxt = parcial.MagHeadtxt;
+                    if (!string.IsNullOrEmpty(parcial.IndAirtxt)) grid.IndAirtxt = parcial.IndAirtxt;
+                    if (!string.IsNullOrEmpty(parcial.MACHtxt)) grid.MACHtxt = parcial.MACHtxt;
+                    if (!string.IsNullOrEmpty(parcial.BarAlttxt)) grid.BarAlttxt = parcial.BarAlttxt;
+                    if (!string.IsNullOrEmpty(parcial.InerVerttxt)) grid.InerVerttxt = parcial.InerVerttxt;
 
                     if (!string.IsNullOrEmpty(parcial.Track_Number)) grid.Track_Number = parcial.Track_Number;
                     if (!string.IsNullOrEmpty(parcial.X_Component)) grid.X_Component = parcial.X_Component;
@@ -1306,6 +1320,7 @@ namespace AsterixForms
 
                 }
                 asterixGrids.Add(grid);
+                Num++;
 
 
             }

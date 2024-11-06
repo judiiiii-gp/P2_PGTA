@@ -73,7 +73,7 @@ namespace AsterixLib
                 if (BAR == 1)
                 {
                     BAR = Convert.ToInt64(base.info.Substring(27, 12), 2);
-                    double BARdou = ((BAR)/ 10) + 800;
+                    double BARdou = ((BAR)/ 10.0) + 800;
                     if (BARdou > 1209 || BARdou < 800)
                     {
                         BARtxt = "NV";
