@@ -8,12 +8,16 @@ namespace AsterixLib
 {
     public class AsterixGrid
     {
-        
+        public string Num { get; set; }
         // 020
         public string SAC { get; set; }
         public string SIC { get; set; }
         // 140
         public string Time { get; set; }
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+        public string Height { get; set; }
         // 020
         public string TYP { get; set; }
         public string SIM { get; set; }
@@ -36,10 +40,7 @@ namespace AsterixLib
         public string Rho { get; set; }
         public string Theta { get; set; }
 
-        public string Latitude { get; set; }
-
-        public string Longitude { get; set; }
-        public string Height { get; set; }
+     
         // 070
         public string V_70 { get; set; }
         public string G_70 { get; set; }
