@@ -3,17 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixforms\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixforms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\libasterix\\09_aircraftid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C535A312-C9A8-4316-A523-DB1843780777}|..\\AsterixForms\\AsterixForms.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixforms\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\libasterix\\04_position_polar_coordinates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\asterixlib\\asterixlib\\asterixgrid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{547E5D82-6CDB-4B40-8557-0EC8D97A3C99}|AsterixLib\\AsterixLib.csproj|solutionrelative:asterixlib\\asterixgrid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\libasterix\\data_item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BFE7019D-614D-4C09-9F07-7ADD6C4282CE}|..\\LibAsterix\\LibAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\libasterix\\generalmatrix_v2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,59 +34,105 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AsterixGrid.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixGrid.cs",
-              "RelativeDocumentMoniker": "AsterixLib\\AsterixGrid.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\AsterixLib\\AsterixGrid.cs",
-              "RelativeToolTip": "AsterixLib\\AsterixGrid.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "data_item.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\data_item.cs",
+              "RelativeDocumentMoniker": "..\\LibAsterix\\data_item.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\data_item.cs",
+              "RelativeToolTip": "..\\LibAsterix\\data_item.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowBYAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T15:24:10.346Z",
+              "WhenOpened": "2024-11-07T11:22:21.25Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GeneralMatrix_v2.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\GeneralMatrix_v2.cs",
+              "RelativeDocumentMoniker": "..\\LibAsterix\\GeneralMatrix_v2.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\GeneralMatrix_v2.cs",
+              "RelativeToolTip": "..\\LibAsterix\\GeneralMatrix_v2.cs",
+              "ViewState": "AgIAAAIDAAAAAAAAAAAAAHoEAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T11:23:36.394Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
+              "ViewState": "AgIAALQAAAAAAAAAAAAzwOwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T11:26:06.134Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\Form1.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\AsterixForms\\Form1.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T17:37:44.029Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\AsterixForms\\Form1.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\Form1.cs",
-              "RelativeToolTip": "..\\AsterixForms\\Form1.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
+              "Title": "09_AircraftID.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\09_AircraftID.cs",
+              "RelativeDocumentMoniker": "..\\LibAsterix\\09_AircraftID.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\09_AircraftID.cs",
+              "RelativeToolTip": "..\\LibAsterix\\09_AircraftID.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T17:37:19.424Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-08T13:41:23.268Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DataGridView.cs",
-              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\DataGridView.cs",
-              "RelativeDocumentMoniker": "..\\AsterixForms\\DataGridView.cs",
-              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\DataGridView.cs",
-              "RelativeToolTip": "..\\AsterixForms\\DataGridView.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAgwFsAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "04_Position_polar_coordinates.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\04_Position_polar_coordinates.cs",
+              "RelativeDocumentMoniker": "..\\LibAsterix\\04_Position_polar_coordinates.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\LibAsterix\\04_Position_polar_coordinates.cs",
+              "RelativeToolTip": "..\\LibAsterix\\04_Position_polar_coordinates.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwCMAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T17:27:22.167Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-08T12:15:36.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DataGridView.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridView.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DataGridView.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\FormsAsterix\\DataGridView.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T12:14:25.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DataGridView.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridView.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\DataGridView.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAYwEUAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T15:47:31.034Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T12:48:14.333Z"
             }
           ]
         }

@@ -1,0 +1,14 @@
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\obj\Debug\LibAsterix.csproj.AssemblyReference.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\obj\Debug\LibAsterix.csproj.CoreCompileInputs.cache
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.dll.config
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\LibAsterix.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\LibAsterix.pdb
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.Math.Core.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.Math.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.Math.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\bin\Debug\Accord.Math.Core.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\obj\Debug\LibAsterix.csproj.Up2Date
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\obj\Debug\LibAsterix.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\LibAsterix\obj\Debug\LibAsterix.pdb
