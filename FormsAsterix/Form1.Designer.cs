@@ -39,6 +39,7 @@ namespace FormsAsterix
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.Velocity_label_bar = new System.Windows.Forms.Label();
             this.Start_sim = new System.Windows.Forms.Button();
             this.timeTXT = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@ namespace FormsAsterix
             this.ShowDataBut = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.CSV_File = new System.Windows.Forms.ToolStripButton();
-            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -128,6 +128,33 @@ namespace FormsAsterix
             this.groupBox2.TabStop = false;
             this.groupBox2.Visible = false;
             // 
+            // gMapControl1
+            // 
+            this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.CanDragMap = true;
+            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMapControl1.GrayScaleMode = false;
+            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapControl1.LevelsKeepInMemmory = 5;
+            this.gMapControl1.Location = new System.Drawing.Point(349, 71);
+            this.gMapControl1.MarkersEnabled = true;
+            this.gMapControl1.MaxZoom = 2;
+            this.gMapControl1.MinZoom = 2;
+            this.gMapControl1.MouseWheelZoomEnabled = true;
+            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapControl1.Name = "gMapControl1";
+            this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.PolygonsEnabled = true;
+            this.gMapControl1.RetryLoadTile = 0;
+            this.gMapControl1.RoutesEnabled = true;
+            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapControl1.ShowTileGridLines = false;
+            this.gMapControl1.Size = new System.Drawing.Size(1073, 569);
+            this.gMapControl1.TabIndex = 6;
+            this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
+            // 
             // Velocity_label_bar
             // 
             this.Velocity_label_bar.AutoSize = true;
@@ -182,7 +209,7 @@ namespace FormsAsterix
             this.CSV_File});
             this.toolStrip1.Location = new System.Drawing.Point(3, 17);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1785, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1428, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -192,7 +219,7 @@ namespace FormsAsterix
             this.GetKMLBut.BackgroundImage = global::FormsAsterix.Properties.Resources.how_to_draw_earth_for_kids;
             this.GetKMLBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.GetKMLBut.Name = "GetKMLBut";
-            this.GetKMLBut.Size = new System.Drawing.Size(69, 24);
+            this.GetKMLBut.Size = new System.Drawing.Size(69, 28);
             this.GetKMLBut.Text = "Get KML";
             this.GetKMLBut.ToolTipText = "Get KML";
             this.GetKMLBut.Click += new System.EventHandler(this.GetKMLBut_Click);
@@ -203,7 +230,7 @@ namespace FormsAsterix
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 36);
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton3.Text = "   ";
             // 
             // RestartSimBut
@@ -212,7 +239,7 @@ namespace FormsAsterix
             this.RestartSimBut.BackgroundImage = global::FormsAsterix.Properties.Resources.images__1_;
             this.RestartSimBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RestartSimBut.Name = "RestartSimBut";
-            this.RestartSimBut.Size = new System.Drawing.Size(88, 24);
+            this.RestartSimBut.Size = new System.Drawing.Size(88, 28);
             this.RestartSimBut.Text = "Restart Sim";
             // 
             // toolStripButton4
@@ -221,7 +248,7 @@ namespace FormsAsterix
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton4.Size = new System.Drawing.Size(29, 28);
             // 
             // NewDataBut
             // 
@@ -229,7 +256,7 @@ namespace FormsAsterix
             this.NewDataBut.BackgroundImage = global::FormsAsterix.Properties.Resources.d2fcf1c06735d7899e5e0766edd9498e;
             this.NewDataBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.NewDataBut.Name = "NewDataBut";
-            this.NewDataBut.Size = new System.Drawing.Size(79, 24);
+            this.NewDataBut.Size = new System.Drawing.Size(79, 28);
             this.NewDataBut.Text = "New Data";
             this.NewDataBut.Click += new System.EventHandler(this.NewDataBut_Click);
             // 
@@ -239,7 +266,7 @@ namespace FormsAsterix
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton5.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton5.Text = "toolStripButton5";
             // 
             // ShowDataBut
@@ -248,7 +275,7 @@ namespace FormsAsterix
             this.ShowDataBut.BackgroundImage = global::FormsAsterix.Properties.Resources.file_statistics_linear_icon_thin_line_illustration_document_with_diagram_contour_symbol_isolated_outline_drawing_vector;
             this.ShowDataBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ShowDataBut.Name = "ShowDataBut";
-            this.ShowDataBut.Size = new System.Drawing.Size(85, 24);
+            this.ShowDataBut.Size = new System.Drawing.Size(85, 28);
             this.ShowDataBut.Text = "Show Data";
             this.ShowDataBut.Click += new System.EventHandler(this.ShowDataBut_Click);
             // 
@@ -258,45 +285,17 @@ namespace FormsAsterix
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CSV_File
             // 
             this.CSV_File.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.CSV_File.Image = ((System.Drawing.Image)(resources.GetObject("CSV_File.Image")));
             this.CSV_File.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.CSV_File.Name = "CSV_File";
-            this.CSV_File.Size = new System.Drawing.Size(86, 24);
+            this.CSV_File.Size = new System.Drawing.Size(66, 28);
             this.CSV_File.Text = "CSV File";
             this.CSV_File.Click += new System.EventHandler(this.CSV_File_Click);
-            // 
-            // gMapControl1
-            // 
-            this.gMapControl1.Bearing = 0F;
-            this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapControl1.GrayScaleMode = false;
-            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(349, 71);
-            this.gMapControl1.MarkersEnabled = true;
-            this.gMapControl1.MaxZoom = 2;
-            this.gMapControl1.MinZoom = 2;
-            this.gMapControl1.MouseWheelZoomEnabled = true;
-            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapControl1.Name = "gMapControl1";
-            this.gMapControl1.NegativeMode = false;
-            this.gMapControl1.PolygonsEnabled = true;
-            this.gMapControl1.RetryLoadTile = 0;
-            this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(1073, 569);
-            this.gMapControl1.TabIndex = 6;
-            this.gMapControl1.Zoom = 0D;
-            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             // 
             // Form1
             // 

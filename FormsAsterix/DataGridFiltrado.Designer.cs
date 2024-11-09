@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace FormsAsterix
 {
     partial class DataGridFiltrado
@@ -32,75 +33,81 @@ namespace FormsAsterix
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataGridFiltrado));
-            toolStrip1 = new ToolStrip();
-            DataGrid_No_Filter = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
-            Fitxer_CSV = new ToolStripButton();
-            dataGridView1 = new System.Windows.Forms.DataGridView();
-            toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            SuspendLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.DataGrid_No_Filter = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.Fitxer_CSV = new System.Windows.Forms.ToolStripButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
             // 
             // toolStrip1
             // 
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { DataGrid_No_Filter, toolStripButton1, Fitxer_CSV });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 27);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataGrid_No_Filter,
+            this.toolStripButton1,
+            this.Fitxer_CSV});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(800, 27);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // DataGrid_No_Filter
             // 
-            DataGrid_No_Filter.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            DataGrid_No_Filter.Image = (Image)resources.GetObject("DataGrid_No_Filter.Image");
-            DataGrid_No_Filter.ImageTransparentColor = Color.Magenta;
-            DataGrid_No_Filter.Name = "DataGrid_No_Filter";
-            DataGrid_No_Filter.Size = new Size(29, 24);
-            DataGrid_No_Filter.Text = "Tornar al DataGrid sense filtrar";
+            this.DataGrid_No_Filter.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.DataGrid_No_Filter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DataGrid_No_Filter.Name = "DataGrid_No_Filter";
+            this.DataGrid_No_Filter.Size = new System.Drawing.Size(215, 24);
+            this.DataGrid_No_Filter.Text = "Tornar al DataGrid sense filtrar";
+            this.DataGrid_No_Filter.Click += new System.EventHandler(this.DataGrid_No_Filter_Click);
             // 
             // toolStripButton1
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(29, 24);
-            toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
             // 
             // Fitxer_CSV
             // 
-            Fitxer_CSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            Fitxer_CSV.Image = (Image)resources.GetObject("Fitxer_CSV.Image");
-            Fitxer_CSV.ImageTransparentColor = Color.Magenta;
-            Fitxer_CSV.Name = "Fitxer_CSV";
-            Fitxer_CSV.Size = new Size(29, 24);
-            Fitxer_CSV.Text = "Fitxer CSV";
+            this.Fitxer_CSV.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Fitxer_CSV.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Fitxer_CSV.Name = "Fitxer_CSV";
+            this.Fitxer_CSV.Size = new System.Drawing.Size(79, 24);
+            this.Fitxer_CSV.Text = "Fitxer CSV";
+            this.Fitxer_CSV.Click += new System.EventHandler(this.Fitxer_CSV_Click);
             // 
             // dataGridView1
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 30);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(800, 423);
-            dataGridView1.TabIndex = 1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 24);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(800, 338);
+            this.dataGridView1.TabIndex = 1;
             // 
             // DataGridFiltrado
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
-            Controls.Add(toolStrip1);
-            Name = "DataGridFiltrado";
-            Text = "DataGridFiltrado";
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.toolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "DataGridFiltrado";
+            this.Text = "DataGridFiltrado";
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

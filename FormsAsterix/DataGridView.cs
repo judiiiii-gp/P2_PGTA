@@ -18,6 +18,8 @@ using MultiCAT6.Utils;
 using System.Runtime.CompilerServices;
 using ComboBox = System.Windows.Forms.ComboBox;
 using Amazon.DirectoryService.Model;
+using Button = System.Windows.Forms.Button;
+using Amazon.DynamoDBv2.DocumentModel;
 
 namespace FormsAsterix
 {
@@ -205,88 +207,121 @@ namespace FormsAsterix
 
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(DataGridView));
-            dataGridView2 = new System.Windows.Forms.DataGridView();
-            toolStrip1 = new ToolStrip();
-            BtnFilter = new ToolStripButton();
-            BtnSearch = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
-            CSVFile = new ToolStripButton();
-            ((ISupportInitialize)dataGridView2).BeginInit();
-            toolStrip1.SuspendLayout();
-            SuspendLayout();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.BtnFilter = new System.Windows.Forms.ToolStripButton();
+            this.BtnSearch = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.bot2 = new System.Windows.Forms.ToolStripButton();
+            this.CSV_File = new System.Windows.Forms.ToolStripButton();
+            this.bot5 = new System.Windows.Forms.ToolStripButton();
+            this.Filtered_Values = new System.Windows.Forms.ToolStripButton();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // dataGridView2
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(0, 0);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(1484, 763);
-            dataGridView2.TabIndex = 0;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.Size = new System.Drawing.Size(1484, 763);
+            this.dataGridView2.TabIndex = 0;
             // 
             // toolStrip1
             // 
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { BtnFilter, BtnSearch, toolStripButton1, CSVFile });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1484, 27);
-            toolStrip1.TabIndex = 1;
-            toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BtnFilter,
+            this.BtnSearch,
+            this.toolStripButton1,
+            this.bot2,
+            this.CSV_File,
+            this.bot5,
+            this.Filtered_Values});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1484, 27);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // BtnFilter
             // 
-            BtnFilter.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            BtnFilter.Image = (Image)resources.GetObject("BtnFilter.Image");
-            BtnFilter.ImageTransparentColor = Color.Magenta;
-            BtnFilter.Name = "BtnFilter";
-            BtnFilter.Size = new Size(46, 24);
-            BtnFilter.Text = "Filter";
-            BtnFilter.Click += BtnFilter_Click;
+            this.BtnFilter.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BtnFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnFilter.Name = "BtnFilter";
+            this.BtnFilter.Size = new System.Drawing.Size(46, 24);
+            this.BtnFilter.Text = "Filter";
+            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
             // 
             // BtnSearch
             // 
-            BtnSearch.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            BtnSearch.Image = (Image)resources.GetObject("BtnSearch.Image");
-            BtnSearch.ImageTransparentColor = Color.Magenta;
-            BtnSearch.Name = "BtnSearch";
-            BtnSearch.Size = new Size(57, 24);
-            BtnSearch.Text = "Search";
-            BtnSearch.Click += BtnSearch_Click;
+            this.BtnSearch.BackColor = System.Drawing.Color.Transparent;
+            this.BtnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.BtnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(29, 24);
             // 
             // toolStripButton1
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(100, 24);
-            toolStripButton1.Text = "Google Earth";
+            this.toolStripButton1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(100, 24);
+            this.toolStripButton1.Text = "Google Earth";
             // 
-            // CSVFile
+            // bot2
             // 
-            CSVFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            CSVFile.Image = (Image)resources.GetObject("CSVFile.Image");
-            CSVFile.ImageTransparentColor = Color.Magenta;
-            CSVFile.Name = "CSVFile";
-            CSVFile.Size = new Size(66, 24);
-            CSVFile.Text = "CSV File";
+            this.bot2.BackColor = System.Drawing.Color.Transparent;
+            this.bot2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.bot2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot2.Name = "bot2";
+            this.bot2.Size = new System.Drawing.Size(29, 24);
+            // 
+            // CSV_File
+            // 
+            this.CSV_File.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.CSV_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.CSV_File.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CSV_File.Name = "CSV_File";
+            this.CSV_File.Size = new System.Drawing.Size(66, 24);
+            this.CSV_File.Text = "CSV File";
+            // 
+            // bot5
+            // 
+            this.bot5.BackColor = System.Drawing.Color.Transparent;
+            this.bot5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.bot5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot5.Name = "bot5";
+            this.bot5.Size = new System.Drawing.Size(29, 24);
+            // 
+            // Filtered_Values
+            // 
+            this.Filtered_Values.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Filtered_Values.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Filtered_Values.Name = "Filtered_Values";
+            this.Filtered_Values.Size = new System.Drawing.Size(177, 24);
+            this.Filtered_Values.Text = "Mostrar Valores Filtrados";
+            this.Filtered_Values.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Filtered_Values.ToolTipText = "Filtered Values";
+            this.Filtered_Values.Visible = false;
+            this.Filtered_Values.Click += new System.EventHandler(this.Filtered_Values_Click);
             // 
             // DataGridView
             // 
-            AutoSize = true;
-            ClientSize = new Size(1484, 763);
-            Controls.Add(toolStrip1);
-            Controls.Add(dataGridView2);
-            Name = "DataGridView";
-            Load += DataGridView_Load;
-            ((ISupportInitialize)dataGridView2).EndInit();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1484, 763);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.dataGridView2);
+            this.Name = "DataGridView";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
 
@@ -529,8 +564,11 @@ namespace FormsAsterix
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
+            Filtered_Values.Visible = true;
+            toolStrip1.BringToFront();
             filterEnabled = !filterEnabled;
             dataGridView2.Refresh();
+
 
             if (filterEnabled)
             {
@@ -541,9 +579,7 @@ namespace FormsAsterix
             else
             {
                 AddArrowToColumnHeaders(false);
-                dataGridView2.ColumnHeaderMouseClick -= DataGridView2_ColumnHeaderMouseClick;
-                bindingSource.RemoveFilter();
-                RemoveFilterBoxes();
+                ResetForm();
             }
         }
 
@@ -556,6 +592,7 @@ namespace FormsAsterix
             }
         }
 
+        private Dictionary<string, List<string>> selectedFilters = new Dictionary<string, List<string>>();
         private void ShowFilterBox(string columna, int index)
         {
             string propertyName = dataGridView2.Columns[index].DataPropertyName;
@@ -563,59 +600,102 @@ namespace FormsAsterix
                                        .Distinct()
                                        .Where(val => val != null)
                                        .ToList();
-            ComboBox filterBox = new ComboBox
+
+            CheckedListBox filterBox = new CheckedListBox
             {
                 DataSource = uniques,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                Width = dataGridView2.Columns[index].Width
+                Width = dataGridView2.Columns[index].Width,
+                Height = 150,
+                IntegralHeight = true
             };
 
-            filterBox.SelectedIndexChanged += (s, e) =>
+            filterBox.ItemCheck += (s, e) =>
             {
-                string SelectedValue = filterBox.SelectedItem.ToString();
-                ApplyFilter(index, SelectedValue, columna);
+                var timer = new Timer();
+                timer.Interval = 100; // Espera de 100 ms
+                timer.Tick += (sender, args) =>
+                {
+                    // Obtener los elementos seleccionados después de que se haya marcado/desmarcado un elemento
+                    var values = filterBox.CheckedItems.Cast<string>().ToList();
+                    Debug.WriteLine($"Valores seleccionados: {string.Join(", ", values)}");
+                    // Actualizar los filtros seleccionados
+                    if (selectedFilters.ContainsKey(columna))
+                    {
+                        selectedFilters[columna] = values;
+                    }
+                    else
+                    {
+                        selectedFilters.Add(columna, values);
+                    }
+
+                    // Para depurar, mostrar los valores seleccionados
+                    // MessageBox.Show($"Valores seleccionados: {string.Join(", ", values)}");
+
+                    timer.Stop(); // Detener el timer después de actualizar
+                };
+                timer.Start(); // Iniciar el timer
+                
+            };
+            Rectangle headerRect = dataGridView2.GetCellDisplayRectangle(index, -1, true);
+            filterBox.Location = new Point(headerRect.X, headerRect.Bottom);
+            Button acceptButton = new Button()
+            {
+                Text = "Aceptar",
+                Height = 30,
+                Location = new Point(filterBox.Left, filterBox.Bottom + 5),
+                FlatStyle = FlatStyle.Flat
+            };
+            acceptButton.FlatAppearance.BorderSize = 3;  // Ajusta el grosor del borde
+            acceptButton.FlatAppearance.BorderColor = Color.Black;
+
+
+            acceptButton.Click += (s, e) =>
+            {
+                //ApplyFilter(index, filterBox.CheckedItems.Cast<string>().ToList(), columna);
                 filterBox.Dispose();
+                acceptButton.Dispose();
             };
 
-            Rectangle headerRect = dataGridView2.GetCellDisplayRectangle(index, -1, true);
-            filterBox.Location = new Point(headerRect.X, headerRect.Y);
             dataGridView2.Controls.Add(filterBox);
+            dataGridView2.Controls.Add(acceptButton);
             filterBox.BringToFront();
-            filterBox.DroppedDown = true;
-
+            acceptButton.BringToFront();
         }
 
-        public void ApplyFilter (int index, string value, string columna)
+        public void ApplyFilter ()
         {
-            // Aplica el filtro
-            string propertyName = dataGridView2.Columns[index].DataPropertyName;
-            string filterString = $"{propertyName} = '{value.Replace("'", "''")}'";
-
-
-            // Aplica el filtro en el BindingSource
-            bindingSource.Filter = filterString;
-
-            // Crear un nuevo BindingSource con los datos filtrados
-            var filteredData = asterixGrids.Where(x =>
+            var filtereddata = asterixGrids.Where(x =>
             {
-                var propertyValue = x.GetType().GetProperty(columna)?.GetValue(x)?.ToString().Trim().ToLower();
-                return propertyValue == value.Trim().ToLower();
+                foreach (var filter in selectedFilters)
+                {
+                    var propvalue = x.GetType().GetProperty(filter.Key)?.GetValue(x)?.ToString().Trim().ToLower();
+                    if (propvalue == null || !filter.Value.Any(f => f.Trim().ToLower() == propvalue.Trim().ToLower()))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }).ToList();
-            if (filteredData.Count == 0)
+
+            if (filtereddata.Count == 0)
             {
-                MessageBox.Show("No se encontraron datos que coincidan con el filtro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;  // Si no hay datos filtrados, no crees el nuevo DataGridView
+                MessageBox.Show("No hay datos con los filtros");
+                return;
             }
+
+            // Aplica el filtro
+            
             BindingSource newBindingSource = new BindingSource();
-            newBindingSource.DataSource = filteredData;
+            newBindingSource.DataSource = filtereddata;
 
             // Crear un nuevo DataGridView y asignarle los datos filtrados
             DataGridFiltrado newDataGridView = new DataGridFiltrado(newBindingSource);
-            newDataGridView.Show();
+            this.Hide();
+            newDataGridView.ShowDialog();
 
           
 
-            this.Hide();
+            ResetForm();
 
             //// Reemplazar el DataGridView actual con el nuevo DataGridView (si es necesario)
             //Controls.Remove(dataGridView2);  // Elimina el DataGridView actual
@@ -626,54 +706,77 @@ namespace FormsAsterix
         {
             foreach (Control control in dataGridView2.Controls)
             {
-                if (control is ComboBox)
+                if (control is CheckedListBox || control is Button)
                 {
                     control.Dispose();
                 }
             }
         }
+        private Dictionary<string, string> originalColumnNames = new Dictionary<string, string>();
 
         private void AddArrowToColumnHeaders(bool showArrows)
         {
             foreach (DataGridViewColumn column in dataGridView2.Columns)
             {
+                // Si es la primera vez que accedemos a una columna, guardamos su nombre original
+                if (!originalColumnNames.ContainsKey(column.Name))
+                {
+                    originalColumnNames[column.Name] = column.HeaderText; // Guardamos el nombre original de la columna
+                }
 
-                // Añadir bordes alrededor de la flecha (cuadrado)
-                column.HeaderCell.Style.Padding = new Padding(10); // Espaciado interno
-
+                // Modificar solo la visualización (sin cambiar el nombre real)
                 if (showArrows)
                 {
-                    // Añadir flechas al encabezado de la columna
-                    column.HeaderCell.Value = $"{column.HeaderText} ⬇"; // Flecha hacia abajo
+                    // Aseguramos que la flecha no se agregue dos veces
+                    if (!column.HeaderCell.Value.ToString().Contains("⬇"))
+                    {
+                        column.HeaderCell.Value = $"{originalColumnNames[column.Name]} ⬇"; // Agregar la flecha a la herramienta
+                    }
                 }
                 else
                 {
-                    // Eliminar las flechas si no se debe mostrar
-                    column.HeaderCell.Value = column.HeaderText;
+                    // Restauramos el texto original sin la flecha
+                    column.HeaderCell.Value = originalColumnNames[column.Name]; // Elimina la flecha
                 }
-
-                //// Añadir un borde alrededor del cuadro (cuadrado)
-                //column.HeaderCell.Style.BorderColor = Color.DarkGray;
-                //column.HeaderCell.Style.BorderWidth = 1;
-                //column.HeaderCell.Style.BorderStyle = DataGridViewHeaderBorderStyle.Single;
             }
+
+            // Forzar la actualización del control para mostrar los cambios visuales
+            dataGridView2.Invalidate();
         }
 
+        private void ResetForm()
+        {
+            // Eliminar todos los eventos suscritos (para desactivar cualquier filtrado en acción)
+            dataGridView2.ColumnHeaderMouseClick -= DataGridView2_ColumnHeaderMouseClick;
 
+            // Eliminar cualquier filtro aplicado
+            bindingSource.RemoveFilter();
+            selectedFilters.Clear();
+
+            // Restaurar los datos originales (esto asegura que no haya filtro aplicado)
+            dataGridView2.DataSource = bindingSource;
+
+            // Ocultar el botón de "Filtered_Values" y otros controles relacionados con el filtrado
+            Filtered_Values.Visible = false;
+
+            // Eliminar cualquier CheckedListBox que pueda estar aún visible
+            RemoveFilterBoxes();
+
+            // Asegúrate de quitar las flechas de filtrado en las cabeceras de columna
+            AddArrowToColumnHeaders(false);
+
+            // Si necesitas mostrar el formulario de nuevo desde un estado "limpio":
+            this.Show();
+        }
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             OpenSearch();
         }
 
-
-
-
-
-
-
-
-
-
+        private void Filtered_Values_Click(object sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
     }
 }
