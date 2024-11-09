@@ -1,27 +1,15 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\AsterixLib\\",
+  "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\datagridview.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\datagridview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\datagridfiltrado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\datagridfiltrado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\judig\\onedrive\\escritorio\\pgta_proj2\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,94 +19,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DataGridView.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.Designer.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridView.Designer.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.Designer.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\DataGridView.Designer.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwJAAAAAlAAAAAAAAAA==",
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
+              "ViewState": "AgIAAG8EAAAAAAAAAAAiwHsFAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T11:21:31.42Z",
+              "WhenOpened": "2024-11-09T17:44:49.304Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DataGridView.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridView.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\FormsAsterix\\DataGridView.cs [Dise\u00F1o]",
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.Designer.cs",
+              "RelativeToolTip": "..\\FormsAsterix\\Form1.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF4BAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T11:00:56.055Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\Form1.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
-              "ViewState": "AgIAAFgEAAAAAAAAAIAwwF8EAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T10:05:07.774Z",
+              "WhenOpened": "2024-11-09T17:55:51.24Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DataGridView.cs",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridView.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridView.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\DataGridView.cs",
-              "ViewState": "AgIAAM0CAAAAAAAAAAAAAOECAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T10:00:09.942Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DataGridFiltrado.cs",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridFiltrado.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridFiltrado.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridFiltrado.cs",
-              "RelativeToolTip": "..\\FormsAsterix\\DataGridFiltrado.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAuwEIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T09:57:17.058Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DataGridFiltrado.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridFiltrado.cs",
-              "RelativeDocumentMoniker": "..\\FormsAsterix\\DataGridFiltrado.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\DataGridFiltrado.cs [Dise\u00F1o]",
-              "RelativeToolTip": "..\\FormsAsterix\\DataGridFiltrado.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T09:52:05.834Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
-              "ToolTip": "C:\\Users\\judig\\OneDrive\\Escritorio\\PGTA_Proj2\\P2_PGTA\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
               "RelativeToolTip": "..\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-09T09:51:12.967Z",
+              "WhenOpened": "2024-11-09T17:44:41.212Z",
               "EditorCaption": " [Dise\u00F1o]"
             }
           ]
