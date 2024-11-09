@@ -149,5 +149,8 @@
   <ItemGroup>
     <None Include="Resources\file-statistics-linear-icon-thin-line-illustration-document-with-diagram-contour-symbol-isolated-outline-drawing-vector.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fondo1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -73,6 +73,7 @@ namespace FormsAsterix
                 GenerarAsterix(bloque);
                 groupBox1.Hide();
                 groupBox2.Show();
+                timeInicial = time[0];
                 timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
             }
@@ -237,10 +238,7 @@ namespace FormsAsterix
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
-                            if (i == 0)
-                            {
-                                timeInicial = Convert.ToInt64(mensaje, 2) / 128;
-                            }
+                            
                             long timeActual = Convert.ToInt64(mensaje, 2) / 128;
                             time.Add(timeActual);
                             di.Add(new LibAsterix.TimeOfDay(mensaje));
@@ -1360,5 +1358,6 @@ namespace FormsAsterix
             }
         }
 
+        
     }
 }
