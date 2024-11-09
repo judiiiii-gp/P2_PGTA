@@ -51,6 +51,10 @@ namespace FormsAsterix
         List<String> AircraftIDList = new List<String>();
         List<double> thetaList = new List<double>();
 
+        List<string> AircraftAddrList = new List<string>();
+        List<string> TrackNumList = new List<string>();
+        List<string> Mode3AList = new List<string>();
+
         long timeInicial;
 
 
@@ -301,11 +305,17 @@ namespace FormsAsterix
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
                             //Debug.WriteLine("Missatge Mode3A: " + mensaje);
                             di.Add(new LibAsterix.Mode3A(mensaje));
+
+                            string message = Convert.ToString(Convert.ToInt32(mensaje.Substring(4), 2), 8).PadLeft(4, '0');
+
+                            Mode3AList.Add(message);
+
                             bitsleidos = bitsleidos + 2 * octet;
                         }
                         else
                         {
                             di.Add(new LibAsterix.Mode3A("N/A"));
+                            Mode3AList.Add("N/A");
                         }
                         break;
                     case 5:
@@ -352,11 +362,22 @@ namespace FormsAsterix
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
                             //Debug.WriteLine("Missatge AircraftAdd: " + mensaje);
                             di.Add(new LibAsterix.AircraftAdd(mensaje));
+                            string add = string.Empty;
+                            string address = string.Empty;
+                            for (int m = 0; m < mensaje.Length; m += 4)
+                            {
+                                string bits = mensaje.Substring(m, 4); //Agafem grups de 4 per a passar-ho a hexadecimal
+                                int decval = Convert.ToInt32(bits, 2); //Ho passem a decimal
+                                string address_char = decval.ToString("X");
+                                add += address_char;
+                            }
+                            AircraftAddrList.Add(add);
                             bitsleidos = bitsleidos + 3 * octet;
                         }
                         else
                         {
                             di.Add(new LibAsterix.AircraftAdd("N/A"));
+                            AircraftAddrList.Add("N/A");
                         }
                         break;
                     case 8:
@@ -465,11 +486,15 @@ namespace FormsAsterix
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
                             //Debug.WriteLine("Missatge TrackNum: " + mensaje);
                             di.Add(new LibAsterix.TrackNum(mensaje));
+
+                            TrackNumList.Add(Convert.ToString(Convert.ToInt32(mensaje.Substring(4, 12), 2)));
+
                             bitsleidos = bitsleidos + 2 * octet;
                         }
                         else
                         {
                             di.Add(new LibAsterix.TrackNum("N/A"));
+                            TrackNumList.Add("N/A");
                         }
                         break;
                     case 11:
@@ -840,20 +865,23 @@ namespace FormsAsterix
             if (Sim_diccionary.Contains(name))
             {
                 var position = existingMarker.Position;
+            
+                var planeData = bloque.FirstOrDefault(p => AircraftIDList.Contains(name) && longitudList.Contains(position.Lng) && latitudList.Contains(position.Lat));
 
-                var planeData = bloque.FirstOrDefault(p => Convert.ToString(p[41]) == name && Convert.ToInt32(p[4]) == position.Lng && Convert.ToInt32(p[3]) == position.Lat);
-                string info = $"Aircraft address: {planeData[40]}\n" +
-                                  $"Track number: {planeData[64]}\n" +
-                                  $"Mode 3A Reply: {planeData[28]}\n" +
-                                  $"\n" +
-                                  $"Lat: {planeData[3]}º\n" +
-                                  $"Lon: {planeData[4]}º\n" +
-                                  $"Altitude: {planeData[6]} ft\n" +
-                                  $"\n" +
-                                  $"SAC: {planeData[0]}\n" +
-                                  $"SIC: {planeData[1]}\n";
+                int indexAir = bloque.FindIndex(index => AircraftIDList.Contains(name));
 
-                MessageBox.Show(info, $"Aircraft indentification: {planeData[41]}");
+                string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
+                                  $"Track number: {TrackNumList[indexAir]}\n" +
+                                  $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
+                                  $"\n" +
+                                  $"Lat: {position.Lat}º\n" +
+                                  $"Lon: {position.Lng}º\n" +
+                                  //$"Altitude: {planeData[6]} ft\n" +
+                                  $"\n";
+                                  //$"SAC: {planeData[0]}\n" +
+                                  //$"SIC: {planeData[1]}\n";
+
+                MessageBox.Show(info, $"Aircraft indentification: {name}");
             }
         }
 
