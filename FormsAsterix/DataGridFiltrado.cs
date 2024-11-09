@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,62 @@ namespace FormsAsterix
             dataGridView1.Dock = DockStyle.Fill;
         }
 
+        private void DataGrid_No_Filter_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void Fitxer_CSV_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                saveFileDialog.Title = "Seleccionar la ubicación y el nombre del fichero";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    EscribirFichero(filePath);
+                    MessageBox.Show("S'ha escrit el fitxer correctament");
+                }
+            }
+        }
+
+        private void EscribirFichero(string filePath)
+        {
+            StringBuilder csvfile = new StringBuilder();
+
+            for (int i = 0; i< dataGridView1.Columns.Count; i++)
+            {
+                csvfile.Append(dataGridView1.Columns[i].HeaderText);
+
+                if (i< dataGridView1.Columns.Count - 1)
+                {
+                    csvfile.Append(";");
+                }
+
+            }
+            csvfile.AppendLine();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                for (int i=0; i<dataGridView1.Columns.Count; i++)
+                {
+                    csvfile.Append(row.Cells[i].Value?.ToString());
+
+                    if (i< dataGridView1.Columns.Count - 1)
+                    {
+                        csvfile.Append(";");
+                    }
+
+                }
+                csvfile.AppendLine();
+            }
+
+            File.WriteAllText(filePath, csvfile.ToString(), Encoding.UTF8);
+        }
     }
 }

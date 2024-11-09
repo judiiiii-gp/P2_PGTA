@@ -143,7 +143,10 @@ namespace FormsAsterix
         private ToolStrip toolStrip1;
         private ToolStripButton BtnFilter;
         private ToolStripButton BtnSearch;
-        private ToolStripButton CSVFile;
+        private ToolStripButton bot2;
         private ToolStripButton toolStripButton1;
+        private ToolStripButton CSV_File;
+        private ToolStripButton bot5;
+        private ToolStripButton Filtered_Values;
     }
 }
