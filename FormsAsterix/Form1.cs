@@ -54,6 +54,9 @@ namespace FormsAsterix
         List<string> AircraftAddrList = new List<string>();
         List<string> TrackNumList = new List<string>();
         List<string> Mode3AList = new List<string>();
+        List<string> SACList = new List<string>();
+        List<string> SICList = new List<string>();
+        List<string> AltitudeList = new List<string>();
 
         long timeInicial;
 
@@ -231,11 +234,21 @@ namespace FormsAsterix
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet); //La longitud és fixa en aquest cas
                             //Debug.WriteLine("Missatge DSI: " + mensaje);
                             di.Add(new LibAsterix.DataSourceIdentifier(mensaje));
+
+                            int length = 8; //Cada octeto tiene 8 bits
+
+                            // Convertir SAC y SIC de binario a decimal
+
+                            SACList.Add(Convert.ToString(Convert.ToInt32(mensaje.Substring(0, length), 2)));
+                            SICList.Add(Convert.ToString(Convert.ToInt32(mensaje.Substring(length), 2)));
+
                             bitsleidos = bitsleidos + 2 * octet;
                         }
                         else
                         {
                             di.Add(new LibAsterix.DataSourceIdentifier("N/A"));
+                            SACList.Add("N/A");
+                            SICList.Add("N/A");
                         }
                         break;
                     case 1:
@@ -779,6 +792,8 @@ namespace FormsAsterix
             gMapControl1.Position = new PointLatLng(41.300702, 2.102058);
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
             gMapControl1.ShowCenter = false;
+
+            
         }
 
 
@@ -844,7 +859,7 @@ namespace FormsAsterix
             {
                 Sim_diccionary.Add(name);
                 markers = new GMapOverlay(name);
-                GMapMarker marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.red_small)
+                GMapMarker marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.blue_dot)
                 {
                     Tag = name
                 };
@@ -865,10 +880,8 @@ namespace FormsAsterix
             if (Sim_diccionary.Contains(name))
             {
                 var position = existingMarker.Position;
-            
-                var planeData = bloque.FirstOrDefault(p => AircraftIDList.Contains(name) && longitudList.Contains(position.Lng) && latitudList.Contains(position.Lat));
 
-                int indexAir = bloque.FindIndex(index => AircraftIDList.Contains(name));
+                int indexAir = AircraftIDList.FindIndex(id => id == name);
 
                 string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
                                   $"Track number: {TrackNumList[indexAir]}\n" +
@@ -877,9 +890,9 @@ namespace FormsAsterix
                                   $"Lat: {position.Lat}º\n" +
                                   $"Lon: {position.Lng}º\n" +
                                   //$"Altitude: {planeData[6]} ft\n" +
-                                  $"\n";
-                                  //$"SAC: {planeData[0]}\n" +
-                                  //$"SIC: {planeData[1]}\n";
+                                  $"\n" +
+                                  $"SAC: {SACList[indexAir]}\n" +
+                                  $"SIC: {SICList[indexAir]}\n";
 
                 MessageBox.Show(info, $"Aircraft indentification: {name}");
             }
@@ -1386,6 +1399,9 @@ namespace FormsAsterix
             }
         }
 
-        
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
