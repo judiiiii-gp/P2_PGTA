@@ -258,6 +258,7 @@ namespace FormsAsterix
             this.ShowDataBut.Name = "ShowDataBut";
             this.ShowDataBut.Size = new System.Drawing.Size(108, 24);
             this.ShowDataBut.Text = "Show Data";
+            this.ShowDataBut.Click += new System.EventHandler(this.ShowDataBut_Click);
             // 
             // toolStripButton1
             // 

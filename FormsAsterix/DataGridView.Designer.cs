@@ -148,5 +148,9 @@ namespace FormsAsterix
         private ToolStripButton CSV_File;
         private ToolStripButton bot5;
         private ToolStripButton Filtered_Values;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton No_ground_flights;
+        private ToolStripButton toolStripButton3;
+        private ToolStripButton blancos_puros;
     }
 }
