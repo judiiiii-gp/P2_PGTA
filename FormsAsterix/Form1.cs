@@ -59,6 +59,7 @@ namespace FormsAsterix
         List<string> AltitudeList = new List<string>();
 
         long timeInicial;
+        
 
 
         //////// DESCODIFICACIO FITXER
