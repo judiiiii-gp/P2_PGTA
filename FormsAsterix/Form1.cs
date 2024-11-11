@@ -42,6 +42,7 @@ namespace FormsAsterix
         public Form1()
         {
             InitializeComponent();
+            // set some initialization parameters
             Start_sim.FlatAppearance.BorderSize = 0;
             Start_sim.FlatAppearance.MouseDownBackColor = Color.Transparent; 
             Start_sim.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -51,26 +52,27 @@ namespace FormsAsterix
             DescodBUT.MouseLeave += (s, e) => DescodBUT.Cursor = Cursors.Default;
         }
 
+        // Create some lists to save some data 
         List<List<DataItem>> bloque = new List<List<DataItem>>();
         List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
         List<long> time = new List<long>();
         List<double> longitudList = new List<double>();
         List<double> latitudList = new List<double>();
         List<String> AircraftIDList = new List<String>();
-        List<double> thetaList = new List<double>();
+        List<double> rhoList = new List<double>();
 
         List<string> AircraftAddrList = new List<string>();
         List<string> TrackNumList = new List<string>();
         List<string> Mode3AList = new List<string>();
         List<string> SACList = new List<string>();
         List<string> SICList = new List<string>();
-        List<string> AltitudeList = new List<string>();
+        List<double> AltitudeList = new List<double>();
 
         long timeInicial;
         
 
 
-        //////// DESCODIFICACIO FITXER
+        // Get the file ".ast" to apply decodification function
 
         private void DescodBUT_Click(object sender, EventArgs e)
         {
@@ -81,16 +83,17 @@ namespace FormsAsterix
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //DataGridView formulari = new DataGridView(openFileDialog.FileName);
-                //formulari.ShowDialog();
+                // Decodification
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
                 Calcular_Lat_Long(bloque);
                 GenerarAsterix(bloque);
+
+                // Initialize Simulation 
                 groupBox1.Hide();
                 groupBox2.Show();
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.ImageSize = new Size(40, 40); 
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -116,11 +119,9 @@ namespace FormsAsterix
                     while (fs.Position < fs.Length)
                     {
 
-                        // Leer el primer octeto (8 bits)
+                        // Read first octet (8 bits)
                         byte firstOctet = reader.ReadByte();
 
-
-                        //MessageBox.Show("Primer octeto en decimal:" + Convert.ToString(firstOctet));
                         if (firstOctet == 48) //Només agafem els data blocks de la cat 48
                         {
                             // Leer los siguientes dos octetos(16 bits) como un short
@@ -131,7 +132,6 @@ namespace FormsAsterix
                             variableLength = (ushort)((variableLength >> 8) | (variableLength << 8)); // Corregir la endianidad
 
 
-                            //Debug.WriteLine("Variable length en decimal: " + Convert.ToString(variableLength));
 
                             // Calcular cuántos bits a leer según la longitud variable
                             int bitsToRead = variableLength * 8 - 3 * 8; // Restamos los octetos de cat y length
@@ -142,7 +142,6 @@ namespace FormsAsterix
                                 byte[] buffer = new byte[(bitsToRead + 7) / 8]; // Redondear hacia arriba
                                 reader.Read(buffer, 0, buffer.Length);
                                 string DataBlock = ConvertirByte2String(buffer); //Dades que tenim en un DataBlock
-                                //MessageBox.Show("Length DataBlock amb el FSPEC: " + Convert.ToString(DataBlock.Length));
                                 //Ara hem de mirar el FSPEC per saber quants DataItems tenim al record 
                                 int FSPEC_bits = FSPEC(DataBlock); //Obtenim quants bits té el FSPEC
                                 int[] FSPEC_vector = new int[FSPEC_bits]; //Creem un vector amb la longitud del FSPEC
@@ -323,8 +322,8 @@ namespace FormsAsterix
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
                             //Debug.WriteLine("Missatge PositionPolar: " + mensaje);
                             di.Add(new LibAsterix.Position_Polar(mensaje));
-                            double Theta = Convert.ToInt32(mensaje.Substring(16,2*octet), 2) * (360 / Math.Pow(2, 16));
-                            thetaList.Add(Theta);
+                            double Rho = (Convert.ToInt32(mensaje.Substring(0, 16), 2)) * ((double)1 / 256);
+                            rhoList.Add(Rho);
                             bitsleidos = bitsleidos + 4 * octet;
                         }
                         else
@@ -731,6 +730,7 @@ namespace FormsAsterix
 
             //MessageBox.Show("Hem descodificat correctament el missatge");
         }
+        
         private static readonly Dictionary<char, string> ia5Mapping = new Dictionary<char, string>
     {
         {'A', "000001"}, {'B', "000010"}, {'C', "000011"}, {'D', "000100"}, {'E', "000101"},
@@ -767,8 +767,10 @@ namespace FormsAsterix
         }
 
 
+        // To open a new ".ast" file without closing the simulation
         private void NewDataBut_Click(object sender, EventArgs e)
         {
+            // Create an OpenFileDialog to allow the user to select a file.
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.Title = "Selecciona un archivo .ast";
@@ -776,11 +778,14 @@ namespace FormsAsterix
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {                
+                // Decodification
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
                 Calcular_Lat_Long(bloque);
                 GenerarAsterix(bloque);
             }
+
+            // Set up simulation layout
             timer1.Stop();
             timeInicial = time[0];
             num_loop = 0;
@@ -789,7 +794,7 @@ namespace FormsAsterix
             gMapControl1.ReloadMap();
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
             ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+            imageList.ImageSize = new Size(40, 40); 
             imageList.Images.Add(Properties.Resources.play_button);
             Start_sim.Image = imageList.Images[0];
             Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -800,14 +805,15 @@ namespace FormsAsterix
             Start_sim.Visible = true;
         }
 
+        // Open DataGridView Form to show the decodified data
         private void ShowDataBut_Click(object sender, EventArgs e)
         {
             DataGridView formulari = new DataGridView(asterixGrids);
-            formulari.Show(); // Al obtenir el fitxer obrirem el nou formulari
+            formulari.Show(); 
         }
 
 
-
+        // This method is designed to initialize the GMapControl with a set of configurations to ensure the map behaves as expected during the app's lifecycle
         int zoom = 7;
         private void gMapControl1_Load(object sender, EventArgs e)
         {
@@ -832,32 +838,42 @@ namespace FormsAsterix
             
         }
 
-
+        // Funtions to define the clock for the simulation
         int num_loop = 0;
         int steps = 1;
         
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // Increment the initial time (timeInicial) each time the timer ticks
             timeInicial++;
+
             Tick(ref timeInicial, ref num_loop);
+
+            // Update the time display (timeTXT) with the formatted time
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
         }
 
 
         private void Tick(ref long timeTick, ref int num_loop)
         {
-            
+
+            // Check if num_loop is less than the number of aircraft in the list
             if (num_loop != AircraftIDList.Count)
-            { 
+            {
+                // Loop through the aircraft list and add markers to the map based on the tick time
                 for (int i = 0; num_loop < AircraftIDList.Count && timeTick >= time[num_loop]; num_loop++)
                 {
-                    AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop]);
+                    // Add a marker to the map for the current aircraft
+                    AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop], num_loop);
                 }
+
+                // Update the map control after adding the markers
                 gMapControl1.Update();
 
             }
             else
             {
+                // If num_loop reaches the total number of aircraft, stop the timer and adjust the timeTick
                 timer1.Stop();
                 timeTick = timeTick - 2;
                 Start_sim.Visible = false;
@@ -865,92 +881,139 @@ namespace FormsAsterix
 
         }
 
+        // Funtions to show the Markers on map
         private List<string> Sim_diccionary = new List<string>();
         private List<(string name, int position)> position = new List<(string name, int position)>();
 
-        private void AddMarkerToMap(double lat, double lon, string name)
+        private void AddMarkerToMap(double lat, double lon, string name, int currentIndex)
         {
-            GMapOverlay markers = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name);
-            GMapMarker existingMarker = markers?.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+            // Define the time threshold for the last relevant second
+            double lastRelevantTime = time.Last() - 60; 
+            bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
+
+            // Check if the aircraft appears again after this index
+            bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
+
+            // Check if we are within the last relevant second
+            bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
+
+            // Enter only if the aircraft will not appear again, is not within the last relevant second, and it’s not the last moment
+            if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
+            {
+                GMapOverlay markers = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name);
+                GMapMarker existMarker = markers?.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+
+                if (existMarker != null && markers != null)
+                {
+                    // Delete the marker
+                    markers.Markers.Remove(existMarker);
+
+                    if (!markers.Markers.Any())
+                    {
+                        gMapControl1.Overlays.Remove(markers);
+                    }
+                }
+
+                // Delete aircraft from Sim_diccionary
+                Sim_diccionary.Remove(name);
+                return;
+            }
+
+            // If the name will appear in the future or we are at the last moment, update or add the marker
+            GMapOverlay overlay = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name) ?? new GMapOverlay(name);
+            GMapMarker existingMarker = overlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
 
             if (existingMarker != null)
             {
-                int planeData = bloque.FindIndex(item =>
-                    AircraftIDList.Contains(name) &&
-                    longitudList.Contains(lon) &&
-                    latitudList.Contains(lat)
-                    );
-                if (position.Contains((name, planeData)) && thetaList[planeData] > 17)
-                {
-                    markers.Markers.Remove(existingMarker);
-                    Sim_diccionary.Remove(name);
-                }
-                else
-                {
-                    existingMarker.Position = new PointLatLng(lat, lon);
-                }
+                // Update the position of the existing marker
+                existingMarker.Position = new PointLatLng(lat, lon);
             }
-
             else
             {
-                Sim_diccionary.Add(name);
-                markers = new GMapOverlay(name);
+                // Create a new marker and overlay if they don't exist
                 GMapMarker marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.blue_dot)
                 {
                     Tag = name
                 };
 
-                markers.Markers.Add(marker);
-                gMapControl1.Overlays.Add(markers);
+                overlay.Markers.Add(marker);
+
+                // Add the overlay to the control if it's new
+                if (!gMapControl1.Overlays.Contains(overlay))
+                {
+                    gMapControl1.Overlays.Add(overlay);
+                }
+
                 gMapControl1.UpdateMarkerLocalPosition(marker);
+
+                // Add the name to Sim_diccionary if it's not already there
+                if (!Sim_diccionary.Contains(name))
+                {
+                    Sim_diccionary.Add(name);
+                }
             }
         }
 
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
+            // Retrieve the name of the aircraft from the marker's tag
             string name = item.Tag?.ToString();
 
+            // Try to find the overlay associated with the aircraft name
             GMapOverlay markers = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name);
+
+            // Try to find the specific marker within the overlay that matches the aircraft name
             GMapMarker existingMarker = markers?.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
 
+            // Check if the aircraft's name exists in the simulation dictionary (Sim_diccionary)
             if (Sim_diccionary.Contains(name))
             {
+                // Get the position of the existing marker on the map
                 var position = existingMarker.Position;
 
+                // Find the index of the aircraft in the AircraftIDList based on its name
                 int indexAir = AircraftIDList.FindIndex(id => id == name);
 
+                // Prepare the information to display about the selected aircraft
                 string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
                                   $"Track number: {TrackNumList[indexAir]}\n" +
                                   $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
                                   $"\n" +
                                   $"Lat: {position.Lat}º\n" +
                                   $"Lon: {position.Lng}º\n" +
-                                  //$"Altitude: {planeData[6]} ft\n" +
+                                  $"Altitude: {AltitudeList[indexAir]} ft\n" +
                                   $"\n" +
                                   $"SAC: {SACList[indexAir]}\n" +
                                   $"SIC: {SICList[indexAir]}\n";
 
+                // Display the information in a message box with the aircraft's identification name as the title
                 MessageBox.Show(info, $"Aircraft indentification: {name}");
             }
         }
 
+        // This function handles the Start/Stop simulation button click event
         int Click_times = 0;
         private void Start_sim_Click(object sender, EventArgs e)
         {
+            // Check if the button text is either "Start" or "Continue"
             if (Start_sim.Text == " Start" || Start_sim.Text == " Continue")
             {
+                // Set up the ImageList to display the play button image
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.ImageSize = new Size(40, 40); 
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
                 Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
                 Start_sim.ImageAlign = ContentAlignment.TopCenter;
                 Start_sim.TextAlign = ContentAlignment.BottomCenter;
+
+                // If the button is clicked for the first time
                 if (Click_times == 0)
                 {
+                    // Set up the ImageList to display the stop button image
                     ImageList imageListStop = new ImageList();
-                    imageListStop.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                    imageListStop.ImageSize = new Size(40, 40); 
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
                     Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -958,24 +1021,32 @@ namespace FormsAsterix
                     Start_sim.ImageAlign = ContentAlignment.TopCenter;
                     Start_sim.TextAlign = ContentAlignment.BottomCenter;
                     Start_sim.Text = " Stop";
+
+                    // Sort the 'bloque' data based on the third element (index 2)
                     bloque = bloque.OrderBy(data => Convert.ToString(data[2])).ToList();
+
+                    // Show the time text control and start the timer
                     timeTXT.Show();
                     timer1.Start();
+
+                    // Increment the click count and clear the simulation dictionary
                     Click_times++;
                     Sim_diccionary.Clear();
 
                     if (position.Count == 0)
                     {
+                        // Get the maximum index (last position)
                         var maxIndex = bloque
-                        .Select((data, index) => index) // Selecciona solo los índices
-                        .Max(); // Obtiene el valor máximo
-                        //MessageBox.Show(Convert.ToString(maxIndex));
-                        var lastPositions = bloque
-                        .Select((data, index) => new { Data = data, Index = index }) // Proyectar el dato y su índice
-                        .GroupBy(item => AircraftIDList) // Agrupar por nombre de aeronave
-                        .Select(group => new { Name = group.Key, LastPosition = group.Last().Index }); // Obtener la última posición de cada grupo
+                        .Select((data, index) => index) 
+                        .Max();
 
-                        // Crear una lista que contienen el nombre de la aeronave y su última posición
+                        // Get the last position for each aircraft group
+                        var lastPositions = bloque
+                        .Select((data, index) => new { Data = data, Index = index }) 
+                        .GroupBy(item => AircraftIDList) 
+                        .Select(group => new { Name = group.Key, LastPosition = group.Last().Index });
+
+                        // Create a list that contains the aircraft name and its last position
                         position = lastPositions
                             .Select(item => (Convert.ToString(item.Name), item.LastPosition))
                             .ToList();
@@ -983,8 +1054,9 @@ namespace FormsAsterix
                 }
                 else
                 {
+                    // Set up the ImageList to display the stop button image
                     ImageList imageListStop = new ImageList();
-                    imageListStop.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                    imageListStop.ImageSize = new Size(40, 40); 
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
                     Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -997,8 +1069,9 @@ namespace FormsAsterix
             }
             else
             {
+                // Set up the ImageList to display the play button image
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.ImageSize = new Size(40, 40); 
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1011,15 +1084,26 @@ namespace FormsAsterix
         }
         private void RestartSimBut_Click(object sender, EventArgs e)
         {
+            // Stop the simulation timer to pause the simulation
             timer1.Stop();
+
+            // Reset the initial time to the first time in the time array (time[0])
             timeInicial = time[0];
+
+            // Reset the loop counter and click count
             num_loop = 0;
             Click_times = 0;
+
+            // Clear all overlays from the map (removes any markers or other graphical elements)
             gMapControl1.Overlays.Clear();
             gMapControl1.ReloadMap();
+
+            // Set the time text to show the formatted initial time (HH:mm:ss)
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
+
+            // Set up the ImageList to display the play button image
             ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+            imageList.ImageSize = new Size(40, 40); 
             imageList.Images.Add(Properties.Resources.play_button);
             Start_sim.Image = imageList.Images[0];
             Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1030,58 +1114,70 @@ namespace FormsAsterix
             Start_sim.Visible = true;
         }
 
+        // This method is triggered whenever the value of trackBar1 is changed (when the user scrolls the trackbar)
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            // Get the current value of the trackbar (the velocity level selected by the user)
             int velocity = trackBar1.Value;
             switch (velocity)
             {
                 case 0:
+                case 1:
                     timer1.Interval = 1000;
                     Velocity_label_bar.Text = "Sim. Speed x1";
                     break;
 
-                case 1:
+                case 2:
+                case 3:
                     timer1.Interval = 500;
                     Velocity_label_bar.Text = "Sim. Speed x2";
                     break;
 
-                case 2:
+                case 4:
+                case 5:
                     timer1.Interval = 250;
                     Velocity_label_bar.Text = "Sim. Speed x4";
                     break;
 
-                case 3:
+                case 6:
+                case 7:
                     timer1.Interval = 200;
                     Velocity_label_bar.Text = "Sim. Speed x5";
                     break;
 
-                case 4:
+                case 8:
+                case 9:
                     timer1.Interval = 100;
                     Velocity_label_bar.Text = "Sim. Speed x10";
                     break;
 
-                case 5:
+                case 10:
                     timer1.Interval = 10;
                     Velocity_label_bar.Text = "Sim. Speed x100";
                     break;
             }
         }
+        
+        // Method to generate a KML file
         private void GetKMLBut_Click(object sender, EventArgs e)
         {
+            // Initialize a SaveFileDialog to allow the user to choose where to save the KML file
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Archivo KML|*.kml";
             saveFileDialog.Title = "Guardar archivo KML";
-            saveFileDialog.InitialDirectory = @"C:\";  // Carpeta inicial
 
-            // Muestra el cuadro de diálogo de guardado
+            
             DialogResult result = saveFileDialog.ShowDialog();
 
+            // If the user selects a file path and clicks OK
             if (result == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName; // Saves the file name 
 
+                // Dictionary to store aircraft data with the name of the aircraft as the key
                 Dictionary<string, KML_DATA> posicionesDeRepeticiones = new Dictionary<string, KML_DATA>();
 
+                // Iterate over each item in the "bloque" list (aircraft data)
                 for (int i = 0; i < bloque.Count; i++)
                 {
                     string nombre = AircraftIDList[i];
@@ -1091,13 +1187,15 @@ namespace FormsAsterix
                         posicionesDeRepeticiones[nombre].Positions = new List<Vector>();
                         posicionesDeRepeticiones[nombre].Description = "Aircraft address: " + nombre + " ; Aircraft indentification: " + AircraftIDList[i] + " ; Track number: " + TrackNumList[i] + " ; Mode 3A Reply: " + Mode3AList[i] + " ; SAC: " + SACList[i] + " ; SIC: " + SICList[i];
                     }
-                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(latitudList[i], longitudList[i], Convert.ToDouble(bloque[i][5]))); // falta posar alçada
+                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(latitudList[i], longitudList[i], AltitudeList[i])); 
                 }
 
+                // Create the KML document and KML object
                 var document = new Document();
                 var kml = new Kml();
 
-                int styleCount = 0; // To give each style a unique ID
+                int styleCount = 0; // Counter to create unique style IDs for each aircraft
+                // Loop through the dictionary to create KML elements for each aircraft
                 foreach (var kvp in posicionesDeRepeticiones)
                 {
                     string nombreAeronave = kvp.Key;
@@ -1109,21 +1207,22 @@ namespace FormsAsterix
 
                     // Create a custom style for each placemark
                     var style = new Style();
-                    style.Id = "Style" + styleCount; // Assign a unique style ID
+                    style.Id = "Style" + styleCount; 
                     style.Line = new LineStyle
                     {
-                        Color = new Color32(255, 0, 0, 255), // Red color
-                        Width = 0.5 // Line width
+                        Color = new Color32(255, 0, 0, 255),
+                        Width = 0.5 
                     };
 
-                    placemark.StyleUrl = new Uri("#" + style.Id, UriKind.Relative);
+                    placemark.StyleUrl = new Uri("#" + style.Id, UriKind.Relative); // Link the style to the placemark
 
+                    // Create a LineString geometry (path of the aircraft's trajectory)
                     var lineString = new LineString();
                     lineString.Coordinates = new CoordinateCollection();
 
                     var point = new SharpKml.Dom.Point();
 
-                    // Itera a través de las posiciones de la aeronave
+                    // Iterate through the positions of the aircraft and add them as coordinates in the LineString
                     foreach (Vector posicion in kvp.Value.Positions)
                     {
                         lineString.Coordinates.Add(posicion);
@@ -1149,30 +1248,27 @@ namespace FormsAsterix
 
                 Style lineStyle = new Style();
                 lineStyle.Line = new LineStyle();
-                lineStyle.Line.Width = 5; // You can set the line width here
-                lineStyle.Line.Color = new Color32(0, 255, 0, 255); // You can set the line color here
+                lineStyle.Line.Width = 5; 
+                lineStyle.Line.Color = new Color32(0, 255, 0, 255); 
 
                 document.AddStyle(lineStyle);
 
-                // Add document to kml
+                // Add the document (with all the placemarks) to the KML object
                 kml.Feature = document;
 
-                // Create xml based kml file
+                // Create a KML file from the document object
                 KmlFile kmlFile = KmlFile.Create(kml, false);
 
                 // Save file to a memory stream
                 MemoryStream memStream = new MemoryStream();
                 kmlFile.Save(memStream);
 
+                // Write the KML data from the memory stream to the file
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     memStream.Seek(0, SeekOrigin.Begin);
                     memStream.CopyTo(fileStream);
                 }
-            }
-            else
-            {
-
             }
         }
 
@@ -1181,54 +1277,72 @@ namespace FormsAsterix
             public List<Vector> Positions { get; set; }
             public string Description { get; set; }
         }
-        //Funció per a escriure en el fitxer
+        // Method to write CSV file
         private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
         {
-            int NumLinea = 1;
-            DataItem.SetNombreFichero(nombreFichero); //En el moment en que es decideixi com es diu el ficher s'ha de posar allà
+            // Variable to track line number for the file
+            int NumLinea = 1; 
+            DataItem.SetNombreFichero(nombreFichero);
+
+            // Header of the CSV file with column names (separated by semicolons)
             string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;BDS4;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;BDS5;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;BDS6;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+
+            // Check if the 'bloque' list (which contains the Aircrafts data) has elements
             if (bloque.Count > 0)
             {
+                // Write the header to the file (using the first DataItem in the first block of data)
                 bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
             }
+
+            // Iterate through each "block" of data in the "bloque" list
             foreach (var data in bloque)
             {
                 List<string> atributosDI = new List<string>();
 
+                // Iterate through each DataItem in the block (data)
                 foreach (DataItem item in data)
                 {
-                    atributosDI.Add(item.ObtenerAtributos()); // Obtenim els atributs dels elements
+                    // Add the attributes (or string representation) of each DataItem to the list
+                    atributosDI.Add(item.ObtenerAtributos()); 
                 }
                 string mensaje = string.Join("", atributosDI);
+
+                // If the current block has at least one item
                 if (data.Count > 0)
                 {
+                    // Write the line number to the file
                     data[0].EscribirEnFichero($"{NumLinea}" + ";", false);
 
                     NumLinea++;
                 }
-                data[0].EscribirEnFichero(mensaje, false); //Escribim al fitxer
+
+                // Write the joined string of attributes (message) to the file
+                data[0].EscribirEnFichero(mensaje, false);
+
+                // If the current block has at least one item, add a newline after writing the data
                 if (data.Count > 0)
                 {
                     data[0].EscribirEnFichero("\n", true);
                 }
             }
-
-
-
         }
 
 
         private void CSV_File_Click(object sender, EventArgs e)
         {
+            // Create a new SaveFileDialog instance to allow the user to select a file path
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
+                // Set the file filter so that the user can choose between CSV files or all files
                 saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                 saveFileDialog.Title = "Seleccionar la ubicación y el nombre del fichero";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    // Get the file path selected by the user
                     string filePath = saveFileDialog.FileName;
 
+                    // Call the method to write data to the file (passing the file path)
                     EscribirFichero(bloque, filePath);
                     MessageBox.Show("S'ha escrit el fitxer correctament");
                 }
@@ -1336,10 +1450,11 @@ namespace FormsAsterix
                             double Lat_rad = geodesic.Lat;
                             double Long_rad = geodesic.Lon;
                             Lat = Lat_rad * GeoUtils.RADS2DEGS;
-                            latitudList.Add(Lat);
+                            latitudList.Add(Math.Round(Lat, 2));
                             Long = Long_rad * GeoUtils.RADS2DEGS;
-                            longitudList.Add(Long);
+                            longitudList.Add(Math.Round(Long, 2));
                             h = geodesic.Height;
+                            AltitudeList.Add(Math.Round(h,2));
                             mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
                             Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
                             geocoord.Descodificar();
@@ -1358,15 +1473,23 @@ namespace FormsAsterix
 
         public void GenerarAsterix(List<List<DataItem>> bloque)
         {
-            int Num = 1;
+            int Num = 1; // Initialize a counter for numbering each grid
+
             foreach (var elemento in bloque)
             {
+                // Create a new AsterixGrid object for each list in bloque
                 AsterixGrid grid = new AsterixGrid();
+
+                // Assign a unique number to the grid based on the counter (Num)
                 grid.Num = Convert.ToString(Num);
+
+                // Loop through each DataItem (di) in the current list (elemento)
                 foreach (var di in elemento)
                 {
+                    // Retrieve an AsterixGrid representation from the DataItem (di)
                     AsterixGrid parcial = di.ObtenerAsterix();
-                    
+
+                    // Assign values from 'parcial' to 'grid' only if they are non-empty (not null or empty strings)
                     if (!string.IsNullOrEmpty(parcial.SAC)) grid.SAC = parcial.SAC;
                     if (!string.IsNullOrEmpty(parcial.SIC)) grid.SIC = parcial.SIC;
                     if (!string.IsNullOrEmpty(parcial.Time)) grid.Time = parcial.Time;
@@ -1468,12 +1591,13 @@ namespace FormsAsterix
 
 
                 }
+               
+                // Add the completed 'grid' object to the list of 'asterixGrids'
                 asterixGrids.Add(grid);
+
+                // Increment the counter for the next grid number
                 Num++;
-
-
             }
         }
-
     }
 }
