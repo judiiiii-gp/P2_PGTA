@@ -211,17 +211,15 @@ namespace FormsAsterix
         {
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.BtnFilter = new System.Windows.Forms.ToolStripButton();
-            this.BtnSearch = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.bot2 = new System.Windows.Forms.ToolStripButton();
-            this.CSV_File = new System.Windows.Forms.ToolStripButton();
             this.bot5 = new System.Windows.Forms.ToolStripButton();
-            this.Filtered_Values = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.No_ground_flights = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.blancos_puros = new System.Windows.Forms.ToolStripButton();
+            this.BtnFilter = new System.Windows.Forms.ToolStripButton();
+            this.CSV_File = new System.Windows.Forms.ToolStripButton();
+            this.Filtered_Values = new System.Windows.Forms.ToolStripButton();
+            this.No_ground_flights = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -241,8 +239,6 @@ namespace FormsAsterix
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnFilter,
-            this.BtnSearch,
-            this.toolStripButton1,
             this.bot2,
             this.CSV_File,
             this.bot5,
@@ -253,34 +249,9 @@ namespace FormsAsterix
             this.blancos_puros});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1484, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(1855, 39);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // BtnFilter
-            // 
-            this.BtnFilter.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.BtnFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnFilter.Name = "BtnFilter";
-            this.BtnFilter.Size = new System.Drawing.Size(46, 28);
-            this.BtnFilter.Text = "Filter";
-            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
-            // 
-            // BtnSearch
-            // 
-            this.BtnSearch.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.BtnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnSearch.Name = "BtnSearch";
-            this.BtnSearch.Size = new System.Drawing.Size(29, 28);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(100, 28);
-            this.toolStripButton1.Text = "Google Earth";
             // 
             // bot2
             // 
@@ -288,17 +259,7 @@ namespace FormsAsterix
             this.bot2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.bot2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot2.Name = "bot2";
-            this.bot2.Size = new System.Drawing.Size(29, 28);
-            // 
-            // CSV_File
-            // 
-            this.CSV_File.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.CSV_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.CSV_File.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CSV_File.Name = "CSV_File";
-            this.CSV_File.Size = new System.Drawing.Size(66, 28);
-            this.CSV_File.Text = "CSV File";
-            this.CSV_File.Click += new System.EventHandler(this.CSV_File_Click);
+            this.bot2.Size = new System.Drawing.Size(29, 36);
             // 
             // bot5
             // 
@@ -306,19 +267,7 @@ namespace FormsAsterix
             this.bot5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.bot5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot5.Name = "bot5";
-            this.bot5.Size = new System.Drawing.Size(29, 28);
-            // 
-            // Filtered_Values
-            // 
-            this.Filtered_Values.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.Filtered_Values.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Filtered_Values.Name = "Filtered_Values";
-            this.Filtered_Values.Size = new System.Drawing.Size(109, 28);
-            this.Filtered_Values.Text = "Filtered Values";
-            this.Filtered_Values.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Filtered_Values.ToolTipText = "Filtered Values";
-            this.Filtered_Values.Visible = false;
-            this.Filtered_Values.Click += new System.EventHandler(this.Filtered_Values_Click);
+            this.bot5.Size = new System.Drawing.Size(29, 36);
             // 
             // toolStripButton2
             // 
@@ -326,17 +275,7 @@ namespace FormsAsterix
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(29, 28);
-            // 
-            // No_ground_flights
-            // 
-            this.No_ground_flights.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.No_ground_flights.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.No_ground_flights.Name = "No_ground_flights";
-            this.No_ground_flights.Size = new System.Drawing.Size(193, 28);
-            this.No_ground_flights.Text = "Eliminate on ground flights";
-            this.No_ground_flights.Visible = false;
-            this.No_ground_flights.Click += new System.EventHandler(this.No_ground_flights_Click);
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 36);
             // 
             // toolStripButton3
             // 
@@ -344,17 +283,62 @@ namespace FormsAsterix
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 36);
             // 
             // blancos_puros
             // 
             this.blancos_puros.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.blancos_puros.Image = global::FormsAsterix.Properties.Resources.cancel;
             this.blancos_puros.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.blancos_puros.Name = "blancos_puros";
-            this.blancos_puros.Size = new System.Drawing.Size(163, 28);
+            this.blancos_puros.Size = new System.Drawing.Size(183, 36);
             this.blancos_puros.Text = "Eliminar blancos puros";
             this.blancos_puros.Visible = false;
             this.blancos_puros.Click += new System.EventHandler(this.blancos_puros_Click);
+            // 
+            // BtnFilter
+            // 
+            this.BtnFilter.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BtnFilter.Image = global::FormsAsterix.Properties.Resources.filter;
+            this.BtnFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnFilter.Name = "BtnFilter";
+            this.BtnFilter.Size = new System.Drawing.Size(66, 36);
+            this.BtnFilter.Text = "Filter";
+            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
+            // 
+            // CSV_File
+            // 
+            this.CSV_File.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.CSV_File.Image = global::FormsAsterix.Properties.Resources.csv;
+            this.CSV_File.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CSV_File.Name = "CSV_File";
+            this.CSV_File.Size = new System.Drawing.Size(86, 36);
+            this.CSV_File.Text = "CSV File";
+            this.CSV_File.Click += new System.EventHandler(this.CSV_File_Click);
+            // 
+            // Filtered_Values
+            // 
+            this.Filtered_Values.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Filtered_Values.Image = global::FormsAsterix.Properties.Resources.statistics;
+            this.Filtered_Values.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Filtered_Values.Name = "Filtered_Values";
+            this.Filtered_Values.Size = new System.Drawing.Size(129, 36);
+            this.Filtered_Values.Text = "Filtered Values";
+            this.Filtered_Values.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Filtered_Values.ToolTipText = "Filtered Values";
+            this.Filtered_Values.Visible = false;
+            this.Filtered_Values.Click += new System.EventHandler(this.Filtered_Values_Click);
+            // 
+            // No_ground_flights
+            // 
+            this.No_ground_flights.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.No_ground_flights.Image = global::FormsAsterix.Properties.Resources.airport;
+            this.No_ground_flights.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.No_ground_flights.Name = "No_ground_flights";
+            this.No_ground_flights.Size = new System.Drawing.Size(213, 36);
+            this.No_ground_flights.Text = "Eliminate on ground flights";
+            this.No_ground_flights.Visible = false;
+            this.No_ground_flights.Click += new System.EventHandler(this.No_ground_flights_Click);
             // 
             // DataGridView
             // 
