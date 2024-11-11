@@ -30,6 +30,7 @@ using Vector = SharpKml.Base.Vector;
 using Document = SharpKml.Dom.Document;
 using TimeSpan = System.TimeSpan;
 using System.Globalization;
+using Size = System.Drawing.Size;
 
 
 
@@ -41,6 +42,13 @@ namespace FormsAsterix
         public Form1()
         {
             InitializeComponent();
+            Start_sim.FlatAppearance.BorderSize = 0;
+            Start_sim.FlatAppearance.MouseDownBackColor = Color.Transparent; 
+            Start_sim.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            Start_sim.MouseEnter += (s, e) => Start_sim.Cursor = Cursors.Hand;
+            Start_sim.MouseLeave += (s, e) => Start_sim.Cursor = Cursors.Default;
+            DescodBUT.MouseEnter += (s, e) => DescodBUT.Cursor = Cursors.Hand;
+            DescodBUT.MouseLeave += (s, e) => DescodBUT.Cursor = Cursors.Default;
         }
 
         List<List<DataItem>> bloque = new List<List<DataItem>>();
@@ -81,11 +89,22 @@ namespace FormsAsterix
                 GenerarAsterix(bloque);
                 groupBox1.Hide();
                 groupBox2.Show();
+                ImageList imageList = new ImageList();
+                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.Images.Add(Properties.Resources.play_button);
+                Start_sim.Image = imageList.Images[0];
+                Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                Start_sim.ImageAlign = ContentAlignment.TopCenter; 
+                Start_sim.TextAlign = ContentAlignment.BottomCenter;
                 timeInicial = time[0];
                 timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
-
             }
         }
+
+
+
+
 
         public void ReadBinaryFile(string filePath)
         {
@@ -756,13 +775,29 @@ namespace FormsAsterix
             openFileDialog.Filter = "Todos los arxivos (*.ast*)|*ast*";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+            {                
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
                 Calcular_Lat_Long(bloque);
                 GenerarAsterix(bloque);
             }
-            // falta posar reiniciar simulacio i timer
+            timer1.Stop();
+            timeInicial = time[0];
+            num_loop = 0;
+            Click_times = 0;
+            gMapControl1.Overlays.Clear();
+            gMapControl1.ReloadMap();
+            timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
+            ImageList imageList = new ImageList();
+            imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+            imageList.Images.Add(Properties.Resources.play_button);
+            Start_sim.Image = imageList.Images[0];
+            Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+            Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+            Start_sim.ImageAlign = ContentAlignment.TopCenter;
+            Start_sim.TextAlign = ContentAlignment.BottomCenter;
+            Start_sim.Text = " Start";
+            Start_sim.Visible = true;
         }
 
         private void ShowDataBut_Click(object sender, EventArgs e)
@@ -902,11 +937,27 @@ namespace FormsAsterix
         int Click_times = 0;
         private void Start_sim_Click(object sender, EventArgs e)
         {
-            if (Start_sim.Text == "Start Simulation" || Start_sim.Text == "Continue")
+            if (Start_sim.Text == " Start" || Start_sim.Text == " Continue")
             {
+                ImageList imageList = new ImageList();
+                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.Images.Add(Properties.Resources.play_button);
+                Start_sim.Image = imageList.Images[0];
+                Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                Start_sim.TextAlign = ContentAlignment.BottomCenter;
                 if (Click_times == 0)
                 {
-                    Start_sim.Text = "Stop";
+                    ImageList imageListStop = new ImageList();
+                    imageListStop.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                    imageListStop.Images.Add(Properties.Resources.pause);
+                    Start_sim.Image = imageListStop.Images[0];
+                    Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                    Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                    Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                    Start_sim.TextAlign = ContentAlignment.BottomCenter;
+                    Start_sim.Text = " Stop";
                     bloque = bloque.OrderBy(data => Convert.ToString(data[2])).ToList();
                     timeTXT.Show();
                     timer1.Start();
@@ -932,13 +983,29 @@ namespace FormsAsterix
                 }
                 else
                 {
-                    Start_sim.Text = "Stop";
+                    ImageList imageListStop = new ImageList();
+                    imageListStop.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                    imageListStop.Images.Add(Properties.Resources.pause);
+                    Start_sim.Image = imageListStop.Images[0];
+                    Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                    Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                    Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                    Start_sim.TextAlign = ContentAlignment.BottomCenter;
+                    Start_sim.Text = " Stop";
                     timer1.Start();
                 }
             }
             else
             {
-                Start_sim.Text = "Continue";
+                ImageList imageList = new ImageList();
+                imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+                imageList.Images.Add(Properties.Resources.play_button);
+                Start_sim.Image = imageList.Images[0];
+                Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                Start_sim.TextAlign = ContentAlignment.BottomCenter;
+                Start_sim.Text = " Continue";
                 timer1.Stop();
             }
         }
@@ -951,7 +1018,15 @@ namespace FormsAsterix
             gMapControl1.Overlays.Clear();
             gMapControl1.ReloadMap();
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
-            Start_sim.Text = "Start Simulation";
+            ImageList imageList = new ImageList();
+            imageList.ImageSize = new Size(40, 40); // Define el tamaño deseado
+            imageList.Images.Add(Properties.Resources.play_button);
+            Start_sim.Image = imageList.Images[0];
+            Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+            Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+            Start_sim.ImageAlign = ContentAlignment.TopCenter;
+            Start_sim.TextAlign = ContentAlignment.BottomCenter;
+            Start_sim.Text = " Start";
             Start_sim.Visible = true;
         }
 
@@ -962,32 +1037,32 @@ namespace FormsAsterix
             {
                 case 0:
                     timer1.Interval = 1000;
-                    Velocity_label_bar.Text = "Velocity x1";
+                    Velocity_label_bar.Text = "Sim. Speed x1";
                     break;
 
                 case 1:
                     timer1.Interval = 500;
-                    Velocity_label_bar.Text = "Velocity x2";
+                    Velocity_label_bar.Text = "Sim. Speed x2";
                     break;
 
                 case 2:
                     timer1.Interval = 250;
-                    Velocity_label_bar.Text = "Velocity x4";
+                    Velocity_label_bar.Text = "Sim. Speed x4";
                     break;
 
                 case 3:
                     timer1.Interval = 200;
-                    Velocity_label_bar.Text = "Velocity x5";
+                    Velocity_label_bar.Text = "Sim. Speed x5";
                     break;
 
                 case 4:
                     timer1.Interval = 100;
-                    Velocity_label_bar.Text = "Velocity x10";
+                    Velocity_label_bar.Text = "Sim. Speed x10";
                     break;
 
                 case 5:
                     timer1.Interval = 10;
-                    Velocity_label_bar.Text = "Velocity x100";
+                    Velocity_label_bar.Text = "Sim. Speed x100";
                     break;
             }
         }
@@ -1009,14 +1084,14 @@ namespace FormsAsterix
 
                 for (int i = 0; i < bloque.Count; i++)
                 {
-                    string nombre = Convert.ToString(bloque[i][41]);
+                    string nombre = AircraftIDList[i];
                     if (!posicionesDeRepeticiones.ContainsKey(nombre))
                     {
                         posicionesDeRepeticiones[nombre] = new KML_DATA();
                         posicionesDeRepeticiones[nombre].Positions = new List<Vector>();
-                        posicionesDeRepeticiones[nombre].Description = "Aircraft address: " + nombre + " ; Aircraft indentification: " + bloque[i][41] + " ; Track number: " + bloque[i][64] + " ; Mode 3A Reply: " + bloque[i][28] + " ; SAC: " + bloque[i][0] + " ; SIC: " + bloque[i][1];
+                        posicionesDeRepeticiones[nombre].Description = "Aircraft address: " + nombre + " ; Aircraft indentification: " + AircraftIDList[i] + " ; Track number: " + TrackNumList[i] + " ; Mode 3A Reply: " + Mode3AList[i] + " ; SAC: " + SACList[i] + " ; SIC: " + SICList[i];
                     }
-                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(Convert.ToDouble(bloque[i][3]), Convert.ToDouble(bloque[i][4]), Convert.ToDouble(bloque[i][5])));
+                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(latitudList[i], longitudList[i], Convert.ToDouble(bloque[i][5]))); // falta posar alçada
                 }
 
                 var document = new Document();
@@ -1400,9 +1475,5 @@ namespace FormsAsterix
             }
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }
