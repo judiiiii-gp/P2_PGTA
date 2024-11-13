@@ -35,10 +35,13 @@ namespace FormsAsterix
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TitolTXT = new System.Windows.Forms.Label();
-            this.DescodBUT = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.AcceptBut = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.A2_IDbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.A1_IDbox = new System.Windows.Forms.TextBox();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.Velocity_label_bar = new System.Windows.Forms.Label();
             this.Start_sim = new System.Windows.Forms.Button();
@@ -54,10 +57,16 @@ namespace FormsAsterix
             this.ShowDataBut = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.CSV_File = new System.Windows.Forms.ToolStripButton();
-            this.groupBox1.SuspendLayout();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TitolTXT = new System.Windows.Forms.Label();
+            this.DescodBUT = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -65,54 +74,10 @@ namespace FormsAsterix
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.BackgroundImage = global::FormsAsterix.Properties.Resources.fondo;
-            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBox1.Controls.Add(this.TitolTXT);
-            this.groupBox1.Controls.Add(this.DescodBUT);
-            this.groupBox1.Location = new System.Drawing.Point(0, -14);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1434, 659);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            // 
-            // TitolTXT
-            // 
-            this.TitolTXT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TitolTXT.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.TitolTXT.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitolTXT.Location = new System.Drawing.Point(288, 221);
-            this.TitolTXT.Name = "TitolTXT";
-            this.TitolTXT.Size = new System.Drawing.Size(840, 72);
-            this.TitolTXT.TabIndex = 15;
-            this.TitolTXT.Text = "ASTERIX Hackathon - Projecte 2 PGTA";
-            this.TitolTXT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // DescodBUT
-            // 
-            this.DescodBUT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.DescodBUT.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.DescodBUT.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DescodBUT.Location = new System.Drawing.Point(549, 315);
-            this.DescodBUT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.DescodBUT.Name = "DescodBUT";
-            this.DescodBUT.Size = new System.Drawing.Size(296, 120);
-            this.DescodBUT.TabIndex = 13;
-            this.DescodBUT.Text = "Seleccionar fitxer .ast a descodificar";
-            this.DescodBUT.UseVisualStyleBackColor = false;
-            this.DescodBUT.Click += new System.EventHandler(this.DescodBUT_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.gMapControl1);
             this.groupBox2.Controls.Add(this.Velocity_label_bar);
             this.groupBox2.Controls.Add(this.Start_sim);
@@ -124,10 +89,79 @@ namespace FormsAsterix
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(1434, 645);
+            this.groupBox2.Size = new System.Drawing.Size(1251, 651);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Visible = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.AcceptBut);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.A2_IDbox);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.A1_IDbox);
+            this.groupBox3.Location = new System.Drawing.Point(57, 374);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(236, 225);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.UseWaitCursor = true;
+            this.groupBox3.Visible = false;
+            // 
+            // AcceptBut
+            // 
+            this.AcceptBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AcceptBut.Location = new System.Drawing.Point(72, 158);
+            this.AcceptBut.Name = "AcceptBut";
+            this.AcceptBut.Size = new System.Drawing.Size(88, 39);
+            this.AcceptBut.TabIndex = 8;
+            this.AcceptBut.Text = "Accept";
+            this.AcceptBut.UseVisualStyleBackColor = true;
+            this.AcceptBut.UseWaitCursor = true;
+            this.AcceptBut.Click += new System.EventHandler(this.AcceptBut_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(17, 87);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 20);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Aircraft_2 ID:";
+            this.label2.UseWaitCursor = true;
+            // 
+            // A2_IDbox
+            // 
+            this.A2_IDbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.A2_IDbox.Location = new System.Drawing.Point(18, 113);
+            this.A2_IDbox.Name = "A2_IDbox";
+            this.A2_IDbox.Size = new System.Drawing.Size(205, 22);
+            this.A2_IDbox.TabIndex = 9;
+            this.A2_IDbox.UseWaitCursor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(15, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 20);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Aircraft_1 ID:";
+            this.label1.UseWaitCursor = true;
+            // 
+            // A1_IDbox
+            // 
+            this.A1_IDbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.A1_IDbox.Location = new System.Drawing.Point(16, 51);
+            this.A1_IDbox.Name = "A1_IDbox";
+            this.A1_IDbox.Size = new System.Drawing.Size(205, 22);
+            this.A1_IDbox.TabIndex = 0;
+            this.A1_IDbox.UseWaitCursor = true;
             // 
             // gMapControl1
             // 
@@ -155,7 +189,7 @@ namespace FormsAsterix
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(1073, 571);
+            this.gMapControl1.Size = new System.Drawing.Size(890, 577);
             this.gMapControl1.TabIndex = 6;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gMapControl1_OnMarkerClick);
@@ -167,7 +201,7 @@ namespace FormsAsterix
             this.Velocity_label_bar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Velocity_label_bar.Location = new System.Drawing.Point(101, 266);
             this.Velocity_label_bar.Name = "Velocity_label_bar";
-            this.Velocity_label_bar.Size = new System.Drawing.Size(158, 28);
+            this.Velocity_label_bar.Size = new System.Drawing.Size(126, 22);
             this.Velocity_label_bar.TabIndex = 5;
             this.Velocity_label_bar.Text = "Sim. Speed x1";
             // 
@@ -219,10 +253,12 @@ namespace FormsAsterix
             this.toolStripButton5,
             this.ShowDataBut,
             this.toolStripButton1,
-            this.CSV_File});
+            this.CSV_File,
+            this.toolStripButton2,
+            this.toolStripButton6});
             this.toolStrip1.Location = new System.Drawing.Point(3, 17);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1428, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1245, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -318,22 +354,87 @@ namespace FormsAsterix
             this.CSV_File.Text = "CSV File";
             this.CSV_File.Click += new System.EventHandler(this.CSV_File_Click);
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 24);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.toolStripButton6.Image = global::FormsAsterix.Properties.Resources.compass;
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(176, 24);
+            this.toolStripButton6.Text = "Horitzontal Distance";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.AutoSize = true;
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.BackgroundImage = global::FormsAsterix.Properties.Resources.fondo;
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.TitolTXT);
+            this.groupBox1.Controls.Add(this.DescodBUT);
+            this.groupBox1.Location = new System.Drawing.Point(0, -14);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(1538, 798);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            // 
+            // TitolTXT
+            // 
+            this.TitolTXT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.TitolTXT.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TitolTXT.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitolTXT.Location = new System.Drawing.Point(340, 290);
+            this.TitolTXT.Name = "TitolTXT";
+            this.TitolTXT.Size = new System.Drawing.Size(840, 72);
+            this.TitolTXT.TabIndex = 15;
+            this.TitolTXT.Text = "ASTERIX Hackathon - Projecte 2 PGTA";
+            this.TitolTXT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // DescodBUT
+            // 
+            this.DescodBUT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DescodBUT.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.DescodBUT.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DescodBUT.Location = new System.Drawing.Point(601, 384);
+            this.DescodBUT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DescodBUT.Name = "DescodBUT";
+            this.DescodBUT.Size = new System.Drawing.Size(296, 120);
+            this.DescodBUT.TabIndex = 13;
+            this.DescodBUT.Text = "Seleccionar fitxer .ast a descodificar";
+            this.DescodBUT.UseVisualStyleBackColor = false;
+            this.DescodBUT.Click += new System.EventHandler(this.DescodBUT_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1434, 645);
+            this.ClientSize = new System.Drawing.Size(1251, 651);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,5 +461,13 @@ namespace FormsAsterix
         private ToolStripButton ShowDataBut;
         private ToolStripButton toolStripButton1;
         private ToolStripButton CSV_File;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton toolStripButton6;
+        private GroupBox groupBox3;
+        private Button AcceptBut;
+        private Label label2;
+        private TextBox A2_IDbox;
+        private Label label1;
+        private TextBox A1_IDbox;
     }
 }

@@ -31,6 +31,7 @@ using Document = SharpKml.Dom.Document;
 using TimeSpan = System.TimeSpan;
 using System.Globalization;
 using Size = System.Drawing.Size;
+using System.Xml;
 
 
 
@@ -44,7 +45,7 @@ namespace FormsAsterix
             InitializeComponent();
             // set some initialization parameters
             Start_sim.FlatAppearance.BorderSize = 0;
-            Start_sim.FlatAppearance.MouseDownBackColor = Color.Transparent; 
+            Start_sim.FlatAppearance.MouseDownBackColor = Color.Transparent;
             Start_sim.FlatAppearance.MouseOverBackColor = Color.Transparent;
             Start_sim.MouseEnter += (s, e) => Start_sim.Cursor = Cursors.Hand;
             Start_sim.MouseLeave += (s, e) => Start_sim.Cursor = Cursors.Default;
@@ -68,8 +69,10 @@ namespace FormsAsterix
         List<string> SICList = new List<string>();
         List<double> AltitudeList = new List<double>();
 
+        List<double> DistHor = new List<double>();
+
         long timeInicial;
-        
+
 
 
         // Get the file ".ast" to apply decodification function
@@ -93,12 +96,12 @@ namespace FormsAsterix
                 groupBox1.Hide();
                 groupBox2.Show();
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); 
+                imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
                 Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
-                Start_sim.ImageAlign = ContentAlignment.TopCenter; 
+                Start_sim.ImageAlign = ContentAlignment.TopCenter;
                 Start_sim.TextAlign = ContentAlignment.BottomCenter;
                 timeInicial = time[0];
                 timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
@@ -274,7 +277,7 @@ namespace FormsAsterix
                         if (read[i] == 1)
                         {
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
-                            
+
                             long timeActual = Convert.ToInt64(mensaje, 2) / 128;
                             time.Add(timeActual);
                             di.Add(new LibAsterix.TimeOfDay(mensaje));
@@ -284,7 +287,7 @@ namespace FormsAsterix
                         {
                             di.Add(new LibAsterix.TimeOfDay("N/A"));
                         }
-                        
+
                         break;
                     case 2:
                         if (read[i] == 1)
@@ -424,7 +427,7 @@ namespace FormsAsterix
                                 string block = mensaje.Substring(m, 6);
                                 ID += ConvertirBitsAChar(block);
                             }
-                            AircraftIDList.Add(ID); 
+                            AircraftIDList.Add(ID);
                             bitsleidos = bitsleidos + 6 * octet;
                         }
                         else
@@ -730,7 +733,7 @@ namespace FormsAsterix
 
             //MessageBox.Show("Hem descodificat correctament el missatge");
         }
-        
+
         private static readonly Dictionary<char, string> ia5Mapping = new Dictionary<char, string>
     {
         {'A', "000001"}, {'B', "000010"}, {'C', "000011"}, {'D', "000100"}, {'E', "000101"},
@@ -760,8 +763,8 @@ namespace FormsAsterix
             for (int i = 0; i < data.Count; i++)
             {
                 //MessageBox.Show("Estem dins el for de descodificar");
-                data[i].Descodificar();               
-             
+                data[i].Descodificar();
+
             }
 
         }
@@ -777,7 +780,7 @@ namespace FormsAsterix
             openFileDialog.Filter = "Todos los arxivos (*.ast*)|*ast*";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {                
+            {
                 // Decodification
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
@@ -794,7 +797,7 @@ namespace FormsAsterix
             gMapControl1.ReloadMap();
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
             ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(40, 40); 
+            imageList.ImageSize = new Size(40, 40);
             imageList.Images.Add(Properties.Resources.play_button);
             Start_sim.Image = imageList.Images[0];
             Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -809,7 +812,7 @@ namespace FormsAsterix
         private void ShowDataBut_Click(object sender, EventArgs e)
         {
             DataGridView formulari = new DataGridView(asterixGrids);
-            formulari.Show(); 
+            formulari.Show();
         }
 
 
@@ -835,13 +838,13 @@ namespace FormsAsterix
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
             gMapControl1.ShowCenter = false;
 
-            
+
         }
 
         // Funtions to define the clock for the simulation
         int num_loop = 0;
         int steps = 1;
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Increment the initial time (timeInicial) each time the timer ticks
@@ -888,7 +891,7 @@ namespace FormsAsterix
         private void AddMarkerToMap(double lat, double lon, string name, int currentIndex)
         {
             // Define the time threshold for the last relevant second
-            double lastRelevantTime = time.Last() - 60; 
+            double lastRelevantTime = time.Last() - 60;
             bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
 
             // Check if the aircraft appears again after this index
@@ -1000,7 +1003,7 @@ namespace FormsAsterix
             {
                 // Set up the ImageList to display the play button image
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); 
+                imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1013,7 +1016,7 @@ namespace FormsAsterix
                 {
                     // Set up the ImageList to display the stop button image
                     ImageList imageListStop = new ImageList();
-                    imageListStop.ImageSize = new Size(40, 40); 
+                    imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
                     Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1037,13 +1040,13 @@ namespace FormsAsterix
                     {
                         // Get the maximum index (last position)
                         var maxIndex = bloque
-                        .Select((data, index) => index) 
+                        .Select((data, index) => index)
                         .Max();
 
                         // Get the last position for each aircraft group
                         var lastPositions = bloque
-                        .Select((data, index) => new { Data = data, Index = index }) 
-                        .GroupBy(item => AircraftIDList) 
+                        .Select((data, index) => new { Data = data, Index = index })
+                        .GroupBy(item => AircraftIDList)
                         .Select(group => new { Name = group.Key, LastPosition = group.Last().Index });
 
                         // Create a list that contains the aircraft name and its last position
@@ -1056,7 +1059,7 @@ namespace FormsAsterix
                 {
                     // Set up the ImageList to display the stop button image
                     ImageList imageListStop = new ImageList();
-                    imageListStop.ImageSize = new Size(40, 40); 
+                    imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
                     Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1071,7 +1074,7 @@ namespace FormsAsterix
             {
                 // Set up the ImageList to display the play button image
                 ImageList imageList = new ImageList();
-                imageList.ImageSize = new Size(40, 40); 
+                imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
                 Start_sim.Image = imageList.Images[0];
                 Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1103,7 +1106,7 @@ namespace FormsAsterix
 
             // Set up the ImageList to display the play button image
             ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(40, 40); 
+            imageList.ImageSize = new Size(40, 40);
             imageList.Images.Add(Properties.Resources.play_button);
             Start_sim.Image = imageList.Images[0];
             Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
@@ -1157,7 +1160,7 @@ namespace FormsAsterix
                     break;
             }
         }
-        
+
         // Method to generate a KML file
         private void GetKMLBut_Click(object sender, EventArgs e)
         {
@@ -1166,7 +1169,7 @@ namespace FormsAsterix
             saveFileDialog.Filter = "Archivo KML|*.kml";
             saveFileDialog.Title = "Guardar archivo KML";
 
-            
+
             DialogResult result = saveFileDialog.ShowDialog();
 
             // If the user selects a file path and clicks OK
@@ -1187,7 +1190,7 @@ namespace FormsAsterix
                         posicionesDeRepeticiones[nombre].Positions = new List<Vector>();
                         posicionesDeRepeticiones[nombre].Description = "Aircraft address: " + nombre + " ; Aircraft indentification: " + AircraftIDList[i] + " ; Track number: " + TrackNumList[i] + " ; Mode 3A Reply: " + Mode3AList[i] + " ; SAC: " + SACList[i] + " ; SIC: " + SICList[i];
                     }
-                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(latitudList[i], longitudList[i], AltitudeList[i])); 
+                    posicionesDeRepeticiones[nombre].Positions.Add(new Vector(latitudList[i], longitudList[i], AltitudeList[i]));
                 }
 
                 // Create the KML document and KML object
@@ -1207,11 +1210,11 @@ namespace FormsAsterix
 
                     // Create a custom style for each placemark
                     var style = new Style();
-                    style.Id = "Style" + styleCount; 
+                    style.Id = "Style" + styleCount;
                     style.Line = new LineStyle
                     {
                         Color = new Color32(255, 0, 0, 255),
-                        Width = 0.5 
+                        Width = 0.5
                     };
 
                     placemark.StyleUrl = new Uri("#" + style.Id, UriKind.Relative); // Link the style to the placemark
@@ -1248,8 +1251,8 @@ namespace FormsAsterix
 
                 Style lineStyle = new Style();
                 lineStyle.Line = new LineStyle();
-                lineStyle.Line.Width = 5; 
-                lineStyle.Line.Color = new Color32(0, 255, 0, 255); 
+                lineStyle.Line.Width = 5;
+                lineStyle.Line.Color = new Color32(0, 255, 0, 255);
 
                 document.AddStyle(lineStyle);
 
@@ -1281,7 +1284,7 @@ namespace FormsAsterix
         private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
         {
             // Variable to track line number for the file
-            int NumLinea = 1; 
+            int NumLinea = 1;
             DataItem.SetNombreFichero(nombreFichero);
 
             // Header of the CSV file with column names (separated by semicolons)
@@ -1303,7 +1306,7 @@ namespace FormsAsterix
                 foreach (DataItem item in data)
                 {
                     // Add the attributes (or string representation) of each DataItem to the list
-                    atributosDI.Add(item.ObtenerAtributos()); 
+                    atributosDI.Add(item.ObtenerAtributos());
                 }
                 string mensaje = string.Join("", atributosDI);
 
@@ -1454,7 +1457,7 @@ namespace FormsAsterix
                             Long = Long_rad * GeoUtils.RADS2DEGS;
                             longitudList.Add(Math.Round(Long, 2));
                             h = geodesic.Height;
-                            AltitudeList.Add(Math.Round(h,2));
+                            AltitudeList.Add(Math.Round(h, 2));
                             mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
                             Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
                             geocoord.Descodificar();
@@ -1587,16 +1590,250 @@ namespace FormsAsterix
                     if (!string.IsNullOrEmpty(parcial.AIC)) grid.AIC = parcial.AIC;
                     if (!string.IsNullOrEmpty(parcial.B1A)) grid.B1A = parcial.B1A;
                     if (!string.IsNullOrEmpty(parcial.B1B)) grid.B1B = parcial.B1B;
-                  
+
 
 
                 }
-               
+
                 // Add the completed 'grid' object to the list of 'asterixGrids'
                 asterixGrids.Add(grid);
 
                 // Increment the counter for the next grid number
                 Num++;
+            }
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            groupBox3.Show();
+        }
+
+        private void AcceptBut_Click(object sender, EventArgs e)
+        {
+            // Set up the ImageList to display the play button image --> PAREM LA SIMULACIO
+            ImageList imageList = new ImageList();
+            imageList.ImageSize = new Size(40, 40);
+            imageList.Images.Add(Properties.Resources.play_button);
+            Start_sim.Image = imageList.Images[0];
+            Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+            Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+            Start_sim.ImageAlign = ContentAlignment.TopCenter;
+            Start_sim.TextAlign = ContentAlignment.BottomCenter;
+            Start_sim.Text = " Continue";
+            timer1.Stop();
+
+
+            string Aircraft1 = A1_IDbox.Text.Trim();
+            string Aircraft2 = A2_IDbox.Text.Trim();
+
+            int markerA1 = 0;
+            int markerA2 = 0;
+
+            foreach (string ID in AircraftIDList)
+            {
+                string trimmedID = ID.Trim();
+                if (trimmedID == Aircraft1)
+                {
+                    markerA1 = 1;
+                }
+                else if (trimmedID == Aircraft2)
+                {
+                    markerA2 = 1;
+                }
+                if (markerA1 == 1 && markerA2 == 1)
+                {
+                    break;
+                }
+            }
+
+
+            int flag = 0;
+
+            if (markerA1 == 1 && markerA2 == 1)
+            {
+                
+
+                // LLISTES per pasar info
+                List<double> longitudList_sub = new List<double>();
+                List<double> latitudList_sub = new List<double>();
+                List<String> AircraftIDList_sub = new List<String>();
+
+                List<string> AircraftAddrList_sub = new List<string>();
+                List<string> TrackNumList_sub = new List<string>();
+                List<string> Mode3AList_sub = new List<string>();
+                List<string> SACList_sub = new List<string>();
+                List<string> SICList_sub = new List<string>();
+                List<double> AltitudeList_sub = new List<double>();
+
+
+
+                // passar llista temps igual --> cal afegir "N/A" quan l'avio no apareix en X instant de temps
+
+                int positID = 0;
+                foreach (string ID_Air in AircraftIDList)
+                {
+                    if (ID_Air.Trim() == Aircraft1 || ID_Air.Trim() == Aircraft2)
+                    {
+                        longitudList_sub.Add(longitudList[positID]);
+                        latitudList_sub.Add(latitudList[positID]);
+                        AircraftAddrList_sub.Add(AircraftAddrList[positID]);
+                        AircraftIDList_sub.Add(AircraftIDList[positID].Trim());
+                        TrackNumList_sub.Add(TrackNumList[positID]);
+                        Mode3AList_sub.Add(Mode3AList[positID]);
+                        SACList_sub.Add(SACList[positID]);
+                        SICList_sub.Add(SICList[positID]);
+                        AltitudeList_sub.Add(AltitudeList[positID]);
+                    }
+                    else
+                    {
+                        longitudList_sub.Add(0.0);
+                        latitudList_sub.Add(0.0);
+                        AircraftAddrList_sub.Add("N/A");
+                        AircraftIDList_sub.Add("N/A");
+                        TrackNumList_sub.Add("N/A");
+                        Mode3AList_sub.Add("N/A");
+                        SACList_sub.Add("N/A");
+                        SICList_sub.Add("N/A");
+                        AltitudeList_sub.Add(0.0);
+                    }
+                    positID++;
+                }
+
+                DistanciaHoritzontal(longitudList_sub, latitudList_sub, AltitudeList_sub, AircraftIDList_sub, Aircraft1, Aircraft2);
+
+                // Open the simulation form, passing the selected aircraft
+                DistHoritzontal formDistHor = new DistHoritzontal(Aircraft1, Aircraft2, longitudList_sub, latitudList_sub, AircraftIDList_sub, AircraftAddrList_sub, TrackNumList_sub, Mode3AList_sub, SACList_sub, SICList_sub, AltitudeList_sub, time, bloque, DistHor);
+                formDistHor.Show();
+            }
+            else if (markerA1 == 0 && markerA2 == 0)
+            {
+                DialogResult result = MessageBox.Show("Both aircraft IDs are not found in the list.", "Continue", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    flag = 1;
+                }
+            }
+            else if (markerA1 == 0)
+            {
+                DialogResult result = MessageBox.Show("Aircraft 1 ID is not found in the list.", "Continue", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    flag = 1;
+                }
+            }
+            else if (markerA2 == 0)
+            {
+                DialogResult result = MessageBox.Show("Aircraft 2 ID is not found in the list.", "Continue", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    flag = 1;
+                }
+            }
+
+
+            if (flag == 1)
+            {
+                // Set up the ImageList to display the stop button image
+                ImageList imageListStop = new ImageList();
+                imageListStop.ImageSize = new Size(40, 40);
+                imageListStop.Images.Add(Properties.Resources.pause);
+                Start_sim.Image = imageListStop.Images[0];
+                Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                Start_sim.TextAlign = ContentAlignment.BottomCenter;
+                Start_sim.Text = " Stop";
+                timer1.Start();
+            }
+        }
+
+        internal const double height_radar_tang = 3438.954;
+
+        internal const double Lat_deg_tang = 41.065656 * GeoUtils.DEGS2RADS;
+
+        internal const double Lon_deg_tang = 1.413301 * GeoUtils.DEGS2RADS;
+
+        internal CoordinatesWGS84 system_center_tang = new CoordinatesWGS84(Lat_deg_tang, Lon_deg_tang, height_radar_tang);
+        public CoordinatesUVH GetUV(double latitude, double longitude, double height)
+        {
+            CoordinatesWGS84 Plane_lat_lon = new CoordinatesWGS84(latitude, longitude, height);
+
+            GeoUtils geoUtils = new GeoUtils();
+
+            geoUtils.setCenterProjection(system_center_tang);
+
+            CoordinatesXYZ geocentric_coordinates = geoUtils.change_geodesic2geocentric(Plane_lat_lon);
+
+            CoordinatesXYZ cartesian_system = geoUtils.change_geocentric2system_cartesian(geocentric_coordinates);
+
+            CoordinatesUVH stereographic_system = geoUtils.change_system_cartesian2stereographic(cartesian_system);
+
+            return stereographic_system;
+        }
+
+
+
+
+        public void DistanciaHoritzontal(List<double> longitudList_DH, List<double> latitudList_DH, List<double> AltitudeList_DH, List<String> AircraftIDList_sub, string A1, string A2)
+        {
+            double lat1 = 0, long1 = 0, height1 = 0;
+            double lat2 = 0, long2 = 0, height2 = 0;
+
+            CoordinatesUVH coord1 = null, coord2 = null;
+
+            int flag1 = 0, flag2 = 0;
+
+            for (int i = 0; i < AircraftIDList_sub.Count; i++)
+            {
+                string currentID = AircraftIDList_sub[i].Trim();
+                if (currentID == A1.Trim() && flag1 == 0)
+                {
+                    lat1 = longitudList_DH[flag1];
+                    long1 = latitudList_DH[flag1];
+                    height1 = AltitudeList_DH[flag1];
+                    coord1 = GetUV(lat1, long1, height1);
+                    flag1 = i;
+                }
+                else if (currentID == A2.Trim() && flag2 == 0)
+                {
+                    lat2 = longitudList_DH[flag2];
+                    long2 = latitudList_DH[flag2];
+                    height2 = AltitudeList_DH[flag2];
+                    coord2 = GetUV(lat2, long2, height2);
+                    flag2 = i;
+                }
+            }
+
+            for (int i = 0; i < AircraftIDList_sub.Count; i++)
+            {
+                string currentID = AircraftIDList_sub[i].Trim();
+
+                if (currentID == A1.Trim())
+                {
+                    lat1 = longitudList_DH[i];
+                    long1 = latitudList_DH[i];
+                    height1 = AltitudeList_DH[i];
+                    coord1 = GetUV(lat1, long1, height1);
+
+                }
+                else if (currentID == A2.Trim())
+                {
+                    lat2 = longitudList_DH[i];
+                    long2 = latitudList_DH[i];
+                    height2 = AltitudeList_DH[i];
+                    coord2 = GetUV(lat2, long2, height2);
+                }
+
+                // Calcula la distancia si ambos coordenadas están definidas
+                //if (coord1 != null && coord2 != null)
+                //{
+                double distancia = Math.Round(Math.Sqrt(Math.Pow(coord1.U - coord2.U, 2) + Math.Pow(coord1.V - coord2.V, 2)), 3);
+                DistHor.Add(distancia*Math.Pow(10,-3));
+                //}
+                // else
+                //{
+                //DistHor.Add(0);
+                //}
             }
         }
     }

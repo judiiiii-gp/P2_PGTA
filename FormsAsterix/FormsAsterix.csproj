@@ -73,6 +73,12 @@
     <Compile Include="DataGridView.Designer.cs">
       <DependentUpon>DataGridView.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistHoritzontal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DistHoritzontal.Designer.cs">
+      <DependentUpon>DistHoritzontal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataGridView.resx">
       <DependentUpon>DataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistHoritzontal.resx">
+      <DependentUpon>DistHoritzontal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filter.resx">
       <DependentUpon>Filter.cs</DependentUpon>
@@ -188,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\compass.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

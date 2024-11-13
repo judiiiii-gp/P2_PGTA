@@ -93,6 +93,16 @@ namespace FormsAsterix.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap compass {
+            get {
+                object obj = ResourceManager.GetObject("compass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap csv {
             get {
                 object obj = ResourceManager.GetObject("csv", resourceCulture);
