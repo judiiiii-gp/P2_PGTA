@@ -1729,22 +1729,6 @@ namespace FormsAsterix
                     flag = 1;
                 }
             }
-
-
-            if (flag == 1)
-            {
-                // Set up the ImageList to display the stop button image
-                ImageList imageListStop = new ImageList();
-                imageListStop.ImageSize = new Size(40, 40);
-                imageListStop.Images.Add(Properties.Resources.pause);
-                Start_sim.Image = imageListStop.Images[0];
-                Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
-                Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
-                Start_sim.ImageAlign = ContentAlignment.TopCenter;
-                Start_sim.TextAlign = ContentAlignment.BottomCenter;
-                Start_sim.Text = " Stop";
-                timer1.Start();
-            }
         }
 
         internal const double height_radar_tang = 3438.954;
@@ -1824,16 +1808,9 @@ namespace FormsAsterix
                     coord2 = GetUV(lat2, long2, height2);
                 }
 
-                // Calcula la distancia si ambos coordenadas están definidas
-                //if (coord1 != null && coord2 != null)
-                //{
                 double distancia = Math.Round(Math.Sqrt(Math.Pow(coord1.U - coord2.U, 2) + Math.Pow(coord1.V - coord2.V, 2)), 3);
                 DistHor.Add(distancia*Math.Pow(10,-3));
-                //}
-                // else
-                //{
-                //DistHor.Add(0);
-                //}
+
             }
         }
     }
