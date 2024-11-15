@@ -822,9 +822,10 @@ namespace FormsAsterix
                     Click_times = 0;
 
                     gMapControl1.Overlays.Clear(); // Limpia todos los overlays anteriores del mapa
-                    GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Crear un nuevo overlay para los aviones
                     gMapControl1.Overlays.Add(aircraftOverlay); // Añadir el nuevo overlay al mapa
                     gMapControl1.ReloadMap(); // Recargar el mapa
+
+                    
 
                     // Actualizar el tiempo en el control de texto
                     timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}",
@@ -1141,6 +1142,12 @@ namespace FormsAsterix
             Start_sim.TextAlign = ContentAlignment.BottomCenter;
             Start_sim.Text = " Start";
             Start_sim.Visible = true;
+
+            groupBox3.Hide();
+
+            timer1.Interval = 1000;
+            Velocity_label_bar.Text = "Sim. Speed x1";
+            trackBar1.Value = 0;
         }
 
         // This method is triggered whenever the value of trackBar1 is changed (when the user scrolls the trackbar)

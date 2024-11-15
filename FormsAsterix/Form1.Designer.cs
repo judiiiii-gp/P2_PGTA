@@ -387,7 +387,7 @@ namespace FormsAsterix
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1538, 798);
+            this.groupBox1.Size = new System.Drawing.Size(1248, 661);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             // 
@@ -396,7 +396,7 @@ namespace FormsAsterix
             this.TitolTXT.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TitolTXT.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.TitolTXT.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitolTXT.Location = new System.Drawing.Point(340, 290);
+            this.TitolTXT.Location = new System.Drawing.Point(195, 222);
             this.TitolTXT.Name = "TitolTXT";
             this.TitolTXT.Size = new System.Drawing.Size(840, 72);
             this.TitolTXT.TabIndex = 15;
@@ -408,7 +408,7 @@ namespace FormsAsterix
             this.DescodBUT.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.DescodBUT.BackColor = System.Drawing.SystemColors.ControlLight;
             this.DescodBUT.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DescodBUT.Location = new System.Drawing.Point(601, 384);
+            this.DescodBUT.Location = new System.Drawing.Point(456, 316);
             this.DescodBUT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DescodBUT.Name = "DescodBUT";
             this.DescodBUT.Size = new System.Drawing.Size(296, 120);

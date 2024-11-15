@@ -3,13 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixLib\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\disthoritzontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\disthoritzontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D668FEC-44C3-4997-BE8C-927A65D1CEE2}|..\\FormsAsterix\\FormsAsterix.csproj|c:\\users\\julia\\desktop\\universitat\\curs 2024-2025\\pgta\\p2_pgta\\p2_pgta\\formsasterix\\disthoritzontal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,17 +22,29 @@
       "DocumentGroups": [
         {
           "DockedWidth": 233,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
+              "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
+              "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "..\\FormsAsterix\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T11:16:33.574Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\Form1.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\Form1.cs",
               "RelativeToolTip": "..\\FormsAsterix\\Form1.cs",
-              "ViewState": "AgIAACoEAAAAAAAAAADwv1AEAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABIEAAAAAAAAAAAmwGYEAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-11T12:29:01.078Z",
               "EditorCaption": ""
@@ -43,21 +58,19 @@
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DistHoritzontal.cs [Dise\u00F1o]",
               "RelativeToolTip": "..\\FormsAsterix\\DistHoritzontal.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T17:15:02.065Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2024-11-12T17:15:02.065Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "DistHoritzontal.cs",
               "DocumentMoniker": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DistHoritzontal.cs",
               "RelativeDocumentMoniker": "..\\FormsAsterix\\DistHoritzontal.cs",
               "ToolTip": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\FormsAsterix\\DistHoritzontal.cs",
               "RelativeToolTip": "..\\FormsAsterix\\DistHoritzontal.cs",
-              "ViewState": "AgIAAGUBAAAAAAAAAAAswHMBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAO8AAAAAAAAAAAAuwHMBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T17:19:17.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-12T17:19:17.107Z"
             }
           ]
         }
