@@ -935,50 +935,53 @@ namespace FormsAsterix
 
         private void AddMarkerToMap(double lat, double lon, string name, int currentIndex)
         {
-            var newPosition = new PointLatLng(lat, lon);
-            double lastRelevantTime = time.Last() - 60;
-            bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
-            bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
-            bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
-
-            // Solo borra el marcador si no aparecerá en el futuro, no está en el último segundo relevante, y no es el último
-            if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
+            if (AircraftAddrList[currentIndex] != "N/A")
             {
-                GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+                var newPosition = new PointLatLng(lat, lon);
+                double lastRelevantTime = time.Last() - 60;
+                bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
+                bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
+                bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
 
-                if (existingMarker != null)
+                // Solo borra el marcador si no aparecerá en el futuro, no está en el último segundo relevante, y no es el último
+                if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
                 {
-                    aircraftOverlay.Markers.Remove(existingMarker);
+                    GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+
+                    if (existingMarker != null)
+                    {
+                        aircraftOverlay.Markers.Remove(existingMarker);
+                    }
+
+                    Sim_diccionary.Remove(name); // Elimina el avión de Sim_diccionary
+                    return;
                 }
 
-                Sim_diccionary.Remove(name); // Elimina el avión de Sim_diccionary
-                return;
-            }
+                // Si la posición del avión no ha cambiado, no hace falta actualizar el marcador
+                if (lastPositions.TryGetValue(name, out var lastPosition) && lastPosition == newPosition)
+                {
+                    return;
+                }
 
-            // Si la posición del avión no ha cambiado, no hace falta actualizar el marcador
-            if (lastPositions.TryGetValue(name, out var lastPosition) && lastPosition == newPosition)
-            {
-                return;
-            }
+                // Actualiza la posición en el diccionario
+                lastPositions[name] = newPosition;
 
-            // Actualiza la posición en el diccionario
-            lastPositions[name] = newPosition;
+                // Busca el marcador existente o crea uno nuevo
+                GMapMarker marker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+                if (marker != null)
+                {
+                    // Actualiza la posición del marcador existente
+                    MoveMarkerSmoothly(marker, newPosition); // Llama a la interpolación para un movimiento suave
+                }
+                else
+                {
+                    // Crea un nuevo marcador si no existe y añádelo al overlay
+                    marker = new GMarkerGoogle(newPosition, GMarkerGoogleType.blue_dot) { Tag = name };
+                    aircraftOverlay.Markers.Add(marker);
 
-            // Busca el marcador existente o crea uno nuevo
-            GMapMarker marker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
-            if (marker != null)
-            {
-                // Actualiza la posición del marcador existente
-                MoveMarkerSmoothly(marker, newPosition); // Llama a la interpolación para un movimiento suave
-            }
-            else
-            {
-                // Crea un nuevo marcador si no existe y añádelo al overlay
-                marker = new GMarkerGoogle(newPosition, GMarkerGoogleType.blue_dot) { Tag = name };
-                aircraftOverlay.Markers.Add(marker);
-
-                // Añade el nombre al HashSet si aún no está registrado
-                Sim_diccionary.Add(name);
+                    // Añade el nombre al HashSet si aún no está registrado
+                    Sim_diccionary.Add(name);
+                }
             }
         }
         private void MoveMarkerSmoothly(GMapMarker marker, PointLatLng targetPosition)
