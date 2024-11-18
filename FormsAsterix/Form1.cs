@@ -73,6 +73,10 @@ namespace FormsAsterix
 
         long timeInicial;
 
+        private Dictionary<string, PointLatLng> lastPositions = new Dictionary<string, PointLatLng>(); // Diccionario para rastrear posiciones anteriores
+        private HashSet<string> Sim_diccionary = new HashSet<string>(); // Usamos HashSet para mejorar rendimiento
+        private GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Overlay único para todos los marcadores
+
 
 
         // Get the file ".ast" to apply decodification function
@@ -105,6 +109,7 @@ namespace FormsAsterix
                 Start_sim.TextAlign = ContentAlignment.BottomCenter;
                 timeInicial = time[0];
                 timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
+                gMapControl1.Overlays.Add(aircraftOverlay);
             }
         }
 
@@ -770,42 +775,89 @@ namespace FormsAsterix
         }
 
 
-        // To open a new ".ast" file without closing the simulation
+        // To open a new ".ast" file without closing the simulation+
+        // FALTA ARREGLARRRRR
         private void NewDataBut_Click(object sender, EventArgs e)
         {
-            // Create an OpenFileDialog to allow the user to select a file.
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Title = "Selecciona un archivo .ast";
-            openFileDialog.Filter = "Todos los arxivos (*.ast*)|*ast*";
+            // Crear un OpenFileDialog para permitir que el usuario seleccione un archivo.
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Selecciona un archivo .ast",
+                Filter = "Todos los archivos (*.ast*)|*ast*"
+            };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Decodification
+                // Limpiar listas y variables de la simulación previa
+                bloque.Clear();
+                asterixGrids.Clear();
+                time.Clear();
+                longitudList.Clear();
+                latitudList.Clear();
+                AircraftIDList.Clear();
+                rhoList.Clear();
+                AircraftAddrList.Clear();
+                TrackNumList.Clear();
+                Mode3AList.Clear();
+                SACList.Clear();
+                SICList.Clear();
+                AltitudeList.Clear();
+                DistHor.Clear();
+
+                lastPositions.Clear(); 
+                Sim_diccionary.Clear();
+
+                // Decodificación del nuevo archivo
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
                 Calcular_Lat_Long(bloque);
                 GenerarAsterix(bloque);
-            }
 
-            // Set up simulation layout
-            timer1.Stop();
-            timeInicial = time[0];
-            num_loop = 0;
-            Click_times = 0;
-            gMapControl1.Overlays.Clear();
-            gMapControl1.ReloadMap();
-            timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
-            ImageList imageList = new ImageList();
-            imageList.ImageSize = new Size(40, 40);
-            imageList.Images.Add(Properties.Resources.play_button);
-            Start_sim.Image = imageList.Images[0];
-            Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
-            Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
-            Start_sim.ImageAlign = ContentAlignment.TopCenter;
-            Start_sim.TextAlign = ContentAlignment.BottomCenter;
-            Start_sim.Text = " Start";
-            Start_sim.Visible = true;
+                // Comprobar si los datos fueron cargados correctamente
+                if (time.Count > 0)
+                {
+                    // Configurar el layout de la simulación con el nuevo tiempo inicial
+                    timeInicial = time[0];
+                    num_loop = 0;
+                    Click_times = 0;
+
+                    gMapControl1.Overlays.Clear(); // Limpia todos los overlays anteriores del mapa
+
+                    aircraftOverlay = new GMapOverlay("aircraftOverlay");
+                    gMapControl1.Overlays.Add(aircraftOverlay); // Añadir el nuevo overlay al mapa
+                    gMapControl1.ReloadMap(); // Recargar el mapa
+
+                    
+
+                    // Actualizar el tiempo en el control de texto
+                    timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}",
+                                                 (int)(timeInicial / 3600),
+                                                 (int)((timeInicial % 3600) / 60),
+                                                 (int)(timeInicial % 60));
+
+                    // Configurar el botón "Start"
+                    ImageList imageList = new ImageList();
+                    imageList.ImageSize = new Size(40, 40);
+                    imageList.Images.Add(Properties.Resources.play_button);
+                    Start_sim.Image = imageList.Images[0];
+                    Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
+                    Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
+                    Start_sim.ImageAlign = ContentAlignment.TopCenter;
+                    Start_sim.TextAlign = ContentAlignment.BottomCenter;
+                    Start_sim.Text = " Start";
+                    Start_sim.Visible = true;
+
+                    timer1.Interval = 1000;
+                    Velocity_label_bar.Text = "Sim. Speed x1";
+                    trackBar1.Value = 0;
+                }
+                else
+                {
+                    // Mostrar un mensaje de error si el archivo no contiene datos válidos
+                    MessageBox.Show("El archivo seleccionado no contiene datos válidos o no se pudo cargar.",
+                                    "Error al cargar archivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         // Open DataGridView Form to show the decodified data
@@ -843,154 +895,157 @@ namespace FormsAsterix
 
         // Funtions to define the clock for the simulation
         int num_loop = 0;
-        int steps = 1;
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Increment the initial time (timeInicial) each time the timer ticks
+            // Incrementa el tiempo inicial cada vez que el timer se activa
             timeInicial++;
 
+            // Ejecuta la simulación y actualiza los marcadores solo cuando sea necesario
             Tick(ref timeInicial, ref num_loop);
 
-            // Update the time display (timeTXT) with the formatted time
+            // Actualiza el tiempo en la interfaz
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
+
+            // Refresca el mapa solo cada ciertos ticks para mejorar el rendimiento
+            gMapControl1.Refresh();
+
         }
 
 
         private void Tick(ref long timeTick, ref int num_loop)
         {
 
-            // Check if num_loop is less than the number of aircraft in the list
+            // Verifica si hay aviones que agregar en la simulación
             if (num_loop != AircraftIDList.Count)
             {
-                // Loop through the aircraft list and add markers to the map based on the tick time
                 for (int i = 0; num_loop < AircraftIDList.Count && timeTick >= time[num_loop]; num_loop++)
                 {
-                    // Add a marker to the map for the current aircraft
+                    // Agrega o actualiza el marcador en el mapa solo si es necesario
                     AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop], num_loop);
                 }
-
-                // Update the map control after adding the markers
-                gMapControl1.Update();
-
             }
             else
             {
-                // If num_loop reaches the total number of aircraft, stop the timer and adjust the timeTick
+                // Detén la simulación si ya se han procesado todos los aviones
                 timer1.Stop();
-                timeTick = timeTick - 2;
+                timeTick -= 2;
                 Start_sim.Visible = false;
             }
-
         }
 
         // Funtions to show the Markers on map
-        private List<string> Sim_diccionary = new List<string>();
-        private List<(string name, int position)> position = new List<(string name, int position)>();
+       //private List<string> Sim_diccionary = new List<string>();
+        //private List<(string name, int position)> position = new List<(string name, int position)>();
 
         private void AddMarkerToMap(double lat, double lon, string name, int currentIndex)
         {
-            // Define the time threshold for the last relevant second
-            double lastRelevantTime = time.Last() - 60;
-            bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
-
-            // Check if the aircraft appears again after this index
-            bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
-
-            // Check if we are within the last relevant second
-            bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
-
-            // Enter only if the aircraft will not appear again, is not within the last relevant second, and it’s not the last moment
-            if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
+            if (AircraftAddrList[currentIndex] != "N/A")
             {
-                GMapOverlay markers = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name);
-                GMapMarker existMarker = markers?.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+                var newPosition = new PointLatLng(lat, lon);
+                double lastRelevantTime = time.Last() - 60;
+                bool isLastMoment = currentIndex == AircraftIDList.Count - 1;
+                bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
+                bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
 
-                if (existMarker != null && markers != null)
+                // Solo borra el marcador si no aparecerá en el futuro, no está en el último segundo relevante, y no es el último
+                if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
                 {
-                    // Delete the marker
-                    markers.Markers.Remove(existMarker);
+                    GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
 
-                    if (!markers.Markers.Any())
+                    if (existingMarker != null)
                     {
-                        gMapControl1.Overlays.Remove(markers);
+                        aircraftOverlay.Markers.Remove(existingMarker);
                     }
+
+                    Sim_diccionary.Remove(name); // Elimina el avión de Sim_diccionary
+                    return;
                 }
 
-                // Delete aircraft from Sim_diccionary
-                Sim_diccionary.Remove(name);
-                return;
+                // Si la posición del avión no ha cambiado, no hace falta actualizar el marcador
+                if (lastPositions.TryGetValue(name, out var lastPosition) && lastPosition == newPosition)
+                {
+                    return;
+                }
+
+                // Actualiza la posición en el diccionario
+                lastPositions[name] = newPosition;
+
+                // Busca el marcador existente o crea uno nuevo
+                GMapMarker marker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+                if (marker != null)
+                {
+                    // Actualiza la posición del marcador existente
+                    MoveMarkerSmoothly(marker, newPosition); // Llama a la interpolación para un movimiento suave
+                }
+                else
+                {
+                    // Crea un nuevo marcador si no existe y añádelo al overlay
+                    marker = new GMarkerGoogle(newPosition, GMarkerGoogleType.blue_dot) { Tag = name };
+                    aircraftOverlay.Markers.Add(marker);
+
+                    // Añade el nombre al HashSet si aún no está registrado
+                    Sim_diccionary.Add(name);
+                }
             }
+        }
+        private void MoveMarkerSmoothly(GMapMarker marker, PointLatLng targetPosition)
+        {
+            // Calcula la distancia en latitud y longitud entre la posición actual y el objetivo
+            double latDiff = targetPosition.Lat - marker.Position.Lat;
+            double lonDiff = targetPosition.Lng - marker.Position.Lng;
 
-            // If the name will appear in the future or we are at the last moment, update or add the marker
-            GMapOverlay overlay = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name) ?? new GMapOverlay(name);
-            GMapMarker existingMarker = overlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+            // Define un factor de velocidad más bajo para hacer que el movimiento sea más gradual y preciso
+            double moveFactor = 0.05; // Puedes reducirlo aún más para más precisión, como 0.01
 
-            if (existingMarker != null)
+            // Controla que los valores de diferencia no sean demasiado pequeños o el movimiento se vería entrecortado
+            if (Math.Abs(latDiff) > 0.000001 || Math.Abs(lonDiff) > 0.000001)
             {
-                // Update the position of the existing marker
-                existingMarker.Position = new PointLatLng(lat, lon);
+                // Calcula la nueva posición aplicando el factor de movimiento
+                marker.Position = new PointLatLng(
+                    marker.Position.Lat + latDiff * moveFactor,
+                    marker.Position.Lng + lonDiff * moveFactor
+                );
             }
             else
             {
-                // Create a new marker and overlay if they don't exist
-                GMapMarker marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.blue_dot)
-                {
-                    Tag = name
-                };
-
-                overlay.Markers.Add(marker);
-
-                // Add the overlay to the control if it's new
-                if (!gMapControl1.Overlays.Contains(overlay))
-                {
-                    gMapControl1.Overlays.Add(overlay);
-                }
-
-                gMapControl1.UpdateMarkerLocalPosition(marker);
-
-                // Add the name to Sim_diccionary if it's not already there
-                if (!Sim_diccionary.Contains(name))
-                {
-                    Sim_diccionary.Add(name);
-                }
+                // Si la diferencia es demasiado pequeña, coloca el marcador directamente en la posición objetivo
+                marker.Position = targetPosition;
             }
         }
 
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            // Retrieve the name of the aircraft from the marker's tag
+            // Obtener el nombre del avión desde el tag del marcador
             string name = item.Tag?.ToString();
 
-            // Try to find the overlay associated with the aircraft name
-            GMapOverlay markers = gMapControl1.Overlays.FirstOrDefault(o => o.Id == name);
+            // Buscar el marcador correspondiente dentro del overlay único
+            GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
 
-            // Try to find the specific marker within the overlay that matches the aircraft name
-            GMapMarker existingMarker = markers?.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
-
-            // Check if the aircraft's name exists in the simulation dictionary (Sim_diccionary)
-            if (Sim_diccionary.Contains(name))
+            // Verificar si el nombre del avión existe en el diccionario de simulación (Sim_diccionary)
+            if (existingMarker != null && Sim_diccionary.Contains(name))
             {
-                // Get the position of the existing marker on the map
+                // Obtener la posición del marcador existente en el mapa
                 var position = existingMarker.Position;
 
-                // Find the index of the aircraft in the AircraftIDList based on its name
+                // Encontrar el índice del avión en AircraftIDList basado en su nombre
                 int indexAir = AircraftIDList.FindIndex(id => id == name);
 
-                // Prepare the information to display about the selected aircraft
+                // Preparar la información a mostrar sobre el avión seleccionado
                 string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
-                                  $"Track number: {TrackNumList[indexAir]}\n" +
-                                  $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
-                                  $"\n" +
-                                  $"Lat: {position.Lat}º\n" +
-                                  $"Lon: {position.Lng}º\n" +
-                                  $"Altitude: {AltitudeList[indexAir]} ft\n" +
-                                  $"\n" +
-                                  $"SAC: {SACList[indexAir]}\n" +
-                                  $"SIC: {SICList[indexAir]}\n";
+                              $"Track number: {TrackNumList[indexAir]}\n" +
+                              $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
+                              $"\n" +
+                              $"Lat: {position.Lat}º\n" +
+                              $"Lon: {position.Lng}º\n" +
+                              $"Altitude: {AltitudeList[indexAir]} ft\n" +
+                              $"\n" +
+                              $"SAC: {SACList[indexAir]}\n" +
+                              $"SIC: {SICList[indexAir]}\n";
 
-                // Display the information in a message box with the aircraft's identification name as the title
-                MessageBox.Show(info, $"Aircraft indentification: {name}");
+                // Mostrar la información en un cuadro de mensaje con el nombre del avión como título
+                MessageBox.Show(info, $"Aircraft identification: {name}");
             }
         }
 
@@ -998,10 +1053,10 @@ namespace FormsAsterix
         int Click_times = 0;
         private void Start_sim_Click(object sender, EventArgs e)
         {
-            // Check if the button text is either "Start" or "Continue"
+            // Si el texto del botón es "Start" o "Continue"
             if (Start_sim.Text == " Start" || Start_sim.Text == " Continue")
             {
-                // Set up the ImageList to display the play button image
+                // Configuración de la imagen de botón de "play"
                 ImageList imageList = new ImageList();
                 imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
@@ -1011,68 +1066,42 @@ namespace FormsAsterix
                 Start_sim.ImageAlign = ContentAlignment.TopCenter;
                 Start_sim.TextAlign = ContentAlignment.BottomCenter;
 
-                // If the button is clicked for the first time
+                // Configura el botón en el primer clic
                 if (Click_times == 0)
                 {
-                    // Set up the ImageList to display the stop button image
+                    // Configuración de la imagen de botón de "stop"
                     ImageList imageListStop = new ImageList();
                     imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
-                    Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
-                    Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
-                    Start_sim.ImageAlign = ContentAlignment.TopCenter;
-                    Start_sim.TextAlign = ContentAlignment.BottomCenter;
                     Start_sim.Text = " Stop";
 
-                    // Sort the 'bloque' data based on the third element (index 2)
+                    // Ordena los datos de 'bloque' en función del tercer elemento (index 2)
                     bloque = bloque.OrderBy(data => Convert.ToString(data[2])).ToList();
 
-                    // Show the time text control and start the timer
+                    // Muestra el control del tiempo y empieza el temporizador
                     timeTXT.Show();
                     timer1.Start();
 
-                    // Increment the click count and clear the simulation dictionary
+                    // Incrementa el contador de clics y limpia el diccionario de simulación
                     Click_times++;
                     Sim_diccionary.Clear();
-
-                    if (position.Count == 0)
-                    {
-                        // Get the maximum index (last position)
-                        var maxIndex = bloque
-                        .Select((data, index) => index)
-                        .Max();
-
-                        // Get the last position for each aircraft group
-                        var lastPositions = bloque
-                        .Select((data, index) => new { Data = data, Index = index })
-                        .GroupBy(item => AircraftIDList)
-                        .Select(group => new { Name = group.Key, LastPosition = group.Last().Index });
-
-                        // Create a list that contains the aircraft name and its last position
-                        position = lastPositions
-                            .Select(item => (Convert.ToString(item.Name), item.LastPosition))
-                            .ToList();
-                    }
+                    lastPositions.Clear();  // Limpia las posiciones para reiniciar
                 }
                 else
                 {
-                    // Set up the ImageList to display the stop button image
+                    // Configuración de la imagen de botón de "stop"
                     ImageList imageListStop = new ImageList();
                     imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
-                    Start_sim.ImageAlign = ContentAlignment.MiddleCenter;
-                    Start_sim.TextImageRelation = TextImageRelation.ImageAboveText;
-                    Start_sim.ImageAlign = ContentAlignment.TopCenter;
-                    Start_sim.TextAlign = ContentAlignment.BottomCenter;
                     Start_sim.Text = " Stop";
                     timer1.Start();
                 }
             }
             else
             {
-                // Set up the ImageList to display the play button image
+                // Configuración de la imagen de botón de "play" al pausar
                 ImageList imageList = new ImageList();
                 imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
@@ -1097,8 +1126,15 @@ namespace FormsAsterix
             num_loop = 0;
             Click_times = 0;
 
+            lastPositions.Clear();
+            Sim_diccionary.Clear();
+
             // Clear all overlays from the map (removes any markers or other graphical elements)
             gMapControl1.Overlays.Clear();
+
+            aircraftOverlay = new GMapOverlay("aircraftOverlay");
+            gMapControl1.Overlays.Add(aircraftOverlay);
+
             gMapControl1.ReloadMap();
 
             // Set the time text to show the formatted initial time (HH:mm:ss)
@@ -1115,6 +1151,12 @@ namespace FormsAsterix
             Start_sim.TextAlign = ContentAlignment.BottomCenter;
             Start_sim.Text = " Start";
             Start_sim.Visible = true;
+
+            groupBox3.Hide();
+
+            timer1.Interval = 1000;
+            Velocity_label_bar.Text = "Sim. Speed x1";
+            trackBar1.Value = 0;
         }
 
         // This method is triggered whenever the value of trackBar1 is changed (when the user scrolls the trackbar)
@@ -1453,9 +1495,9 @@ namespace FormsAsterix
                             double Lat_rad = geodesic.Lat;
                             double Long_rad = geodesic.Lon;
                             Lat = Lat_rad * GeoUtils.RADS2DEGS;
-                            latitudList.Add(Math.Round(Lat, 2));
+                            latitudList.Add(Lat);
                             Long = Long_rad * GeoUtils.RADS2DEGS;
-                            longitudList.Add(Math.Round(Long, 2));
+                            longitudList.Add(Long);
                             h = geodesic.Height;
                             AltitudeList.Add(Math.Round(h, 2));
                             mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
@@ -1772,20 +1814,21 @@ namespace FormsAsterix
                 string currentID = AircraftIDList_sub[i].Trim();
                 if (currentID == A1.Trim() && flag1 == 0)
                 {
-                    lat1 = longitudList_DH[flag1];
-                    long1 = latitudList_DH[flag1];
+                    lat1 = latitudList_DH[flag1];
+                    long1 = longitudList_DH[flag1];
                     height1 = AltitudeList_DH[flag1];
-                    coord1 = GetUV(lat1, long1, height1);
+                    coord1 = GetUV(lat1 * GeoUtils.DEGS2RADS, long1 * GeoUtils.DEGS2RADS, height1);
                     flag1 = i;
                 }
                 else if (currentID == A2.Trim() && flag2 == 0)
                 {
-                    lat2 = longitudList_DH[flag2];
-                    long2 = latitudList_DH[flag2];
+                    lat2 = latitudList_DH[flag2];
+                    long2 = longitudList_DH[flag2];
                     height2 = AltitudeList_DH[flag2];
-                    coord2 = GetUV(lat2, long2, height2);
+                    coord2 = GetUV(lat2 * GeoUtils.DEGS2RADS, long2 * GeoUtils.DEGS2RADS, height2);
                     flag2 = i;
                 }
+
             }
 
             for (int i = 0; i < AircraftIDList_sub.Count; i++)
@@ -1794,22 +1837,22 @@ namespace FormsAsterix
 
                 if (currentID == A1.Trim())
                 {
-                    lat1 = longitudList_DH[i];
-                    long1 = latitudList_DH[i];
+                    lat1 = latitudList_DH[i]; 
+                    long1 = longitudList_DH[i];
                     height1 = AltitudeList_DH[i];
-                    coord1 = GetUV(lat1, long1, height1);
+                    coord1 = GetUV(lat1 * GeoUtils.DEGS2RADS, long1 * GeoUtils.DEGS2RADS, height1);
 
                 }
                 else if (currentID == A2.Trim())
                 {
-                    lat2 = longitudList_DH[i];
-                    long2 = latitudList_DH[i];
+                    lat2 = latitudList_DH[i]; 
+                    long2 = longitudList_DH[i];
                     height2 = AltitudeList_DH[i];
-                    coord2 = GetUV(lat2, long2, height2);
+                    coord2 = GetUV(lat2 * GeoUtils.DEGS2RADS, long2 * GeoUtils.DEGS2RADS, height2);
                 }
 
-                double distancia = Math.Round(Math.Sqrt(Math.Pow(coord1.U - coord2.U, 2) + Math.Pow(coord1.V - coord2.V, 2)), 3);
-                DistHor.Add(distancia*Math.Pow(10,-3));
+                double distancia = Math.Round(Math.Sqrt(Math.Pow(coord2.U - coord1.U, 2) + Math.Pow(coord2.V - coord1.V, 2)), 3);
+                DistHor.Add(distancia * Math.Pow(10, -3));
 
             }
         }
