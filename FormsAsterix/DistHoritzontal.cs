@@ -25,6 +25,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using LibAsterix;
 using System.Security.Cryptography;
 using Amazon.IdentityManagement.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace FormsAsterix
 {
@@ -217,7 +218,8 @@ namespace FormsAsterix
 
         private void Tick(ref long timeTick, ref int num_loop, string a1, string a2)
         {
-            if (num_loop < AircraftIDList.Count)
+            // Check if num_loop is less than the number of aircraft in the list
+            if (num_loop != AircraftIDList.Count)
             {
                 for (int i = 0; num_loop < AircraftIDList.Count && timeTick >= time[num_loop]; num_loop++)
                 {
@@ -225,16 +227,20 @@ namespace FormsAsterix
                     {
                         SetValuesCells(AircraftIDList[num_loop], num_loop);
                         AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop], num_loop);
-                        valueTXT.Text = $"{DistHor[num_loop]} km";
+                        valueTXT.Text = Convert.ToString(Math.Round(DistHor[num_loop], 3)) + " km";
+                        valueNM.Text = Convert.ToString(Math.Round(DistHor[num_loop] * 1000 / 1852, 3)) + " NM";
                         dataGridView1.Refresh();
                     }
+
+
                 }
                 gMapControl1.Update();
             }
             else
             {
+                // If num_loop reaches the total number of aircraft, stop the timer and adjust the timeTick
                 timer1.Stop();
-                timeTick -= 2;
+                timeTick = timeTick - 2;
                 Start_sim.Visible = false;
             }
         }

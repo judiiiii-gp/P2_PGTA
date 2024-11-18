@@ -40,6 +40,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.valueTXT = new System.Windows.Forms.Label();
+            this.valueNM = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -141,7 +142,7 @@
             this.RestartSimBut.Image = global::FormsAsterix.Properties.Resources.restart;
             this.RestartSimBut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RestartSimBut.Name = "RestartSimBut";
-            this.RestartSimBut.Size = new System.Drawing.Size(114, 28);
+            this.RestartSimBut.Size = new System.Drawing.Size(114, 24);
             this.RestartSimBut.Text = "Restart Sim";
             this.RestartSimBut.Click += new System.EventHandler(this.RestartSimBut_Click);
             // 
@@ -179,11 +180,22 @@
             this.valueTXT.TabIndex = 13;
             this.valueTXT.Text = "value";
             // 
+            // valueNM
+            // 
+            this.valueNM.AutoSize = true;
+            this.valueNM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.valueNM.Location = new System.Drawing.Point(170, 687);
+            this.valueNM.Name = "valueNM";
+            this.valueNM.Size = new System.Drawing.Size(59, 25);
+            this.valueNM.TabIndex = 14;
+            this.valueNM.Text = "value";
+            // 
             // DistHoritzontal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1552, 765);
+            this.Controls.Add(this.valueNM);
             this.Controls.Add(this.valueTXT);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -217,5 +229,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label valueTXT;
+        private System.Windows.Forms.Label valueNM;
     }
 }

@@ -822,6 +822,8 @@ namespace FormsAsterix
                     Click_times = 0;
 
                     gMapControl1.Overlays.Clear(); // Limpia todos los overlays anteriores del mapa
+
+                    aircraftOverlay = new GMapOverlay("aircraftOverlay");
                     gMapControl1.Overlays.Add(aircraftOverlay); // Añadir el nuevo overlay al mapa
                     gMapControl1.ReloadMap(); // Recargar el mapa
 
@@ -844,6 +846,10 @@ namespace FormsAsterix
                     Start_sim.TextAlign = ContentAlignment.BottomCenter;
                     Start_sim.Text = " Start";
                     Start_sim.Visible = true;
+
+                    timer1.Interval = 1000;
+                    Velocity_label_bar.Text = "Sim. Speed x1";
+                    trackBar1.Value = 0;
                 }
                 else
                 {
@@ -1808,20 +1814,21 @@ namespace FormsAsterix
                 string currentID = AircraftIDList_sub[i].Trim();
                 if (currentID == A1.Trim() && flag1 == 0)
                 {
-                    lat1 = longitudList_DH[flag1];
-                    long1 = latitudList_DH[flag1];
+                    lat1 = latitudList_DH[flag1];
+                    long1 = longitudList_DH[flag1];
                     height1 = AltitudeList_DH[flag1];
-                    coord1 = GetUV(lat1, long1, height1);
+                    coord1 = GetUV(lat1 * GeoUtils.DEGS2RADS, long1 * GeoUtils.DEGS2RADS, height1);
                     flag1 = i;
                 }
                 else if (currentID == A2.Trim() && flag2 == 0)
                 {
-                    lat2 = longitudList_DH[flag2];
-                    long2 = latitudList_DH[flag2];
+                    lat2 = latitudList_DH[flag2];
+                    long2 = longitudList_DH[flag2];
                     height2 = AltitudeList_DH[flag2];
-                    coord2 = GetUV(lat2, long2, height2);
+                    coord2 = GetUV(lat2 * GeoUtils.DEGS2RADS, long2 * GeoUtils.DEGS2RADS, height2);
                     flag2 = i;
                 }
+
             }
 
             for (int i = 0; i < AircraftIDList_sub.Count; i++)
@@ -1830,22 +1837,22 @@ namespace FormsAsterix
 
                 if (currentID == A1.Trim())
                 {
-                    lat1 = longitudList_DH[i];
-                    long1 = latitudList_DH[i];
+                    lat1 = latitudList_DH[i]; 
+                    long1 = longitudList_DH[i];
                     height1 = AltitudeList_DH[i];
-                    coord1 = GetUV(lat1, long1, height1);
+                    coord1 = GetUV(lat1 * GeoUtils.DEGS2RADS, long1 * GeoUtils.DEGS2RADS, height1);
 
                 }
                 else if (currentID == A2.Trim())
                 {
-                    lat2 = longitudList_DH[i];
-                    long2 = latitudList_DH[i];
+                    lat2 = latitudList_DH[i]; 
+                    long2 = longitudList_DH[i];
                     height2 = AltitudeList_DH[i];
-                    coord2 = GetUV(lat2, long2, height2);
+                    coord2 = GetUV(lat2 * GeoUtils.DEGS2RADS, long2 * GeoUtils.DEGS2RADS, height2);
                 }
 
-                double distancia = Math.Round(Math.Sqrt(Math.Pow(coord1.U - coord2.U, 2) + Math.Pow(coord1.V - coord2.V, 2)), 3);
-                DistHor.Add(distancia*Math.Pow(10,-3));
+                double distancia = Math.Round(Math.Sqrt(Math.Pow(coord2.U - coord1.U, 2) + Math.Pow(coord2.V - coord1.V, 2)), 3);
+                DistHor.Add(distancia * Math.Pow(10, -3));
 
             }
         }
