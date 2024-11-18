@@ -29,9 +29,10 @@ namespace FormsAsterix
 {
     public partial class DataGridView : Form
     {
+        // Variables to store search folder, user computer information, and data structures
         string CarpetaBusqueda;
         Computer usr = new Computer();
-        List<List<DataItem>> bloque = new List<List<DataItem>>(); //tindrem una llista separada pels diferents blocs
+        List<List<DataItem>> bloque = new List<List<DataItem>>(); // list for each block
         List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
         BindingSource bindingSource = new BindingSource();
         bool filterEnabled = false;
@@ -41,13 +42,15 @@ namespace FormsAsterix
 
         int index = 0;
         public int dgv_index { get; set; }
+
+        // Constructor: Initializes the form with Asterix grid data
         public DataGridView(List<AsterixGrid> blok)
         {
             InitializeComponent();
             this.asterixGrids = blok;
             bindingSource.DataSource = asterixGrids;
 
-            // FEM DATA GRID VIEW
+            // Do DataGridView setup (customization for appearance)
 
             dataGridView2.ColumnHeadersVisible = true;
 
@@ -62,10 +65,8 @@ namespace FormsAsterix
 
             dataGridView2.AutoGenerateColumns = false;
             dataGridView2.DataSource = bindingSource;
-            
 
-
-
+            // List of column names to be displayed in the DataGridView
             List<string> lista = new List<string> {
             "Num","SAC", "SIC", "Time of Day", "Latitud", "Longitud", "Height","TYP", "SIM", "RDP", "SPI", "RAB", "TST", "ERR", "XPP", "ME",
             "MI", "FOE", "ADSBEP", "ADSBVAL", "SCNEP", "SCNVAL", "PAIEP", "PAIVAL", "RHO", "THETA", "Mode-3/A V", "Mode-3/A G",
@@ -78,24 +79,17 @@ namespace FormsAsterix
             "SI", "MSSC", "ARC", "AIC", "B1A_message", "B1B_message"};
 
 
-
+            // Set the column headers based on the provided list
             SetColumnHeaders(lista);
 
-            ////dataGridView2.DataSource = bindingSource;
-            ////dataGridView2.AutoGenerateColumns = true;
-
-
-            //foreach (var nombreColumna in lista)
-            //{
-            //    dataGridView2.Columns.Add(nombreColumna, nombreColumna);
-            //}
-
             this.WindowState = FormWindowState.Maximized;
-            //MessageBox.Show(msg);
-            //dgv_index = 0;
+
         }
+
+        // Sets the column headers for the DataGridView based on a provided list
         private void SetColumnHeaders(List<string> lista)
         {
+            // Mapping of human-readable column names to the actual data property names
             Dictionary<string, string> columnMapping = new Dictionary<string, string>
             {
                 { "Num", "Num" },
@@ -189,17 +183,21 @@ namespace FormsAsterix
             };
             dataGridView2.Columns.Clear();
 
+            // Loop through each column name in the 'lista' (the list of column headers to display)
             foreach (var columnName in lista)
             {
                 var column = new DataGridViewTextBoxColumn
                 {
+                    // Set the header text of the column to the name from the list
                     HeaderText = columnName,
                     DataPropertyName = columnMapping.ContainsKey(columnName) ? columnMapping[columnName] : columnName
                 };
+
+                // Check if the columnName is not already in the originalColumnNames dictionary
                 if (!originalColumnNames.ContainsKey(columnName))
                 {
-                    originalColumnNames[columnName] = new Dictionary_Info(columnName);
-                   
+                    // Add the column name to the dictionary with a new Dictionary_Info object
+                    originalColumnNames[columnName] = new Dictionary_Info(columnName);  
                 }
 
                 dataGridView2.Columns.Add(column);
@@ -359,41 +357,49 @@ namespace FormsAsterix
         
         private void DataGridView_Load(object sender, EventArgs e)
         {
-            //CrearDataGridView();
             if (dgv_index == 0) 
             {
-                //CargarMain(bloque);
             }
         }
 
         private void BtnFilter_Click(object sender, EventArgs e)
         {
+            // Make the Filtered_Values, No_ground_flights, and blancos_puros controls visible.
             Filtered_Values.Visible = true;
             No_ground_flights.Visible = true;
             blancos_puros.Visible = true;
-            toolStrip1.BringToFront();
-            filterEnabled = !filterEnabled;
             
+            // Bring the toolStrip1 to the front of other controls, making it visible above other elements.
+            toolStrip1.BringToFront();
 
+            // Toggle the state of the filterEnabled variable between true and false.
+            filterEnabled = !filterEnabled;
 
+            // If filter is enabled (i.e., filterEnabled is true):
             if (filterEnabled)
             {
+                // Add arrows to column headers to indicate sorting or filtering.
                 AddArrowToColumnHeaders(true);
-                dataGridView2.ColumnHeaderMouseClick += DataGridView2_ColumnHeaderMouseClick;
-                
+                dataGridView2.ColumnHeaderMouseClick += DataGridView2_ColumnHeaderMouseClick;         
             }
             else
             {
+                // Remove the arrows from the column headers when filtering is disabled.
                 AddArrowToColumnHeaders(false);
                 ResetForm();
             }
-   
 
+            // Refresh the DataGridView to reflect any changes in its UI.
             dataGridView2.Refresh();
         }
+
+        // Dictionary to store filter controls for each column, mapped by column name.
         private Dictionary<string, List<Control>> filterControls = new Dictionary<string, List<Control>>();
+
+        // Event handler for when a column header is clicked.
         private void DataGridView2_ColumnHeaderMouseClick (object sender, DataGridViewCellMouseEventArgs e)
         {
+            // Check if filtering is enabled
             if (filterEnabled)
             {
                 filterDisabled = !filterDisabled;
@@ -404,31 +410,36 @@ namespace FormsAsterix
                 }
                 else
                 {
-                    // Si el filtro no está visible, lo mostramos
+                    // If the filter is not visible, we remove it
                     RemoveFilterControls(columna);
                 }
 
             }
 
         }
+
+        // Method to remove filter controls for a specific column
         private void RemoveFilterControls(string columna)
         {
+            // Check if there are any filter controls associated with the given column
             if (filterControls.ContainsKey(columna))
             {
-                // Obtener la lista de controles asociados a la columna
+                // Get the list of controls (such as TextBox, ComboBox) for this column
                 var controlsToRemove = filterControls[columna];
 
-                // Eliminar y disponer todos los controles de la lista
+                // Remove the control from the DataGridView's control collection
                 foreach (var control in controlsToRemove)
                 {
                     dataGridView2.Controls.Remove(control);
                     control.Dispose();
                 }
 
-                // Eliminar la entrada del diccionario
+                // Remove the entry from the filterControls dictionary
                 filterControls.Remove(columna);
             }
         }
+
+        // Method to get distinct values from a specific column in the DataGridView
         private IEnumerable<object> GetDistinctValues(DataGridViewColumn column)
         {
             return dataGridView1.Rows.Cast<DataGridViewRow>()
@@ -436,10 +447,17 @@ namespace FormsAsterix
                 .Distinct();
         }
 
+        // Dictionary to store the selected filter values for each column
         private Dictionary<string, object> selectedFilters = new Dictionary<string, object>();
+
+        // Dictionary to store the selected range (min, max) for columns that require a range filter
         private Dictionary<string, Tuple<int, int>> rangoSeleccionado = new Dictionary<string, Tuple<int, int>>();
+
+
         private void ShowFilterBox(string columna, int index)
         {
+
+            // Remove any existing filter controls for the selected column.
             RemoveFilterControls(columna);
             string propertyName = dataGridView2.Columns[index].DataPropertyName;
             var uniques = asterixGrids.Select(x => x.GetType().GetProperty(propertyName)?.GetValue(x)?.ToString())
@@ -449,21 +467,22 @@ namespace FormsAsterix
             Rectangle headerRect = dataGridView2.GetCellDisplayRectangle(index, -1, true);
             var specificColumns = new List<string> { "Latitude", "Longitude", "Height", "Flight_Level" };
             List<Control> controlsToAdd = new List<Control>();
-            // Si hay más de 10 valores únicos, mostrar un control para seleccionar un rango
+
+            // If there are more than 10 unique values, show a control to select a range
             if (specificColumns.Contains(columna))
             {
-                // Si la columna es numérica, mostramos un rango numérico, sino, pedimos un rango de texto
-                if (uniques.All(val => double.TryParse(val, out _))) // Comprobamos si todos son números
+                // If the column is numeric, display a numeric range; otherwise, request a text range
+                if (uniques.All(val => double.TryParse(val, out _))) 
                 {
-                    // Determinar el valor mínimo y máximo para configurar los rangos
+                    // Determine the minimum and maximum values to set up the ranges
                     var minValue = uniques.Min(val => Convert.ToDouble(val));
                     var maxValue = uniques.Max(val => Convert.ToDouble(val));
 
-                    // Factor de escala para convertir double a entero
+                    // Factor for scaling double to integer
                     double range = maxValue - minValue;
                     double scaleFactor = range < 10 ? 1000 : 100;
 
-                    // Normalizar los valores min y max para que sean enteros
+                    // Normalize the min and max values to be integers
                     int minTrackBarValue = (int)(minValue * scaleFactor);
                     int maxTrackBarValue = (int)(maxValue * scaleFactor);
 
@@ -513,19 +532,17 @@ namespace FormsAsterix
                         Width = 200
                     };
 
-                    // Actualizar los valores cuando los TrackBar cambian
+                    // Update values when TrackBar changes
                     minTrackBar.Scroll += (s, e) =>
                     {
-                        // Convertir el valor del TrackBar de vuelta a double
                         double currentMinValue = minTrackBar.Value / scaleFactor;
-                        minValueLabel.Text = currentMinValue.ToString("F2"); // Muestra el valor con 2 decimales
+                        minValueLabel.Text = currentMinValue.ToString("F2"); 
                     };
 
                     maxTrackBar.Scroll += (s, e) =>
                     {
-                        // Convertir el valor del TrackBar de vuelta a double
                         double currentMaxValue = maxTrackBar.Value / scaleFactor;
-                        maxValueLabel.Text = currentMaxValue.ToString("F2"); // Muestra el valor con 2 decimales
+                        maxValueLabel.Text = currentMaxValue.ToString("F2"); 
                     };
 
                     Button acceptButton = new Button()
@@ -536,14 +553,14 @@ namespace FormsAsterix
                         FlatStyle = FlatStyle.Flat
                     };
 
-                    acceptButton.FlatAppearance.BorderSize = 3; // Ajusta el grosor del borde
+                    acceptButton.FlatAppearance.BorderSize = 3; 
                     acceptButton.FlatAppearance.BorderColor = Color.Black;
 
                     acceptButton.Click += (s, e) =>
                     {
                         double selectedMin = minTrackBar.Value / scaleFactor;
                         double selectedMax = maxTrackBar.Value / scaleFactor;
-                        // Aplicar el filtro con los valores seleccionados
+                        // Apply the filter with the selected values
                         selectedFilters[columna] = new List<double> { selectedMin, selectedMax };
 
                         acceptButton.Dispose();
@@ -558,7 +575,7 @@ namespace FormsAsterix
 
                     };
 
-                    // Añadir los controles al DataGridView para que se muestren en pantalla
+                    // Add controls to the DataGridView so they are displayed on the screen
                     dataGridView2.Controls.Add(minLabel);
                     dataGridView2.Controls.Add(maxLabel);
                     dataGridView2.Controls.Add(minValueLabel);
@@ -567,6 +584,7 @@ namespace FormsAsterix
                     dataGridView2.Controls.Add(maxTrackBar);
                     dataGridView2.Controls.Add(acceptButton);
 
+                    // Bring each control to the front so they are visible
                     minLabel.BringToFront();
                     maxLabel.BringToFront();
                     minValueLabel.BringToFront();
@@ -580,7 +598,7 @@ namespace FormsAsterix
                 }
                 else
                 {
-                    // Si son valores de texto, mostrar un rango de valores mediante TextBox
+                    // If the values are text, show a range of values using TextBox controls
                     TextBox minValueTextBox = new TextBox
                     {
                         Width = 100,
@@ -603,11 +621,11 @@ namespace FormsAsterix
 
                     acceptButton.Click += (s, e) =>
                     {
-                        // Aplicar filtro basado en el rango de texto
+                        // Apply filter based on the text range
                         var minVal = minValueTextBox.Text;
                         var maxVal = maxValueTextBox.Text;
 
-                        // Obtener valores dentro del rango de texto
+                        // Get values within the specified text range
                         var rangeValues = uniques.Where(val => string.Compare(val, minVal) >= 0 && string.Compare(val, maxVal) <= 0).ToList();
 
                         if (selectedFilters.ContainsKey(columna))
@@ -619,7 +637,7 @@ namespace FormsAsterix
                             selectedFilters.Add(columna, rangeValues);
                         }
 
-                        // Limpiar controles
+                        // Clean up controls
                         minValueTextBox.Dispose();
                         maxValueTextBox.Dispose();
                         acceptButton.Dispose();
@@ -637,7 +655,7 @@ namespace FormsAsterix
             }
             else
             {
-                // Mostrar el filtro con CheckedListBox para valores con menos de 10 elementos
+                // Show the filter with a CheckedListBox for columns with fewer than 10 unique values
                 CheckedListBox filterBox = new CheckedListBox
                 {
                     DataSource = uniques,
@@ -647,14 +665,17 @@ namespace FormsAsterix
                     Location = new Point(headerRect.X, headerRect.Bottom)
                 };
 
+                // Handle item check events in the CheckedListBox
                 filterBox.ItemCheck += (s, e) =>
                 {
                     var timer = new Timer();
                     timer.Interval = 100;
                     timer.Tick += (sender, args) =>
                     {
+                        // Get all selected values
                         var values = filterBox.CheckedItems.Cast<string>().ToList();
 
+                        // Add or update the selected filters for this column
                         if (selectedFilters.ContainsKey(columna))
                         {
                             selectedFilters[columna] = values;
@@ -679,25 +700,34 @@ namespace FormsAsterix
 
                 acceptButton.Click += (s, e) =>
                 {
-                    //ApplyFilter(index, filterBox.CheckedItems.Cast<string>().ToList(), columna);
+                    // Clean up filter box and button when the user accepts
                     filterBox.Dispose();
                     acceptButton.Dispose();
                 };
 
-
+                // Set up the location for the filter box
                 filterBox.Location = new Point(headerRect.X, headerRect.Bottom);
+
+                // Add controls to the DataGridView
                 dataGridView2.Controls.Add(filterBox);
                 dataGridView2.Controls.Add(acceptButton);
+
+                // Track the controls for this column
                 controlsToAdd.AddRange(new Control[] { filterBox, acceptButton });
+
+                // Bring controls to the front
                 filterBox.BringToFront();
                 acceptButton.BringToFront();
             }
+
+            // Store the controls associated with the current column for later management
             filterControls[columna] = controlsToAdd;
 
         }
 
         public void ApplyFilter ()
         {
+            // Filter the data based on the selected filters
             var filteredData = asterixGrids.Where(x =>
             {
                 foreach (var filter in selectedFilters)
@@ -705,10 +735,10 @@ namespace FormsAsterix
                     var propertyValue = x.GetType().GetProperty(filter.Key)?.GetValue(x)?.ToString();
                     if (propertyValue == null) return false;
 
-                    // Diferenciar el tipo de filtro
+                    // Determine the type of filter
                     if (filter.Value is List<string> stringValues)
                     {
-                        // Filtro para valores seleccionados (CheckedListBox)
+                        // Filter for selected values (CheckedListBox)
                         if (!stringValues.Contains(propertyValue.Trim(), StringComparer.OrdinalIgnoreCase))
                         {
                             return false;
@@ -716,6 +746,7 @@ namespace FormsAsterix
                     }
                     else if (filter.Value is List<double> numericRange)
                     {
+                        // Filter for numeric range
                         if (double.TryParse(propertyValue, out double numericValue))
                         {
                             double minRange = numericRange[0];
@@ -734,26 +765,29 @@ namespace FormsAsterix
                 return true;
             }).ToList();
 
+
+            // If no data matches the filters, show a message and stop
             if (filteredData.Count == 0)
             {
                 MessageBox.Show("No hay datos con los filtros");
                 return;
             }
 
-            // Aplica el filtro
+            // Apply the filtered data to a new DataGridView
             BindingSource newBindingSource = new BindingSource();
             newBindingSource.DataSource = filteredData;
 
-            // Crear un nuevo DataGridView y asignarle los datos filtrados
+            // Create a new DataGridView and show the filtered results
             DataGridFiltrado newDataGridView = new DataGridFiltrado(newBindingSource);
             this.Hide();
             newDataGridView.ShowDialog();
 
-            // Resetear el formulario
+            // Reset the form to its original state
             ResetForm();
         }
         private void RemoveFilterBoxes()
         {
+            // Remove all controls of type CheckedListBox or Button from the DataGridView
             foreach (Control control in dataGridView2.Controls)
             {
                 if (control is CheckedListBox || control is Button)
@@ -772,66 +806,65 @@ namespace FormsAsterix
             {
                 string headerText = column.HeaderText;
 
-                // Verificar si el headerText contiene la flecha y obtener el nombre sin flecha para la comparación
+                // Check if the headerText contains an arrow and get the name without the arrow for comparison
                 string columnNameToCompare = headerText.EndsWith(" ⬇")
                     ? headerText.Substring(0, headerText.Length-2)  // Eliminar " ⬇"
                     : headerText;  // Mantener el nombre sin cambiar
 
-                // Verificar si el nombre sin la flecha existe en el diccionario
+                // Check if the name without the arrow exists in the dictionary
                 if (originalColumnNames.ContainsKey(columnNameToCompare))
                 {
                     var columnInfo = originalColumnNames[columnNameToCompare];
 
-                    // Si se deben mostrar las flechas, mostramos el nombre con flecha
+                    // If arrows should be displayed, show the name with the arrow
                     if (showArrows)
                     {
-                        column.HeaderCell.Value = columnInfo.NameWithArrow;  // Mostrar el nombre con flecha
-                        //Debug.WriteLine($"Columna: {headerText}, Flecha mostrada: {columnInfo.NameWithArrow}");
+                        column.HeaderCell.Value = columnInfo.NameWithArrow;  // Display the name with the arrow
                     }
                     else
                     {
-                        column.HeaderCell.Value = columnInfo.OriginalName;  // Mostrar solo el nombre original
-                        //Debug.WriteLine($"Columna: {headerText}, Flecha eliminada: {columnInfo.OriginalName}");
+                        column.HeaderCell.Value = columnInfo.OriginalName;  // Display only the original name
                     }
                 }
                 else
                 {
-                    // Si no existe en el diccionario, mantenemos el valor actual (sin cambios)
+                    // If it does not exist in the dictionary, keep the current value (unchanged)
                     column.HeaderCell.Value = headerText;
-                    //Debug.WriteLine($"Columna sin flecha: {headerText}");
                 }
             }
 
-            // Forzar la actualización de la vista
+            // Force the view to refresh
             dataGridView2.Refresh();
         }
 
         private void ResetForm()
         {
             dataGridView2.SuspendLayout();
-            // Eliminar todos los eventos suscritos (para desactivar cualquier filtrado en acción)
+
+            // Remove all subscribed events (to disable any filtering in action)
             dataGridView2.ColumnHeaderMouseClick -= DataGridView2_ColumnHeaderMouseClick;
 
-            // Eliminar cualquier filtro aplicado
+            // Remove any applied filters
             bindingSource.RemoveFilter();
             selectedFilters.Clear();
 
-            // Restaurar los datos originales (esto asegura que no haya filtro aplicado)
+            // Restore the original data (this ensures no filters are applied)
             dataGridView2.DataSource = bindingSource;
 
-            // Ocultar el botón de "Filtered_Values" y otros controles relacionados con el filtrado
+            // Hide the "Filtered_Values" button and other controls related to filtering
             Filtered_Values.Visible = false;
             No_ground_flights.Visible = false;
             blancos_puros.Visible = false;
 
-            // Eliminar cualquier CheckedListBox que pueda estar aún visible
+            // Remove any CheckedListBox that might still be visible
             RemoveFilterBoxes();
 
-            // Asegúrate de quitar las flechas de filtrado en las cabeceras de columna
+            // Ensure filtering arrows are removed from column headers
             AddArrowToColumnHeaders(false);
             dataGridView2.ColumnHeadersVisible = true;
             dataGridView2.ResumeLayout();
-            // Si necesitas mostrar el formulario de nuevo desde un estado "limpio":
+
+            // If you need to show the form again in a "clean" state:
             this.Show();
             
         }
@@ -840,11 +873,13 @@ namespace FormsAsterix
 
         private void Filtered_Values_Click(object sender, EventArgs e)
         {
+            // Trigger the application of the filters configured by the user
             ApplyFilter();
         }
 
         private void CSV_File_Click(object sender, EventArgs e)
         {
+            // Open a SaveFileDialog to allow the user to select the file path and name for the CSV
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
@@ -854,6 +889,7 @@ namespace FormsAsterix
                 {
                     string filePath = saveFileDialog.FileName;
 
+                    // Write the data to the selected file
                     EscribirFichero(filePath);
                     MessageBox.Show("S'ha escrit el fitxer correctament");
                 }
@@ -861,20 +897,23 @@ namespace FormsAsterix
         }
         private void EscribirFichero(string filePath)
         {
+            // Generate a CSV file with the data from the DataGridView
             StringBuilder csvfile = new StringBuilder();
 
+            // Write column headers
             for (int i = 0; i < dataGridView1.Columns.Count; i++)
             {
                 csvfile.Append(dataGridView1.Columns[i].HeaderText);
 
                 if (i < dataGridView1.Columns.Count - 1)
                 {
-                    csvfile.Append(";");
+                    csvfile.Append(";"); // Add a delimiter between columns
                 }
 
             }
             csvfile.AppendLine();
 
+            // Write rows data
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (row.IsNewRow) continue;
@@ -885,73 +924,76 @@ namespace FormsAsterix
 
                     if (i < dataGridView1.Columns.Count - 1)
                     {
-                        csvfile.Append(";");
+                        csvfile.Append(";"); // Add a delimiter between columns
                     }
 
                 }
                 csvfile.AppendLine();
             }
 
+            // Save the CSV content to the specified file path
             File.WriteAllText(filePath, csvfile.ToString(), Encoding.UTF8);
         }
 
         private void No_ground_flights_Click(object sender, EventArgs e)
         {
+            // Remove rows where the flight level is "N/A"
             RemoveRowsWithNAInFlightLevel();
         }
+
         private void RemoveRowsWithNAInFlightLevel()
         {
-            // Crear una lista para almacenar las filas filtradas
-            var filteredData = new List<object>(); // Reemplaza 'object' con el tipo de datos de tus filas
+            // Create a list to store the filtered rows
+            var filteredData = new List<object>();
 
-            // Recorremos las filas del DataGridView
+            // Iterate over the rows in the DataGridView
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
-                var flightLevel = row.Cells[32].Value?.ToString();  // Asegúrate de que el nombre de la columna sea correcto
+                var flightLevel = row.Cells[32].Value?.ToString();
 
-                // Si el valor no es "N/A", lo agregamos a la lista filtrada
+                // Add rows to the list only if the flight level is not "N/A"
                 if (flightLevel != "N/A")
                 {
-                    filteredData.Add(row.DataBoundItem);  // Asumiendo que las filas están vinculadas a un origen de datos
+                    filteredData.Add(row.DataBoundItem); 
                 }
             }
 
-            // Si no hay filas después de filtrar
+            // If no rows remain after filtering
             if (filteredData.Count == 0)
             {
                 MessageBox.Show("No hay datos después de aplicar el filtro.");
                 return;
             }
+
+            // Create a new BindingSource with the filtered data
             BindingSource newBindingSource = new BindingSource();
             newBindingSource.DataSource = filteredData;
 
-            // Crear un nuevo DataGridView y asignarle los datos filtrados
+            // Open a new DataGridView to display the filtered data
             DataGridFiltrado newDataGridView = new DataGridFiltrado(newBindingSource);
             this.Hide();
             newDataGridView.ShowDialog();
 
-            // Resetear el formulario
+            // Reset the form to its original state
             ResetForm();
-            
-
         }
         private void RemoveRowsWithInvalidTYP()
         {
-            // Filtrar las filas del DataGridView original según el valor de la columna TYP
+            // Filter rows based on the TYP column's value
             var filteredData = new List<DataGridViewRow>();
 
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
-                var typValue = row.Cells[7].Value?.ToString();  // Verifica que el nombre de la columna sea correcto
+                var typValue = row.Cells[7].Value?.ToString();  // Verify the column index is correct
 
-                // Filtra solo las filas que tengan TYP igual a "Mode S roll Call" o "Mde S + PSR"
+                // Add rows where TYP matches specific values
                 if (typValue == "Single ModeS All-Call" || typValue == "Single ModeS Roll-Call" || typValue == "ModeS All-Call + PSR" || typValue == "ModeS Roll-Call +PSR")
                 {
                     filteredData.Add(row);  // Agregar a la lista de filas filtradas
                 }
             }
 
-            // Si hay datos filtrados, abre un nuevo formulario con el nuevo DataGridView
+            // If filtered data is available, display it in a new DataGridView
             if (filteredData.Count > 0)
             {
                 OpenFilteredDataGridForm(filteredData);
@@ -964,41 +1006,42 @@ namespace FormsAsterix
 
         private void OpenFilteredDataGridForm(List<DataGridViewRow> filteredData)
         {
-            // Filtrar los datos en la lista original (asterixGrids) para obtener solo las filas que cumplen con el filtro
+            // Filter data from the original list (e.g., asterixGrids) to include only matching rows
             DataTable filteredDataTable = new DataTable();
 
-            // Asumir que las columnas del DataGridView son las mismas, añádelas al DataTable
+            // Add columns to the new DataTable
             foreach (DataGridViewColumn column in dataGridView2.Columns)
             {
-                filteredDataTable.Columns.Add(column.HeaderText);  // O usa column.Name si prefieres el nombre
+                filteredDataTable.Columns.Add(column.HeaderText);  // Use column.HeaderText or column.Name
             }
 
-            // Agregar las filas filtradas al DataTable
+            // Add the filtered rows to the DataTable
             foreach (var row in filteredData)
             {
                 DataRow dataRow = filteredDataTable.NewRow();
                 for (int i = 0; i < dataGridView2.Columns.Count; i++)
                 {
-                    dataRow[i] = row.Cells[i].Value;  // Copiar los valores de cada celda
+                    dataRow[i] = row.Cells[i].Value;  // Copy cell values to the new row
                 }
                 filteredDataTable.Rows.Add(dataRow);
             }
 
-
+            // Create a new BindingSource for the filtered data
             BindingSource newBindingSource = new BindingSource();
             newBindingSource.DataSource = filteredDataTable;
 
-            // Crear un nuevo DataGridView y asignarle los datos filtrados
+            // Open a new DataGridView to display the filtered data
             DataGridFiltrado newDataGridView = new DataGridFiltrado(newBindingSource);
             this.Hide();
             newDataGridView.ShowDialog();
 
-            // Resetear el formulario
+            // Reset the form to its original state
             ResetForm();
         }
 
         private void blancos_puros_Click(object sender, EventArgs e)
         {
+            // Remove rows that do not have valid TYP values
             RemoveRowsWithInvalidTYP();
         }
     }

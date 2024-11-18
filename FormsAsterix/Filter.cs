@@ -13,6 +13,7 @@ namespace FormsAsterix
 {
     public partial class Filter : Form
     {
+        // Array holding the filter options available in the combo box
         string[] lista = { "NUM", "SAC", "SIC", "Time", "Latitud", "Longitud", "h", "TYP020", "SIM020", "RDP020","SPI020", "RAB020", "TST020", "ERR020", "XPP020", "ME020", "MI020", "FOEFRI_020", "RHO",
             "THETA", "V070", "G070", "Mode_3A", "V090", "G090", "Flight_Level", "ModeC_corrected","SRL130", "SRR130", "SAM130", "PRL130", "PAM130", "RPD130", "APD130", "Target_Address",
             "Target_ID", "Mode_S", "MCP_Status", "MCP_ALT", "FMS_Status", "FMS_ALT", "BP_Status","BP", "MODE_Status", "VNAV", "ALT_HOLD", "APP", "TARGETALT_Status", "TARGETALT_Source",
@@ -20,6 +21,8 @@ namespace FormsAsterix
             "BAR_Status", "BAR", "IVV_Status", "IVV", "Track_number", "X_component", "Y_component", "Ground_SpeedKT", "Heading", "CNF170", "RAD170", "DOU170", "MAH170", "CDM170",
             "TRE170", "GHO170", "SUP170", "TCC170", "Measured_Height", "COM230", "STAT230", "SI230", "MSCC230", "ARC230", "AIC230", "B1A230", "B1B230"
         };
+
+        // Property to store the command generated based on filter criteria
         public string cmd { get; private set; }
         public Filter()
         {
@@ -27,13 +30,18 @@ namespace FormsAsterix
             cmd = "null;"; // Valor per defecto
         }
         /*### INIT FUNCTIONS ########################################*/
+        // Creates the combo box with the available filter options
         private void CreateComboBox()
         {
+            // Add each item from 'lista' to the combo box
             foreach (var name in lista) { FilterCombBox.Items.Add(name); }
-            FilterCombBox.Items.Add("-None-");
+            FilterCombBox.Items.Add("-None-"); // Add a "-None-" option for no selection
         }
         /*### COMMAND FUNCTIONS #####################################*/
+        // Calls the method to generate the filter command
         private void FilterCmd() { CmdGen(); }
+
+        // Generates the filter command based on the selected filter and user input
         private void CmdGen()
         {
             try
@@ -51,6 +59,8 @@ namespace FormsAsterix
             }
             catch { MessageBox.Show("Seleccione un campo"); }
         }
+
+        // Orders the two values from start and end text boxes and returns them as a string
         private string OrderTwoString(string strMax, string strMin)
         {
             float max = float.Parse(strMax);
@@ -60,18 +70,20 @@ namespace FormsAsterix
             else return "NAN;NAN;";
         }
         /*### EVENTS FUNCTIONS #####################################*/
+        // Loads the form and initializes the combo box
         private void Filter_Load(object sender, EventArgs e)
         {
             CreateComboBox();
         }
 
+        // When the "Filter" button is clicked, generate the command and show the result
         private void BtnFilter_Click(object sender, EventArgs e)
         {
             FilterCmd();
             MessageBox.Show(cmd);
             if (cmd != "null;")
             {
-                this.DialogResult = DialogResult.OK; // Indica que se aceptó el diálogo
+                this.DialogResult = DialogResult.OK; 
                 this.Close();
             }
         }

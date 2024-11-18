@@ -57,14 +57,14 @@ namespace FormsAsterix
         List<List<DataItem>> bloque = new List<List<DataItem>>();
 
 
-        private Dictionary<string, PointLatLng> lastPositions = new Dictionary<string, PointLatLng>(); // Diccionario para rastrear posiciones anteriores
-        private HashSet<string> Sim_diccionary = new HashSet<string>(); // Usamos HashSet para mejorar rendimiento
-        private GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Overlay único para todos los marcadores
+        private Dictionary<string, PointLatLng> lastPositions = new Dictionary<string, PointLatLng>(); // Dictionary to track previous positions
+        private HashSet<string> Sim_diccionary = new HashSet<string>(); // Using HashSet for better performance
+        private GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Single overlay for all markers
 
         public DistHoritzontal(string A1, string A2, List<double> longitudList_sub, List<double> latitudList_sub, List<String> AircraftIDList_sub, List<string> AircraftAddrList_sub, List<string> TrackNumList_sub, List<string> Mode3AList_sub, List<string> SACList_sub, List<string> SICList_sub, List<double> AltitudeList_sub, List<long> time_sub, List<List<DataItem>> bloque_sub, List<double> DistHor_sub)
         {
             InitializeComponent();
-            // set some initialization parameters
+            // Set some initialization parameters
             Start_sim.FlatAppearance.BorderSize = 0;
             Start_sim.FlatAppearance.MouseDownBackColor = Color.Transparent;
             Start_sim.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -90,7 +90,7 @@ namespace FormsAsterix
             this.bloque = bloque_sub;
 
 
-            // Definir DataGridView
+            // Define DataGridView
             SetHeaders(Aircraft1, Aircraft2);
 
             ImageList imageList = new ImageList();
@@ -105,17 +105,23 @@ namespace FormsAsterix
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
             valueTXT.Text = "";
+            valueNM.Text = "";
+
         }
 
         private void SetHeaders(string A1, string A2)
         {
-
+            // List of column headers to display
             List<string> lista = new List<string> {
             "Aircraft address","Track Number", "Mode-3/A reply","Latitud", "Longitud", "Height", "SAC", "SIC"};
-            
+
+
+            // Adding two columns for the two aircraft (A1 and A2)
             dataGridView1.Columns.Add(A1, A1);
             dataGridView1.Columns.Add(A2, A2);
 
+
+            // Set some design parameters
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dataGridView1.RowHeadersWidth = 150;
@@ -123,14 +129,18 @@ namespace FormsAsterix
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Bold);
-            dataGridView1.RowHeadersDefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Bold); // Para encabezados de fila también
+            dataGridView1.RowHeadersDefaultCellStyle.Font = new Font(dataGridView1.Font, FontStyle.Bold);
+
+            dataGridView1.RowHeadersDefaultCellStyle.BackColor = Color.LightCyan;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkTurquoise;
+
 
             dataGridView1.AllowUserToAddRows = false;
 
             foreach (string headerText in lista)
             {
-                int rowIndex = dataGridView1.Rows.Add(); // Agregar una nueva fila
-                dataGridView1.Rows[rowIndex].HeaderCell.Value = headerText; // Asignar el valor como encabezado de fila
+                int rowIndex = dataGridView1.Rows.Add(); 
+                dataGridView1.Rows[rowIndex].HeaderCell.Value = headerText; // Assign the header text as the row header
             }
 
 
@@ -138,10 +148,12 @@ namespace FormsAsterix
             int flag2 = 0;
             int iter = 0;
 
+            // Loop through the list of aircraft and populate the DataGridView with their data
             for (int i = 0; i < AircraftAddrList.Count; i++)
             {
                 if (AircraftIDList[i].Trim() == A1.Trim() && flag1 == 0)
                 {
+                    // Check if the current aircraft matches A1 and fill in its data
                     dataGridView1.Rows[0].Cells[0].Value = AircraftAddrList[iter];
                     dataGridView1.Rows[1].Cells[0].Value = TrackNumList[iter];
                     dataGridView1.Rows[2].Cells[0].Value = Mode3AList[iter];
@@ -154,6 +166,7 @@ namespace FormsAsterix
                 }
                 else if (AircraftIDList[i].Trim() == A2.Trim() && flag2 == 0)
                 {
+                    // Check if the current aircraft matches A2 and fill in its data
                     dataGridView1.Rows[0].Cells[1].Value = AircraftAddrList[iter];
                     dataGridView1.Rows[1].Cells[1].Value = TrackNumList[iter];
                     dataGridView1.Rows[2].Cells[1].Value = Mode3AList[iter];
@@ -167,16 +180,9 @@ namespace FormsAsterix
                 iter++;
             }
         }
-      
 
 
-        // GET KML 
-        private class KML_DATA
-        {
-            public List<Vector> Positions { get; set; }
-            public string Description { get; set; }
-        }
-        
+        // This method is designed to initialize the GMapControl with a set of configurations to ensure the map behaves as expected during the app's lifecycle
         int zoom = 7;
         private void gMapControl1_Load(object sender, EventArgs e)
         {
@@ -201,19 +207,17 @@ namespace FormsAsterix
 
 
         int num_loop = 0;
-        int tick = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Incrementa el tiempo inicial cada vez que el timer se activa
+            // Increment the initial time every time the timer triggers
             timeInicial++;
 
-            // Ejecuta la simulación y actualiza los marcadores cuando sea necesario
+            // Run the simulation and update the markers if necessary
             Tick(ref timeInicial, ref num_loop, Aircraft1, Aircraft2);
 
-            // Actualiza la interfaz con el tiempo
+            // Update the UI with the current time in a formatted manner (HH:MM:SS)
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
-            tick++;
         }
 
         private void Tick(ref long timeTick, ref int num_loop, string a1, string a2)
@@ -312,10 +316,10 @@ namespace FormsAsterix
         int Click_times = 0;
         private void Start_sim_Click(object sender, EventArgs e)
         {
-            // Si el texto del botón es "Start" o "Continue"
+            // If the button text is "Start" or "Continue"
             if (Start_sim.Text == " Start" || Start_sim.Text == " Continue")
             {
-                // Configuración de la imagen de botón de "play"
+                // Set up the "play" button image
                 ImageList imageList = new ImageList();
                 imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
@@ -325,31 +329,31 @@ namespace FormsAsterix
                 Start_sim.ImageAlign = ContentAlignment.TopCenter;
                 Start_sim.TextAlign = ContentAlignment.BottomCenter;
 
-                // Configura el botón en el primer clic
+                // Button configuration for the first click
                 if (Click_times == 0)
                 {
-                    // Configuración de la imagen de botón de "stop"
+                    // Set up the "pause" button image
                     ImageList imageListStop = new ImageList();
                     imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
                     Start_sim.Image = imageListStop.Images[0];
                     Start_sim.Text = " Stop";
 
-                    // Ordena los datos de 'bloque' en función del tercer elemento (index 2)
+                    // Sort the 'bloque' data by the third element (index 2)
                     bloque = bloque.OrderBy(data => Convert.ToString(data[2])).ToList();
 
-                    // Muestra el control del tiempo y empieza el temporizador
+                    // Show the time control and start the timer
                     timeTXT.Show();
                     timer1.Start();
 
-                    // Incrementa el contador de clics y limpia el diccionario de simulación
+                    // Increment the click count and clear the simulation dictionary
                     Click_times++;
                     Sim_diccionary.Clear();
-                    lastPositions.Clear();  // Limpia las posiciones para reiniciar
+                    lastPositions.Clear();  
                 }
                 else
                 {
-                    // Configuración de la imagen de botón de "stop"
+                    // Set up the "pause" button image
                     ImageList imageListStop = new ImageList();
                     imageListStop.ImageSize = new Size(40, 40);
                     imageListStop.Images.Add(Properties.Resources.pause);
@@ -360,7 +364,7 @@ namespace FormsAsterix
             }
             else
             {
-                // Configuración de la imagen de botón de "play" al pausar
+                // Set up the "play" button image when paused
                 ImageList imageList = new ImageList();
                 imageList.ImageSize = new Size(40, 40);
                 imageList.Images.Add(Properties.Resources.play_button);
@@ -376,26 +380,71 @@ namespace FormsAsterix
 
         private void RestartSimBut_Click(object sender, EventArgs e)
         {
+            // Stop the timer and reset simulation variables
             timer1.Stop();
             timeInicial = time[0];
             num_loop = 0;
             Click_times = 0;
 
-            lastPositions.Clear(); // Limpiar posiciones anteriores
-            Sim_diccionary.Clear(); // Limpiar lista de simulación
-            aircraftOverlay.Markers.Clear(); // Limpiar marcadores del overlay
+            lastPositions.Clear(); 
+            Sim_diccionary.Clear(); 
+            aircraftOverlay.Markers.Clear(); 
 
             gMapControl1.Overlays.Clear();
             gMapControl1.ReloadMap();
 
+            // Reset time text display
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
+            // Set up the "start" button image and text
             ImageList imageList = new ImageList();
             imageList.ImageSize = new Size(40, 40);
             imageList.Images.Add(Properties.Resources.play_button);
             Start_sim.Image = imageList.Images[0];
             Start_sim.Text = " Start";
             Start_sim.Visible = true;
+
+            // Reset timer interval and simulation speed
+            timer1.Interval = 1000;
+            Velocity_label_bar.Text = "Sim. Speed x1";
+            trackBar1.Value = 0;
+
+            int flag1 = 0;
+            int flag2 = 0;
+            int iter = 0;
+
+            // Populate the data grid with initial aircraft data
+            for (int i = 0; i < AircraftAddrList.Count; i++)
+            {
+                if (AircraftIDList[i].Trim() == Aircraft1.Trim() && flag1 == 0)
+                {
+                    dataGridView1.Rows[0].Cells[0].Value = AircraftAddrList[iter];
+                    dataGridView1.Rows[1].Cells[0].Value = TrackNumList[iter];
+                    dataGridView1.Rows[2].Cells[0].Value = Mode3AList[iter];
+                    dataGridView1.Rows[3].Cells[0].Value = latitudList[iter];
+                    dataGridView1.Rows[4].Cells[0].Value = longitudList[iter];
+                    dataGridView1.Rows[5].Cells[0].Value = AltitudeList[iter];
+                    dataGridView1.Rows[6].Cells[0].Value = SACList[iter];
+                    dataGridView1.Rows[7].Cells[0].Value = SICList[iter];
+                    flag1 = 1;
+                }
+                else if (AircraftIDList[i].Trim() == Aircraft2.Trim() && flag2 == 0)
+                {
+                    dataGridView1.Rows[0].Cells[1].Value = AircraftAddrList[iter];
+                    dataGridView1.Rows[1].Cells[1].Value = TrackNumList[iter];
+                    dataGridView1.Rows[2].Cells[1].Value = Mode3AList[iter];
+                    dataGridView1.Rows[3].Cells[1].Value = latitudList[iter];
+                    dataGridView1.Rows[4].Cells[1].Value = longitudList[iter];
+                    dataGridView1.Rows[5].Cells[1].Value = AltitudeList[iter];
+                    dataGridView1.Rows[6].Cells[1].Value = SACList[iter];
+                    dataGridView1.Rows[7].Cells[1].Value = SICList[iter];
+                    flag2 = 1;
+                }
+                iter++;
+            }
+
+            valueTXT.Text = "";
+            valueNM.Text = "";
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)

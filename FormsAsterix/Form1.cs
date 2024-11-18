@@ -32,6 +32,7 @@ using TimeSpan = System.TimeSpan;
 using System.Globalization;
 using Size = System.Drawing.Size;
 using System.Xml;
+using System.Runtime.ConstrainedExecution;
 
 
 
@@ -53,7 +54,7 @@ namespace FormsAsterix
             DescodBUT.MouseLeave += (s, e) => DescodBUT.Cursor = Cursors.Default;
         }
 
-        // Create some lists to save some data 
+        // Create some lists and variables to save some data 
         List<List<DataItem>> bloque = new List<List<DataItem>>();
         List<AsterixGrid> asterixGrids = new List<AsterixGrid>();
         List<long> time = new List<long>();
@@ -73,9 +74,9 @@ namespace FormsAsterix
 
         long timeInicial;
 
-        private Dictionary<string, PointLatLng> lastPositions = new Dictionary<string, PointLatLng>(); // Diccionario para rastrear posiciones anteriores
-        private HashSet<string> Sim_diccionary = new HashSet<string>(); // Usamos HashSet para mejorar rendimiento
-        private GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Overlay único para todos los marcadores
+        private Dictionary<string, PointLatLng> lastPositions = new Dictionary<string, PointLatLng>(); // Dictionary to track previous positions
+        private HashSet<string> Sim_diccionary = new HashSet<string>(); // Using HashSet to improve performance
+        private GMapOverlay aircraftOverlay = new GMapOverlay("aircraftOverlay"); // Single overlay for all markers
 
 
 
@@ -85,6 +86,7 @@ namespace FormsAsterix
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
+            // Set the title and file filter for the dialog
             openFileDialog.Title = "Selecciona un archivo .ast";
             openFileDialog.Filter = "Todos los arxivos (*.ast*)|*ast*";
 
@@ -238,9 +240,8 @@ namespace FormsAsterix
         }
         public void ReadPacket(int[] read, string DataBlock)
         {
-            //MessageBox.Show("Length DataBlock sense el FSPEC: " + Convert.ToString(DataBlock.Length));
             string mensaje;
-            int octet = 8; // Longitud d'un octet
+            int octet = 8; // Octet longitude
             int bitsleidos = 0;
             int final;
             int j;
@@ -250,16 +251,14 @@ namespace FormsAsterix
 
             for (int i = 0; i < read.Length; i++)
             {
-                //MessageBox.Show("Valor de read[i]: " + Convert.ToString(read[i]));
 
                 switch (i)
                 {
                     case 0:
                         if (read[i] == 1)
                         {
-
+                            // Decodification SAC and SIC
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet); //La longitud és fixa en aquest cas
-                            //Debug.WriteLine("Missatge DSI: " + mensaje);
                             di.Add(new LibAsterix.DataSourceIdentifier(mensaje));
 
                             int length = 8; //Cada octeto tiene 8 bits
@@ -281,6 +280,7 @@ namespace FormsAsterix
                     case 1:
                         if (read[i] == 1)
                         {
+                            // Decodification ACTUAL TIME
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
 
                             long timeActual = Convert.ToInt64(mensaje, 2) / 128;
@@ -297,7 +297,7 @@ namespace FormsAsterix
                     case 2:
                         if (read[i] == 1)
                         {
-
+                            // Decodification TARGET REPORT
                             final = 0;
                             j = 0;
                             while (final == 0)
@@ -315,7 +315,6 @@ namespace FormsAsterix
                             }
 
                             mensaje = System.String.Join("", cadena); //Unim tots els bits en una sola string
-                            //Debug.WriteLine("Missatge TargetReportDescriptor: " + mensaje);
                             di.Add(new LibAsterix.TargetReportDescriptor(mensaje));
                             cadena.Clear(); //Buidem la llista per a no gastar memòria
                         }
@@ -327,8 +326,8 @@ namespace FormsAsterix
                     case 3:
                         if (read[i] == 1)
                         {
+                            // Decodification POLAR POSITION
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
-                            //Debug.WriteLine("Missatge PositionPolar: " + mensaje);
                             di.Add(new LibAsterix.Position_Polar(mensaje));
                             double Rho = (Convert.ToInt32(mensaje.Substring(0, 16), 2)) * ((double)1 / 256);
                             rhoList.Add(Rho);
@@ -342,8 +341,8 @@ namespace FormsAsterix
                     case 4:
                         if (read[i] == 1)
                         {
+                            // Decodification MODE 3A
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            //Debug.WriteLine("Missatge Mode3A: " + mensaje);
                             di.Add(new LibAsterix.Mode3A(mensaje));
 
                             string message = Convert.ToString(Convert.ToInt32(mensaje.Substring(4), 2), 8).PadLeft(4, '0');
@@ -361,8 +360,8 @@ namespace FormsAsterix
                     case 5:
                         if (read[i] == 1)
                         {
+                            // Decodification FLIGHT LEVEL
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            //Debug.WriteLine("Missatge FlightLevel: " + mensaje);
                             di.Add(new LibAsterix.FlightLevel(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -374,6 +373,7 @@ namespace FormsAsterix
                     case 6:
                         if (read[i] == 1)
                         {
+                            // Decodification RADAR PLOT CHAR
                             string[] dades = new string[8]; //La longitud màxima serà de 8 octets
 
                             int length = 0;
@@ -385,9 +385,7 @@ namespace FormsAsterix
                                     length = length + octet; //Així trobarem la longitud del missatge a llegir
                                 }
                             }
-                            //Debug.WriteLine("Longitud del missatge RadarPlot: " + Convert.ToString(length));
                             mensaje = DataBlock.Substring(bitsleidos, octet + length);
-                            //Debug.WriteLine("Missatge RadarPlotChart: " + mensaje);
                             di.Add(new LibAsterix.RadarPlotChar(mensaje));
                             bitsleidos = bitsleidos + octet + length;
                         }
@@ -399,8 +397,8 @@ namespace FormsAsterix
                     case 7:
                         if (read[i] == 1)
                         {
+                            // Decodification AIRCRAFT ADDRESS
                             mensaje = DataBlock.Substring(bitsleidos, 3 * octet);
-                            //Debug.WriteLine("Missatge AircraftAdd: " + mensaje);
                             di.Add(new LibAsterix.AircraftAdd(mensaje));
                             string add = string.Empty;
                             string address = string.Empty;
@@ -423,8 +421,8 @@ namespace FormsAsterix
                     case 8:
                         if (read[i] == 1)
                         {
+                            // Decodification AIRCRAFT ID
                             mensaje = DataBlock.Substring(bitsleidos, 6 * octet);
-                            //Debug.WriteLine("Missatge AircraftId: " + mensaje);
                             di.Add(new LibAsterix.AircraftID(mensaje));
                             string ID = "";
                             for (int m = 0; m < mensaje.Length; m += 6)
@@ -444,6 +442,7 @@ namespace FormsAsterix
                     case 9:
                         if (read[i] == 1)
                         {
+                            // Decodification BDS
                             mensaje = DataBlock.Substring(bitsleidos, octet);
                             bitsleidos = bitsleidos + octet;
                             int rep = Convert.ToInt32(mensaje, 2); // Passem a int per saber el nombre de repeticions
@@ -522,9 +521,8 @@ namespace FormsAsterix
 
                         if (read[i] == 1)
                         {
-
+                            // Decodification TRACK NUMBER
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            //Debug.WriteLine("Missatge TrackNum: " + mensaje);
                             di.Add(new LibAsterix.TrackNum(mensaje));
 
                             TrackNumList.Add(Convert.ToString(Convert.ToInt32(mensaje.Substring(4, 12), 2)));
@@ -540,8 +538,8 @@ namespace FormsAsterix
                     case 11:
                         if (read[i] == 1)
                         {
+                            // Decodification POSITION CARTESIAN
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
-                            //Debug.WriteLine("Missatge Pos_Cart: " + mensaje);
                             di.Add(new LibAsterix.Position_Cartesian(mensaje));
                             bitsleidos = bitsleidos + 4 * octet;
                         }
@@ -553,9 +551,9 @@ namespace FormsAsterix
                     case 12:
                         if (read[i] == 1)
                         {
+                            // Decodification TRACK VELOCITY POLAR
                             mensaje = DataBlock.Substring(bitsleidos, 4 * octet);
 
-                            //Debug.WriteLine("Missatge Track_vel: " + mensaje);
                             di.Add(new LibAsterix.TrackVelocityPolar(mensaje));
                             bitsleidos = bitsleidos + 4 * octet;
                         }
@@ -567,6 +565,7 @@ namespace FormsAsterix
                     case 13:
                         if (read[i] == 1)
                         {
+                            // Decodification TRACK STATUS
                             final = 0;
                             j = 0;
                             while (final == 0)
@@ -584,7 +583,6 @@ namespace FormsAsterix
                             }
 
                             mensaje = System.String.Join("", cadena); //Unim tots els bits en una sola string
-                            //Debug.WriteLine("Missatge TrackStat: " + mensaje);
                             di.Add(new LibAsterix.TrackStatus(mensaje));
                             cadena.Clear(); //Buidem la llista per a no gastar memòria
 
@@ -639,8 +637,8 @@ namespace FormsAsterix
                     case 18:
                         if (read[i] == 1)
                         {
+                            // Decodification HEIGHT 3D RADAR
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            //Debug.WriteLine("Missatge H_3D_Radar: " + mensaje);
                             di.Add(new LibAsterix.H_3D_RADAR(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -674,8 +672,8 @@ namespace FormsAsterix
                     case 20:
                         if (read[i] == 1)
                         {
+                            // Decodification COMMUNICATION ACAS
                             mensaje = DataBlock.Substring(bitsleidos, 2 * octet);
-                            //Debug.WriteLine("Missatge CommACAS: " + mensaje);
                             di.Add(new LibAsterix.CommACAS(mensaje));
                             bitsleidos = bitsleidos + 2 * octet;
                         }
@@ -729,14 +727,11 @@ namespace FormsAsterix
 
 
                 }
-                //MessageBox.Show("Acaba SWITCH");
             }
 
-            //Debug.WriteLine("Hem llegit tot el bloc");
             Descodificar(di); //Cridem a la funció descodificar
             bloque.Add(di);
 
-            //MessageBox.Show("Hem descodificat correctament el missatge");
         }
 
         private static readonly Dictionary<char, string> ia5Mapping = new Dictionary<char, string>
@@ -767,7 +762,6 @@ namespace FormsAsterix
 
             for (int i = 0; i < data.Count; i++)
             {
-                //MessageBox.Show("Estem dins el for de descodificar");
                 data[i].Descodificar();
 
             }
@@ -775,11 +769,10 @@ namespace FormsAsterix
         }
 
 
-        // To open a new ".ast" file without closing the simulation+
-        // FALTA ARREGLARRRRR
+        // To open a new ".ast" file without closing the simulation
         private void NewDataBut_Click(object sender, EventArgs e)
         {
-            // Crear un OpenFileDialog para permitir que el usuario seleccione un archivo.
+            // Create an OpenFileDialog to allow the user to select a file.
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Title = "Selecciona un archivo .ast",
@@ -788,7 +781,7 @@ namespace FormsAsterix
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Limpiar listas y variables de la simulación previa
+                // Clear lists and variables from the previous simulation
                 bloque.Clear();
                 asterixGrids.Clear();
                 time.Clear();
@@ -807,35 +800,35 @@ namespace FormsAsterix
                 lastPositions.Clear(); 
                 Sim_diccionary.Clear();
 
-                // Decodificación del nuevo archivo
+                // Decode the new file
                 ReadBinaryFile(openFileDialog.FileName);
                 Corrected_Altitude(bloque);
                 Calcular_Lat_Long(bloque);
                 GenerarAsterix(bloque);
 
-                // Comprobar si los datos fueron cargados correctamente
+                // Check if data was loaded correctly
                 if (time.Count > 0)
                 {
-                    // Configurar el layout de la simulación con el nuevo tiempo inicial
+                    // Set up the simulation layout with the new initial time
                     timeInicial = time[0];
                     num_loop = 0;
                     Click_times = 0;
 
-                    gMapControl1.Overlays.Clear(); // Limpia todos los overlays anteriores del mapa
+                    gMapControl1.Overlays.Clear(); // Clear all previous overlays from the map
 
                     aircraftOverlay = new GMapOverlay("aircraftOverlay");
-                    gMapControl1.Overlays.Add(aircraftOverlay); // Añadir el nuevo overlay al mapa
-                    gMapControl1.ReloadMap(); // Recargar el mapa
+                    gMapControl1.Overlays.Add(aircraftOverlay); 
+                    gMapControl1.ReloadMap(); 
 
-                    
 
-                    // Actualizar el tiempo en el control de texto
+
+                    // Update the time in the text control
                     timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}",
-                                                 (int)(timeInicial / 3600),
+                    (int)(timeInicial / 3600),
                                                  (int)((timeInicial % 3600) / 60),
                                                  (int)(timeInicial % 60));
 
-                    // Configurar el botón "Start"
+                    // Set up the "Start" button
                     ImageList imageList = new ImageList();
                     imageList.ImageSize = new Size(40, 40);
                     imageList.Images.Add(Properties.Resources.play_button);
@@ -853,7 +846,7 @@ namespace FormsAsterix
                 }
                 else
                 {
-                    // Mostrar un mensaje de error si el archivo no contiene datos válidos
+                    // Show an error message if the file does not contain valid data
                     MessageBox.Show("El archivo seleccionado no contiene datos válidos o no se pudo cargar.",
                                     "Error al cargar archivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -893,22 +886,22 @@ namespace FormsAsterix
 
         }
 
-        // Funtions to define the clock for the simulation
+        // Functions to define the clock for the simulation
         int num_loop = 0;
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Incrementa el tiempo inicial cada vez que el timer se activa
+            // Increment the initial time each time the timer is triggered
             timeInicial++;
 
-            // Ejecuta la simulación y actualiza los marcadores solo cuando sea necesario
+            // Run the simulation and update markers only when necessary
             Tick(ref timeInicial, ref num_loop);
 
-            // Actualiza el tiempo en la interfaz
+            // Update the time in the interface
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
-            // Refresca el mapa solo cada ciertos ticks para mejorar el rendimiento
+            // Refresh the map only every few ticks to improve performance
             gMapControl1.Refresh();
 
         }
@@ -917,28 +910,25 @@ namespace FormsAsterix
         private void Tick(ref long timeTick, ref int num_loop)
         {
 
-            // Verifica si hay aviones que agregar en la simulación
+            // Check if there are aircraft to add to the simulation
             if (num_loop != AircraftIDList.Count)
             {
                 for (int i = 0; num_loop < AircraftIDList.Count && timeTick >= time[num_loop]; num_loop++)
                 {
-                    // Agrega o actualiza el marcador en el mapa solo si es necesario
+                    // Add or update the marker on the map only if necessary
                     AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop], num_loop);
                 }
             }
             else
             {
-                // Detén la simulación si ya se han procesado todos los aviones
+                // Stop the simulation if all aircraft have been processed
                 timer1.Stop();
                 timeTick -= 2;
                 Start_sim.Visible = false;
             }
         }
 
-        // Funtions to show the Markers on map
-       //private List<string> Sim_diccionary = new List<string>();
-        //private List<(string name, int position)> position = new List<(string name, int position)>();
-
+        // Functions to show the Markers on map
         private void AddMarkerToMap(double lat, double lon, string name, int currentIndex)
         {
             if (AircraftAddrList[currentIndex] != "N/A")
@@ -949,7 +939,7 @@ namespace FormsAsterix
                 bool nameAppearsInFuture = AircraftIDList.Skip(currentIndex + 1).Contains(name);
                 bool isInLastRelevantSecond = time[currentIndex] >= lastRelevantTime;
 
-                // Solo borra el marcador si no aparecerá en el futuro, no está en el último segundo relevante, y no es el último
+                // Only remove the marker if it will not appear in the future, is not in the last relevant second, and is not the last one
                 if (!nameAppearsInFuture && !isInLastRelevantSecond && !isLastMoment)
                 {
                     GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
@@ -959,50 +949,50 @@ namespace FormsAsterix
                         aircraftOverlay.Markers.Remove(existingMarker);
                     }
 
-                    Sim_diccionary.Remove(name); // Elimina el avión de Sim_diccionary
+                    Sim_diccionary.Remove(name); // Remove the aircraft from Sim_diccionary
                     return;
                 }
 
-                // Si la posición del avión no ha cambiado, no hace falta actualizar el marcador
+                // If the aircraft's position has not changed, there is no need to update the marker
                 if (lastPositions.TryGetValue(name, out var lastPosition) && lastPosition == newPosition)
                 {
                     return;
                 }
 
-                // Actualiza la posición en el diccionario
+                // Update the position in the dictionary
                 lastPositions[name] = newPosition;
 
-                // Busca el marcador existente o crea uno nuevo
+                // Find the existing marker or create a new one
                 GMapMarker marker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
                 if (marker != null)
                 {
-                    // Actualiza la posición del marcador existente
-                    MoveMarkerSmoothly(marker, newPosition); // Llama a la interpolación para un movimiento suave
+                    // Update the position of the existing marker
+                    MoveMarkerSmoothly(marker, newPosition); // Call interpolation for smooth movement
                 }
                 else
                 {
-                    // Crea un nuevo marcador si no existe y añádelo al overlay
+                    // Create a new marker if it doesn't exist and add it to the overlay
                     marker = new GMarkerGoogle(newPosition, GMarkerGoogleType.blue_dot) { Tag = name };
                     aircraftOverlay.Markers.Add(marker);
 
-                    // Añade el nombre al HashSet si aún no está registrado
+                    // Add the name to the HashSet if it is not already registered
                     Sim_diccionary.Add(name);
                 }
             }
         }
         private void MoveMarkerSmoothly(GMapMarker marker, PointLatLng targetPosition)
         {
-            // Calcula la distancia en latitud y longitud entre la posición actual y el objetivo
+            // Calculate the distance in latitude and longitude between the current position and the target
             double latDiff = targetPosition.Lat - marker.Position.Lat;
             double lonDiff = targetPosition.Lng - marker.Position.Lng;
 
-            // Define un factor de velocidad más bajo para hacer que el movimiento sea más gradual y preciso
-            double moveFactor = 0.05; // Puedes reducirlo aún más para más precisión, como 0.01
+            // Define a lower speed factor to make the movement more gradual and precise
+            double moveFactor = 0.05;
 
-            // Controla que los valores de diferencia no sean demasiado pequeños o el movimiento se vería entrecortado
+            // Ensure the difference values are not too small, or the movement will appear choppy
             if (Math.Abs(latDiff) > 0.000001 || Math.Abs(lonDiff) > 0.000001)
             {
-                // Calcula la nueva posición aplicando el factor de movimiento
+                // Calculate the new position by applying the movement factor
                 marker.Position = new PointLatLng(
                     marker.Position.Lat + latDiff * moveFactor,
                     marker.Position.Lng + lonDiff * moveFactor
@@ -1010,7 +1000,7 @@ namespace FormsAsterix
             }
             else
             {
-                // Si la diferencia es demasiado pequeña, coloca el marcador directamente en la posición objetivo
+                // If the difference is too small, place the marker directly at the target position
                 marker.Position = targetPosition;
             }
         }
@@ -1450,14 +1440,17 @@ namespace FormsAsterix
         }
         public void Calcular_Lat_Long(List<List<DataItem>> bloques)
         {
-
+            // Iterate over each block of data
             foreach (var elemento in bloques)
             {
                 double? Flight = null;
+
+                // Iterate over each DataItem in the current block to find flight level
                 foreach (var di in elemento)
                 {
                     if (di is FlightLevel fl)
                     {
+                        // Check if flight level data is available; convert it to double or set to 0 if "N/A"
                         if (fl.FL != "N/A")
                         {
                             Flight = Convert.ToDouble(fl.FL);
@@ -1470,6 +1463,8 @@ namespace FormsAsterix
 
                     }
                 }
+
+                // Proceed if a flight level value was found
                 if (Flight.HasValue)
                 {
                     double Rho;
@@ -1479,19 +1474,30 @@ namespace FormsAsterix
                     double Long;
                     double h;
                     string mensaje;
+
+                    // Initialize radar coordinates (latitude, longitude, and height)
                     CoordinatesWGS84 coord = new CoordinatesWGS84(41.300702 * GeoUtils.DEGS2RADS, 2.102058 * GeoUtils.DEGS2RADS, 2.007 + 25.25);
                     GeoUtils geoUtils = new GeoUtils();
                     for (int i = 0; i < elemento.Count; i++)
                     {
                         if (elemento[i] is Position_Polar polar)
                         {
+                            // Convert polar coordinates (rho and theta) to Cartesian and geodetic coordinates
                             Rho = Convert.ToDouble(polar.rho) * GeoUtils.NM2METERS;
                             Theta = Convert.ToDouble(polar.theta);
-                            double RadEarth = geoUtils.CalculateEarthRadius(coord);
+                            double RadEarth = geoUtils.CalculateEarthRadius(coord);                   
                             Elev = GeoUtils.CalculateElevation(coord, RadEarth, Rho, Math.Abs(Convert.ToDouble(Flight)) * 100 * GeoUtils.FEET2METERS);
+                            
+                            // Transform radar spherical coordinates to Cartesian
                             CoordinatesXYZ cartesian = GeoUtils.change_radar_spherical2radar_cartesian(new CoordinatesPolar(Rho, Theta * GeoUtils.DEGS2RADS, Elev));
+
+                            // Transform radar Cartesian coordinates to geocentric coordinates
                             CoordinatesXYZ geocentric = geoUtils.change_radar_cartesian2geocentric(coord, cartesian);
-                            CoordinatesWGS84 geodesic = geoUtils.change_geocentric2geodesic(geocentric); //Obtenim la latitud, longitud i elevació
+
+                            // Transform geocentric coordinates to geodesic (latitude, longitude, height)
+                            CoordinatesWGS84 geodesic = geoUtils.change_geocentric2geodesic(geocentric);
+
+                            // Extract latitude and longitude in degrees + height 
                             double Lat_rad = geodesic.Lat;
                             double Long_rad = geodesic.Lon;
                             Lat = Lat_rad * GeoUtils.RADS2DEGS;
@@ -1499,10 +1505,12 @@ namespace FormsAsterix
                             Long = Long_rad * GeoUtils.RADS2DEGS;
                             longitudList.Add(Long);
                             h = geodesic.Height;
-                            AltitudeList.Add(Math.Round(h, 2));
+                            AltitudeList.Add(h);
                             mensaje = Convert.ToString(Lat) + ";" + Convert.ToString(Long) + ";" + Convert.ToString(h);
                             Geodesic_Coord geocoord = new Geodesic_Coord(mensaje);
                             geocoord.Descodificar();
+
+                            // Insert the geocoord object into the current block of data
                             elemento.Insert(2, geocoord);
                             break;
 
@@ -1652,7 +1660,7 @@ namespace FormsAsterix
 
         private void AcceptBut_Click(object sender, EventArgs e)
         {
-            // Set up the ImageList to display the play button image --> PAREM LA SIMULACIO
+            // Set up the ImageList to display the play button image
             ImageList imageList = new ImageList();
             imageList.ImageSize = new Size(40, 40);
             imageList.Images.Add(Properties.Resources.play_button);
@@ -1664,13 +1672,14 @@ namespace FormsAsterix
             Start_sim.Text = " Continue";
             timer1.Stop();
 
-
+            // Retrieve the aircraft IDs from the input fields
             string Aircraft1 = A1_IDbox.Text.Trim();
             string Aircraft2 = A2_IDbox.Text.Trim();
 
             int markerA1 = 0;
             int markerA2 = 0;
 
+            // Check if the provided aircraft IDs exist in the list
             foreach (string ID in AircraftIDList)
             {
                 string trimmedID = ID.Trim();
@@ -1693,9 +1702,7 @@ namespace FormsAsterix
 
             if (markerA1 == 1 && markerA2 == 1)
             {
-                
-
-                // LLISTES per pasar info
+                // Initialize lists for filtered data
                 List<double> longitudList_sub = new List<double>();
                 List<double> latitudList_sub = new List<double>();
                 List<String> AircraftIDList_sub = new List<String>();
@@ -1708,9 +1715,7 @@ namespace FormsAsterix
                 List<double> AltitudeList_sub = new List<double>();
 
 
-
-                // passar llista temps igual --> cal afegir "N/A" quan l'avio no apareix en X instant de temps
-
+                // Filter the data for the two selected aircraft
                 int positID = 0;
                 foreach (string ID_Air in AircraftIDList)
                 {
@@ -1728,6 +1733,7 @@ namespace FormsAsterix
                     }
                     else
                     {
+                        // Fill in "N/A" or default values for non-selected aircraft
                         longitudList_sub.Add(0.0);
                         latitudList_sub.Add(0.0);
                         AircraftAddrList_sub.Add("N/A");
@@ -1741,6 +1747,7 @@ namespace FormsAsterix
                     positID++;
                 }
 
+                // Calculate the horizontal distance between the two selected aircraft
                 DistanciaHoritzontal(longitudList_sub, latitudList_sub, AltitudeList_sub, AircraftIDList_sub, Aircraft1, Aircraft2);
 
                 // Open the simulation form, passing the selected aircraft
@@ -1749,6 +1756,7 @@ namespace FormsAsterix
             }
             else if (markerA1 == 0 && markerA2 == 0)
             {
+                // Display an error message if both aircraft IDs are not found
                 DialogResult result = MessageBox.Show("Both aircraft IDs are not found in the list.", "Continue", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -1757,6 +1765,7 @@ namespace FormsAsterix
             }
             else if (markerA1 == 0)
             {
+                // Display an error message if Aircraft 1 ID is not found
                 DialogResult result = MessageBox.Show("Aircraft 1 ID is not found in the list.", "Continue", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -1765,6 +1774,7 @@ namespace FormsAsterix
             }
             else if (markerA2 == 0)
             {
+                // Display an error message if Aircraft 2 ID is not found
                 DialogResult result = MessageBox.Show("Aircraft 2 ID is not found in the list.", "Continue", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
@@ -1807,13 +1817,16 @@ namespace FormsAsterix
 
             CoordinatesUVH coord1 = null, coord2 = null;
 
-            int flag1 = 0, flag2 = 0;
+            int flag1 = 0, flag2 = 0; // Initialize flags to 0, indicating not found
 
             for (int i = 0; i < AircraftIDList_sub.Count; i++)
             {
                 string currentID = AircraftIDList_sub[i].Trim();
+
+                
                 if (currentID == A1.Trim() && flag1 == 0)
                 {
+                    // Find coordinates for Aircraft 1 (A1)
                     lat1 = latitudList_DH[flag1];
                     long1 = longitudList_DH[flag1];
                     height1 = AltitudeList_DH[flag1];
@@ -1822,6 +1835,7 @@ namespace FormsAsterix
                 }
                 else if (currentID == A2.Trim() && flag2 == 0)
                 {
+                    // Find coordinates for Aircraft 2 (A2)
                     lat2 = latitudList_DH[flag2];
                     long2 = longitudList_DH[flag2];
                     height2 = AltitudeList_DH[flag2];
@@ -1831,6 +1845,7 @@ namespace FormsAsterix
 
             }
 
+            // Iterate over the list of aircraft IDs to find the positions of the two selected aircraft (A1 and A2)
             for (int i = 0; i < AircraftIDList_sub.Count; i++)
             {
                 string currentID = AircraftIDList_sub[i].Trim();
@@ -1840,6 +1855,8 @@ namespace FormsAsterix
                     lat1 = latitudList_DH[i]; 
                     long1 = longitudList_DH[i];
                     height1 = AltitudeList_DH[i];
+
+                    // Convert the latitude, longitude, and altitude to UVH coordinates (U, V, and height)
                     coord1 = GetUV(lat1 * GeoUtils.DEGS2RADS, long1 * GeoUtils.DEGS2RADS, height1);
 
                 }
@@ -1848,10 +1865,15 @@ namespace FormsAsterix
                     lat2 = latitudList_DH[i]; 
                     long2 = longitudList_DH[i];
                     height2 = AltitudeList_DH[i];
+
+                    // Convert the latitude, longitude, and altitude to UVH coordinates (U, V, and height)
                     coord2 = GetUV(lat2 * GeoUtils.DEGS2RADS, long2 * GeoUtils.DEGS2RADS, height2);
                 }
 
+                // Calculate the Euclidean distance between the two aircraft's UV coordinates (U and V)
                 double distancia = Math.Round(Math.Sqrt(Math.Pow(coord2.U - coord1.U, 2) + Math.Pow(coord2.V - coord1.V, 2)), 3);
+
+                // Add the calculated distance (converted to kilometers) to the DistHor list
                 DistHor.Add(distancia * Math.Pow(10, -3));
 
             }
