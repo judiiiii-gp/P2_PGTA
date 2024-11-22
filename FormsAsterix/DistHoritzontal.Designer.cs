@@ -75,6 +75,7 @@
             this.gMapControl1.Size = new System.Drawing.Size(861, 699);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gMapControl1_OnMarkerClick);
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             // 
             // Velocity_label_bar

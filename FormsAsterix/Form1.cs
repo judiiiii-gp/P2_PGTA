@@ -33,6 +33,7 @@ using System.Globalization;
 using Size = System.Drawing.Size;
 using System.Xml;
 using System.Runtime.ConstrainedExecution;
+using Amazon.IdentityManagement.Model;
 
 
 
@@ -987,7 +988,7 @@ namespace FormsAsterix
             double lonDiff = targetPosition.Lng - marker.Position.Lng;
 
             // Define a lower speed factor to make the movement more gradual and precise
-            double moveFactor = 0.05;
+            double moveFactor = 0.12;
 
             // Ensure the difference values are not too small, or the movement will appear choppy
             if (Math.Abs(latDiff) > 0.000001 || Math.Abs(lonDiff) > 0.000001)
@@ -1007,34 +1008,80 @@ namespace FormsAsterix
 
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            // Obtener el nombre del avión desde el tag del marcador
+            // Get the aircraft name from the marker's tag
             string name = item.Tag?.ToString();
 
-            // Buscar el marcador correspondiente dentro del overlay único
+            // Search for the corresponding marker within the single overlay
             GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
 
-            // Verificar si el nombre del avión existe en el diccionario de simulación (Sim_diccionary)
+            // Find the index of the aircraft in AircraftIDList based on its name
+            int indexAir = AircraftIDList.FindIndex(id => id == name);
+
+            // Verify if the aircraft name exists in the simulation dictionary (Sim_diccionary)
             if (existingMarker != null && Sim_diccionary.Contains(name))
             {
-                // Obtener la posición del marcador existente en el mapa
+                // Get the position of the existing marker on the map
                 var position = existingMarker.Position;
+                
+                List<int> index_ID = new List<int>();
+                for (int i = 0; i < AircraftIDList.Count; i++)
+                {
+                    if (AircraftIDList[i] == name)
+                    {
+                        index_ID.Add(i);
+                    }
+                }
 
-                // Encontrar el índice del avión en AircraftIDList basado en su nombre
-                int indexAir = AircraftIDList.FindIndex(id => id == name);
+                List<int> index_time = new List<int>();
 
-                // Preparar la información a mostrar sobre el avión seleccionado
+                for (int i = 0; i < time.Count; i++)
+                {
+                    if(time[i] < timeInicial)
+                    {
+                        index_time.Add(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                int indexAlt = indexAir; // Initial value to indicate no match was found
+
+                List<int> index_sub = new List<int>();
+
+                foreach (int id in index_ID)
+                {
+                    if (index_time.Contains(id))
+                    {
+                        index_sub.Add(id);
+                    }
+                }
+
+                if(index_sub.Count == 0)
+                {
+                    indexAlt = indexAir;
+                }
+                else
+                {
+                    indexAlt = index_sub.Last();
+                }
+
+
+
+                // Prepare the information to display about the selected aircraft
                 string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
                               $"Track number: {TrackNumList[indexAir]}\n" +
                               $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
                               $"\n" +
                               $"Lat: {position.Lat}º\n" +
                               $"Lon: {position.Lng}º\n" +
-                              $"Altitude: {AltitudeList[indexAir]} ft\n" +
+                              $"Altitude: {AltitudeList[indexAlt]} ft\n" +
                               $"\n" +
                               $"SAC: {SACList[indexAir]}\n" +
                               $"SIC: {SICList[indexAir]}\n";
 
-                // Mostrar la información en un cuadro de mensaje con el nombre del avión como título
+                // Display the information in a message box with the aircraft name as the title
                 MessageBox.Show(info, $"Aircraft identification: {name}");
             }
         }

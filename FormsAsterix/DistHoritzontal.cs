@@ -218,6 +218,8 @@ namespace FormsAsterix
             // Update the UI with the current time in a formatted manner (HH:MM:SS)
             timeTXT.Text = string.Format("{0:D2}:{1:D2}:{2:D2}", (int)(timeInicial / 3600), (int)((timeInicial % 3600) / 60), (int)(timeInicial % 60));
 
+            // Refresh the map only every few ticks to improve performance
+            gMapControl1.Refresh();
         }
 
         private void Tick(ref long timeTick, ref int num_loop, string a1, string a2)
@@ -231,8 +233,8 @@ namespace FormsAsterix
                     {
                         SetValuesCells(AircraftIDList[num_loop], num_loop);
                         AddMarkerToMap(latitudList[num_loop], longitudList[num_loop], AircraftIDList[num_loop], num_loop);
-                        valueTXT.Text = Convert.ToString(Math.Round(DistHor[num_loop], 3)) + " km";
-                        valueNM.Text = Convert.ToString(Math.Round(DistHor[num_loop] * 1000 / 1852, 3)) + " NM";
+                        valueTXT.Text = Convert.ToString(Math.Round(DistHor[num_loop], 3)) + " km ";
+                        valueNM.Text = Convert.ToString(Math.Round(DistHor[num_loop] * 1000 / 1852, 3)) + " NM ";
                         dataGridView1.Refresh();
                     }
 
@@ -282,7 +284,10 @@ namespace FormsAsterix
 
             // Verificar si el marcador ya está en el overlay y actualizar su posición solo si cambió
             if (lastPositions.ContainsKey(name) && lastPositions[name] == newPosition)
+            {
                 return; // La posición no cambió, no es necesario actualizar
+            }
+                
 
             // Actualizar o agregar la nueva posición en el diccionario
             lastPositions[name] = newPosition;
@@ -292,7 +297,8 @@ namespace FormsAsterix
 
             if (existingMarker != null)
             {
-                existingMarker.Position = newPosition;
+                // Update the position of the existing marker
+                MoveMarkerSmoothly(existingMarker, newPosition); // Call interpolation for smooth movement
             }
             else
             {
@@ -313,6 +319,33 @@ namespace FormsAsterix
             gMapControl1.UpdateMarkerLocalPosition(existingMarker ?? aircraftOverlay.Markers.Last()); 
         }
 
+        private void MoveMarkerSmoothly(GMapMarker marker, PointLatLng targetPosition)
+        {
+            // Calculate the distance in latitude and longitude between the current position and the target
+            double latDiff = targetPosition.Lat - marker.Position.Lat;
+            double lonDiff = targetPosition.Lng - marker.Position.Lng;
+
+            // Define a lower speed factor to make the movement more gradual and precise
+            double moveFactor = 0.12;
+
+            // Ensure the difference values are not too small, or the movement will appear choppy
+            if (Math.Abs(latDiff) > 0.000001 || Math.Abs(lonDiff) > 0.000001)
+            {
+                // Calculate the new position by applying the movement factor
+                marker.Position = new PointLatLng(
+                    marker.Position.Lat + latDiff * moveFactor,
+                    marker.Position.Lng + lonDiff * moveFactor
+                );
+            }
+            else
+            {
+                // If the difference is too small, place the marker directly at the target position
+                marker.Position = targetPosition;
+            }
+        }
+
+
+        // This function handles the Start/Stop simulation button click event
         int Click_times = 0;
         private void Start_sim_Click(object sender, EventArgs e)
         {
@@ -487,6 +520,85 @@ namespace FormsAsterix
                     timer1.Interval = 10;
                     Velocity_label_bar.Text = "Sim. Speed x100";
                     break;
+            }
+        }
+
+        private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            // Get the aircraft name from the marker's tag
+            string name = item.Tag?.ToString();
+
+            // Search for the corresponding marker within the single overlay
+            GMapMarker existingMarker = aircraftOverlay.Markers.FirstOrDefault(m => m.Tag?.ToString() == name);
+
+            // Find the index of the aircraft in AircraftIDList based on its name
+            int indexAir = AircraftIDList.FindIndex(id => id == name);
+
+            // Verify if the aircraft name exists in the simulation dictionary (Sim_diccionary)
+            if (existingMarker != null && Sim_diccionary.Contains(name))
+            {
+
+                // Get the position of the existing marker on the map
+                var position = existingMarker.Position;
+
+                List<int> index_ID = new List<int>();
+                for (int i = 0; i < AircraftIDList.Count; i++)
+                {
+                    if (AircraftIDList[i] == name)
+                    {
+                        index_ID.Add(i);
+                    }
+                }
+
+                List<int> index_time = new List<int>();
+
+                for (int i = 0; i < time.Count; i++)
+                {
+                    if (time[i] < timeInicial)
+                    {
+                        index_time.Add(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                int indexAlt = indexAir; // Initial value to indicate no match was found
+
+                List<int> index_sub = new List<int>();
+
+                foreach (int id in index_ID)
+                {
+                    if (index_time.Contains(id))
+                    {
+                        index_sub.Add(id);
+                    }
+                }
+
+                if (index_sub.Count == 0)
+                {
+                    indexAlt = indexAir;
+                }
+                else
+                {
+                    indexAlt = index_sub.Last();
+                }
+
+                // Prepare the information to display about the selected aircraft
+                string info = $"Aircraft address: {AircraftAddrList[indexAir]}\n" +
+                              $"Track number: {TrackNumList[indexAir]}\n" +
+                              $"Mode 3A Reply: {Mode3AList[indexAir]}\n" +
+                              $"\n" +
+                              $"Lat: {position.Lat}º\n" +
+                              $"Lon: {position.Lng}º\n" +
+                              $"Altitude: {AltitudeList[indexAlt]} ft\n" +
+                              $"\n" +
+                              $"SAC: {SACList[indexAir]}\n" +
+                              $"SIC: {SICList[indexAir]}\n";
+
+                // Display the information in a message box with the aircraft name as the title
+                MessageBox.Show(info, $"Aircraft identification: {name}");
             }
         }
     }
