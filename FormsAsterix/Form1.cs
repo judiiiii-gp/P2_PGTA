@@ -34,6 +34,8 @@ using Size = System.Drawing.Size;
 using System.Xml;
 using System.Runtime.ConstrainedExecution;
 using Amazon.IdentityManagement.Model;
+using CsvHelper;
+using CsvHelper.Configuration;
 
 
 
@@ -115,10 +117,6 @@ namespace FormsAsterix
                 gMapControl1.Overlays.Add(aircraftOverlay);
             }
         }
-
-
-
-
 
         public void ReadBinaryFile(string filePath)
         {
@@ -730,6 +728,12 @@ namespace FormsAsterix
                 }
             }
 
+            if (read.Length < 15)
+            {
+                di.Add(new LibAsterix.H_3D_RADAR("N/A"));
+                di.Add(new LibAsterix.CommACAS("N/A"));
+            }
+
             Descodificar(di); //Cridem a la funció descodificar
             bloque.Add(di);
 
@@ -889,8 +893,6 @@ namespace FormsAsterix
 
         // Functions to define the clock for the simulation
         int num_loop = 0;
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Increment the initial time each time the timer is triggered
@@ -906,7 +908,6 @@ namespace FormsAsterix
             gMapControl1.Refresh();
 
         }
-
 
         private void Tick(ref long timeTick, ref int num_loop)
         {
@@ -1316,7 +1317,6 @@ namespace FormsAsterix
                         {
                             lineString.AltitudeMode = AltitudeMode.Absolute;
                         }
-
                     }
 
                     placemark.Geometry = lineString;
@@ -1360,51 +1360,251 @@ namespace FormsAsterix
             public string Description { get; set; }
         }
         // Method to write CSV file
-        private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
+        //private void EscribirFichero(List<List<DataItem>> bloque, string nombreFichero)
+        //{
+        //    // Variable to track line number for the file
+        //    int NumLinea = 1;
+        //    DataItem.SetNombreFichero(nombreFichero);
+
+        //    // Header of the CSV file with column names (separated by semicolons)
+        //    string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;BDS4;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;BDS5;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;BDS6;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
+
+        //    // Check if the 'bloque' list (which contains the Aircrafts data) has elements
+        //    if (bloque.Count > 0)
+        //    {
+        //        // Write the header to the file (using the first DataItem in the first block of data)
+        //        bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
+        //    }
+
+        //    // Iterate through each "block" of data in the "bloque" list
+        //    foreach (var data in bloque)
+        //    {
+        //        List<string> atributosDI = new List<string>();
+
+        //        // Iterate through each DataItem in the block (data)
+        //        foreach (DataItem item in data)
+        //        {
+        //            // Add the attributes (or string representation) of each DataItem to the list
+        //            atributosDI.Add(item.ObtenerAtributos());
+        //        }
+        //        string mensaje = string.Join("", atributosDI);
+
+        //        // If the current block has at least one item
+        //        if (data.Count > 0)
+        //        {
+        //            // Write the line number to the file
+        //            data[0].EscribirEnFichero($"{NumLinea}" + ";", false);
+
+        //            NumLinea++;
+        //        }
+
+        //        // Write the joined string of attributes (message) to the file
+        //        data[0].EscribirEnFichero(mensaje, false);
+
+        //        // If the current block has at least one item, add a newline after writing the data
+        //        if (data.Count > 0)
+        //        {
+        //            data[0].EscribirEnFichero("\n", true);
+        //        }
+        //    }
+        //}
+
+        private void EscribirFicheroConCsvHelper(List<AsterixGrid> asterixGrids, string nombreFichero)
         {
-            // Variable to track line number for the file
-            int NumLinea = 1;
-            DataItem.SetNombreFichero(nombreFichero);
-
-            // Header of the CSV file with column names (separated by semicolons)
-            string cabecera = "Num Linea;SAC;SIC;Time of Day;Latitud;Longitud;Altura;TYP;SIM;RDP;SPI;RAB;TST;ERR;XPP;ME;MI;FOE;ADSBEP;ADSBVAL;SCNEP;SCNVAL;PAIEP;PAIVAL;RHO;THETA;Mode-3/A V;Mode-3/A G;Mode-3/A L;Mode-3/A reply;FL V;FL G;Flight level;Mode C Corrected;SRL;SRR;SAM;PRL;PAM;RPD;APD;Aircraft address;Aircraft Identification;BDS4;MCPU/FCU Selected altitude;FMS Selected Altitude;Barometric pressure setting;Mode status;VNAV;ALTHOLD;Approach;Target status;Target altitude source;BDS5;Roll angle;True track angle;Ground Speed;Track angle rate;True Airspeed;BDS6;Magnetic heading;Indicated airspeed;Mach;Barometric altitude rate;Inertial Vertical Velocity;Track Number;X-Cartesian;Y-Cartesian;Calculated groundspeed;Calculated heading;CNF;RAD;DOU;MAH;CDM;TRE;GHO;SUP;TCC;Height Measured by a 3D Radar;COM;STATUS;SI;MSSC;ARC;AIC;B1A_message;B1B_message";
-
-            // Check if the 'bloque' list (which contains the Aircrafts data) has elements
-            if (bloque.Count > 0)
+            // Configure the file writer with CsvHelper
+            using (var writer = new StreamWriter(nombreFichero))
             {
-                // Write the header to the file (using the first DataItem in the first block of data)
-                bloque[0][0].EscribirEnFichero(cabecera + "\n", false);
-            }
-
-            // Iterate through each "block" of data in the "bloque" list
-            foreach (var data in bloque)
-            {
-                List<string> atributosDI = new List<string>();
-
-                // Iterate through each DataItem in the block (data)
-                foreach (DataItem item in data)
+                var config = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    // Add the attributes (or string representation) of each DataItem to the list
-                    atributosDI.Add(item.ObtenerAtributos());
-                }
-                string mensaje = string.Join("", atributosDI);
+                    Delimiter = ";" // We change the delimiter to a semicolon
+                };
 
-                // If the current block has at least one item
-                if (data.Count > 0)
+                using (var csv = new CsvWriter(writer, config))
                 {
-                    // Write the line number to the file
-                    data[0].EscribirEnFichero($"{NumLinea}" + ";", false);
+                    // Write headers of CSV file
+                    csv.WriteField("Num Linea");
+                    csv.WriteField("SAC");
+                    csv.WriteField("SIC");
+                    csv.WriteField("Time of Day");
+                    csv.WriteField("Latitud");
+                    csv.WriteField("Longitud");
+                    csv.WriteField("Altura");
+                    csv.WriteField("TYP");
+                    csv.WriteField("SIM");
+                    csv.WriteField("RDP");
+                    csv.WriteField("SPI");
+                    csv.WriteField("RAB");
+                    csv.WriteField("TST");
+                    csv.WriteField("ERR");
+                    csv.WriteField("XPP");
+                    csv.WriteField("ME");
+                    csv.WriteField("MI");
+                    csv.WriteField("FOE");
+                    csv.WriteField("ADSBEP");
+                    csv.WriteField("ADSBVAL");
+                    csv.WriteField("SCNEP");
+                    csv.WriteField("SCNVAL");
+                    csv.WriteField("PAIEP");
+                    csv.WriteField("PAIVAL");
+                    csv.WriteField("RHO");
+                    csv.WriteField("THETA");
+                    csv.WriteField("Mode-3/A V");
+                    csv.WriteField("Mode-3/A G");
+                    csv.WriteField("Mode-3/A L");
+                    csv.WriteField("Mode-3/A reply");
+                    csv.WriteField("FL V");
+                    csv.WriteField("FL G");
+                    csv.WriteField("Flight level");
+                    csv.WriteField("Mode C Corrected");
+                    csv.WriteField("SRL");
+                    csv.WriteField("SRR");
+                    csv.WriteField("SAM");
+                    csv.WriteField("PRL");
+                    csv.WriteField("PAM");
+                    csv.WriteField("RPD");
+                    csv.WriteField("APD");
+                    csv.WriteField("Aircraft address");
+                    csv.WriteField("Aircraft Identification");
+                    csv.WriteField("BDS4");
+                    csv.WriteField("MCPU/FCU Selected altitude");
+                    csv.WriteField("FMS Selected Altitude");
+                    csv.WriteField("Barometric pressure setting");
+                    csv.WriteField("Mode status");
+                    csv.WriteField("VNAV");
+                    csv.WriteField("ALTHOLD");
+                    csv.WriteField("Approach");
+                    csv.WriteField("Target status");
+                    csv.WriteField("Target altitude source");
+                    csv.WriteField("BDS5");
+                    csv.WriteField("Roll angle");
+                    csv.WriteField("True track angle");
+                    csv.WriteField("Ground Speed");
+                    csv.WriteField("Track angle rate");
+                    csv.WriteField("True Airspeed");
+                    csv.WriteField("BDS6");
+                    csv.WriteField("Magnetic heading");
+                    csv.WriteField("Indicated airspeed");
+                    csv.WriteField("Mach");
+                    csv.WriteField("Barometric altitude rate");
+                    csv.WriteField("Inertial Vertical Velocity");
+                    csv.WriteField("Track Number");
+                    csv.WriteField("X-Cartesian");
+                    csv.WriteField("Y-Cartesian");
+                    csv.WriteField("Calculated groundspeed");
+                    csv.WriteField("Calculated heading");
+                    csv.WriteField("CNF");
+                    csv.WriteField("RAD");
+                    csv.WriteField("DOU");
+                    csv.WriteField("MAH");
+                    csv.WriteField("CDM");
+                    csv.WriteField("TRE");
+                    csv.WriteField("GHO");
+                    csv.WriteField("SUP");
+                    csv.WriteField("TCC");
+                    csv.WriteField("Height Measured by a 3D Radar");
+                    csv.WriteField("COM");
+                    csv.WriteField("STATUS");
+                    csv.WriteField("SI");
+                    csv.WriteField("MSSC");
+                    csv.WriteField("ARC");
+                    csv.WriteField("AIC");
+                    csv.WriteField("B1A_message");
+                    csv.WriteField("B1B_message");
+                    csv.NextRecord();
 
-                    NumLinea++;
-                }
-
-                // Write the joined string of attributes (message) to the file
-                data[0].EscribirEnFichero(mensaje, false);
-
-                // If the current block has at least one item, add a newline after writing the data
-                if (data.Count > 0)
-                {
-                    data[0].EscribirEnFichero("\n", true);
+                    // Write data on each row
+                    foreach (var grid in asterixGrids)
+                    {
+                        csv.WriteField(grid.Num);
+                        csv.WriteField(grid.SAC);
+                        csv.WriteField(grid.SIC);
+                        csv.WriteField(grid.Time);
+                        csv.WriteField(grid.Latitude);
+                        csv.WriteField(grid.Longitude);
+                        csv.WriteField(grid.Height);
+                        csv.WriteField(grid.TYP);
+                        csv.WriteField(grid.SIM);
+                        csv.WriteField(grid.RDP);
+                        csv.WriteField(grid.SPI);
+                        csv.WriteField(grid.RAB);
+                        csv.WriteField(grid.TST);
+                        csv.WriteField(grid.ERR);
+                        csv.WriteField(grid.XPP);
+                        csv.WriteField(grid.ME);
+                        csv.WriteField(grid.MI);
+                        csv.WriteField(grid.FOE);
+                        csv.WriteField(grid.ADS_EP);
+                        csv.WriteField(grid.ADS_VAL);
+                        csv.WriteField(grid.SCN_EP);
+                        csv.WriteField(grid.SCN_VAL);
+                        csv.WriteField(grid.PAI_EP);
+                        csv.WriteField(grid.PAI_VAL);
+                        csv.WriteField(grid.Rho);
+                        csv.WriteField(grid.Theta);
+                        csv.WriteField(grid.V_70);
+                        csv.WriteField(grid.G_70);
+                        csv.WriteField(grid.L_70);
+                        csv.WriteField(grid.Mode3_A_Reply);
+                        csv.WriteField(grid.V_90);
+                        csv.WriteField(grid.G_90);
+                        csv.WriteField(grid.Flight_Level);
+                        csv.WriteField(grid.Mode_C_Correction);
+                        csv.WriteField(grid.SRL);
+                        csv.WriteField(grid.SRR);
+                        csv.WriteField(grid.SAM);
+                        csv.WriteField(grid.PRL);
+                        csv.WriteField(grid.PAM);
+                        csv.WriteField(grid.RPD);
+                        csv.WriteField(grid.APD);
+                        csv.WriteField(grid.Aircraft_Address);
+                        csv.WriteField(grid.Aircraft_Indentification);
+                        csv.WriteField(grid.BDS_4_0);
+                        csv.WriteField(grid.MCP_FCUtxt);
+                        csv.WriteField(grid.FMStxt);
+                        csv.WriteField(grid.BARtxt);
+                        csv.WriteField(grid.Mode_stat_txt);
+                        csv.WriteField(grid.VNAVMODEtxt);
+                        csv.WriteField(grid.ALTHOLDtxt);
+                        csv.WriteField(grid.Approachtxt);
+                        csv.WriteField(grid.StatusTargAlt);
+                        csv.WriteField(grid.TargetAltSourcetxt);
+                        csv.WriteField(grid.BDS_5_0);
+                        csv.WriteField(grid.Rolltxt);
+                        csv.WriteField(grid.TrueTracktxt);
+                        csv.WriteField(grid.GroundSpeedtxt);
+                        csv.WriteField(grid.TrackAngletxt);
+                        csv.WriteField(grid.TrueAirspeedtxt);
+                        csv.WriteField(grid.BDS_6_0);
+                        csv.WriteField(grid.MagHeadtxt);
+                        csv.WriteField(grid.IndAirtxt);
+                        csv.WriteField(grid.MACHtxt);
+                        csv.WriteField(grid.BarAlttxt);
+                        csv.WriteField(grid.InerVerttxt);
+                        csv.WriteField(grid.Track_Number);
+                        csv.WriteField(grid.X_Component);
+                        csv.WriteField(grid.Y_Component);
+                        csv.WriteField(grid.Ground_Speed);
+                        csv.WriteField(grid.Heading);
+                        csv.WriteField(grid.CNF);
+                        csv.WriteField(grid.RAD);
+                        csv.WriteField(grid.DOU);
+                        csv.WriteField(grid.MAH);
+                        csv.WriteField(grid.CDM);
+                        csv.WriteField(grid.TRE);
+                        csv.WriteField(grid.GHO);
+                        csv.WriteField(grid.SUP);
+                        csv.WriteField(grid.TCC);
+                        csv.WriteField(grid.Height_3D);
+                        csv.WriteField(grid.COM);
+                        csv.WriteField(grid.STAT);
+                        csv.WriteField(grid.SI);
+                        csv.WriteField(grid.MSSC);
+                        csv.WriteField(grid.ARC);
+                        csv.WriteField(grid.AIC);
+                        csv.WriteField(grid.B1A);
+                        csv.WriteField(grid.B1B);
+                        csv.NextRecord();
+                    }
                 }
             }
         }
@@ -1425,7 +1625,7 @@ namespace FormsAsterix
                     string filePath = saveFileDialog.FileName;
 
                     // Call the method to write data to the file (passing the file path)
-                    EscribirFichero(bloque, filePath);
+                    EscribirFicheroConCsvHelper(asterixGrids, filePath);
                     MessageBox.Show("S'ha escrit el fitxer correctament");
                 }
             }

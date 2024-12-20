@@ -48,6 +48,10 @@
             "Accord.Math": {
               "target": "Package",
               "version": "[3.8.0, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
             }
           },
           "imports": [

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CsvHelper;
+using LibAsterix;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +16,11 @@ namespace FormsAsterix
 {
     public partial class DataGridFiltrado : Form
     {
+        private List<AsterixGrid> asterixGrids; // Lista de datos filtrados
+
+        private BindingSource bindingSource; // Fuente de datos dinámica
+
+
         // Constructor for DataGridFiltrado, which initializes the form and sets up the DataGridView
         public DataGridFiltrado(BindingSource bindingSource)
         {
@@ -31,6 +39,9 @@ namespace FormsAsterix
             dataGridView1.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.DataSource = bindingSource;
+
+            // Guarda la referencia al BindingSource
+            this.bindingSource = bindingSource;
 
             // Maximize the form window
             this.WindowState = FormWindowState.Maximized;
@@ -64,50 +75,91 @@ namespace FormsAsterix
                     string filePath = saveFileDialog.FileName;
 
                     // Write the DataGridView data to the specified file
-                    EscribirFichero(filePath);
+                    EscribirFicheroConCsvHelper(filePath);
                     MessageBox.Show("S'ha escrit el fitxer correctament");
                 }
             }
         }
 
-        private void EscribirFichero(string filePath)
+        //private void EscribirFichero(string filePath)
+        //{
+        //    // Build a CSV file from the DataGridView content
+        //    StringBuilder csvfile = new StringBuilder();
+
+        //    // Add column headers to the CSV
+        //    for (int i = 0; i < dataGridView1.Columns.Count; i++)
+        //    {
+        //        csvfile.Append(dataGridView1.Columns[i].HeaderText);
+
+        //        if (i < dataGridView1.Columns.Count - 1)
+        //        {
+        //            csvfile.Append(";"); // Add a semicolon delimiter between column headers
+        //        }
+
+        //    }
+        //    csvfile.AppendLine();
+
+        //    // Add rows to the CSV
+        //    foreach (DataGridViewRow row in dataGridView1.Rows)
+        //    {
+        //        if (row.IsNewRow) continue;
+
+        //        for (int i = 0; i < dataGridView1.Columns.Count; i++)
+        //        {
+        //            csvfile.Append(row.Cells[i].Value?.ToString());
+
+        //            if (i < dataGridView1.Columns.Count - 1)
+        //            {
+        //                csvfile.Append(";"); // Add a semicolon delimiter between cell values
+        //            }
+
+        //        }
+        //        csvfile.AppendLine();
+        //    }
+
+        //    // Write the CSV content to the specified file path
+        //    File.WriteAllText(filePath, csvfile.ToString(), Encoding.UTF8);
+        //}
+        private void EscribirFicheroConCsvHelper(string filePath)
         {
-            // Build a CSV file from the DataGridView content
-            StringBuilder csvfile = new StringBuilder();
+            // Convert the BindingSource into a list of generic objects
+            var dataList = bindingSource.List.Cast<object>().ToList();
 
-            // Add column headers to the CSV
-            for (int i = 0; i< dataGridView1.Columns.Count; i++)
+            if (dataList == null || dataList.Count == 0)
             {
-                csvfile.Append(dataGridView1.Columns[i].HeaderText);
-
-                if (i< dataGridView1.Columns.Count - 1)
-                {
-                    csvfile.Append(";"); // Add a semicolon delimiter between column headers
-                }
-
+                MessageBox.Show("No data to export.");
+                return;
             }
-            csvfile.AppendLine();
 
-            // Add rows to the CSV
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            using (var writer = new StreamWriter(filePath))
             {
-                if (row.IsNewRow) continue;
-
-                for (int i=0; i<dataGridView1.Columns.Count; i++)
+                var config = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    csvfile.Append(row.Cells[i].Value?.ToString());
+                    Delimiter = ";" // Change the delimiter to a semicolon
+                };
 
-                    if (i< dataGridView1.Columns.Count - 1)
+                using (var csv = new CsvWriter(writer, config))
+                {
+                    // Use reflection to get property names and write the header
+                    var properties = dataList[0].GetType().GetProperties();
+                    foreach (var property in properties)
                     {
-                        csvfile.Append(";"); // Add a semicolon delimiter between cell values
+                        csv.WriteField(property.Name);
                     }
+                    csv.NextRecord();
 
+                    // Write each row dynamically
+                    foreach (var item in dataList)
+                    {
+                        foreach (var property in properties)
+                        {
+                            var value = property.GetValue(item)?.ToString() ?? string.Empty;
+                            csv.WriteField(value);
+                        }
+                        csv.NextRecord();
+                    }
                 }
-                csvfile.AppendLine();
             }
-
-            // Write the CSV content to the specified file path
-            File.WriteAllText(filePath, csvfile.ToString(), Encoding.UTF8);
         }
     }
 }

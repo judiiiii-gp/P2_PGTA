@@ -59,3 +59,20 @@ C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\FormsAsterix\obj\Debug\For
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\FormsAsterix\obj\Debug\FormsAsterix.exe
 C:\Users\judig\OneDrive\Escritorio\PGTA_Proj2\P2_PGTA\FormsAsterix\obj\Debug\FormsAsterix.pdb
 C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\obj\Debug\FormsAsterix.DistHoritzontal.resources
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\CsvHelper.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Buffers.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Memory.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\LibAsterix.dll.config
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\CsvHelper.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Buffers.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Memory.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\julia\Desktop\UNIVERSITAT\CURS 2024-2025\PGTA\P2_PGTA\P2_PGTA\FormsAsterix\bin\Debug\System.Threading.Tasks.Extensions.xml

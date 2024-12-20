@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0yBi+16lBm8=",
+  "dgSpecHash": "MERbqpMmvZU=",
   "success": true,
   "projectFilePath": "C:\\Users\\julia\\Desktop\\UNIVERSITAT\\CURS 2024-2025\\PGTA\\P2_PGTA\\P2_PGTA\\AsterixForms\\AsterixForms.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\julia\\.nuget\\packages\\accord\\3.8.0\\accord.3.8.0.nupkg.sha512",
-    "C:\\Users\\julia\\.nuget\\packages\\accord.math\\3.8.0\\accord.math.3.8.0.nupkg.sha512"
+    "C:\\Users\\julia\\.nuget\\packages\\accord.math\\3.8.0\\accord.math.3.8.0.nupkg.sha512",
+    "C:\\Users\\julia\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512"
   ],
   "logs": []
 }
